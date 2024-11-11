@@ -1,0 +1,72 @@
+<div class="imagenfondo">
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="https://tse4.mm.bing.net/th/id/OIG4._JYdRJnfQ5SB4E3XNskk?pid=ImgGn" alt="">
+        <div class="text">
+          <span class="text-1">Libreria DAW <br> By Amine, Jose, Miguel y Gert</span>
+          <span class="text-2">Vamonos que nos vamos</span>
+        </div>
+      </div>
+      <div class="back">
+        <!--<img class="backImg" src="images/backImg.jpg" alt="">-->
+        <div class="text">
+          <span class="text-1">Complete miles of journey <br> with one step</span>
+          <span class="text-2">Let's get started</span>
+        </div>
+      </div>
+    </div>
+    <div class="forms">
+      <div class="form-content">
+        <div class="login-form">
+          <div class="title">Iniciar Sesión</div>
+          <form (ngSubmit)="onSubmit()">
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="text" placeholder="Usuario" name="user" id="user" [(ngModel)]="user">
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Contraseña" name="passwd" id="passwd" [(ngModel)]="passwd">
+              </div>
+              <div class="text"><a href="https://maduradas.com/wp-content/uploads/2015/03/maduro-que-quieres-que-yo-haga.jpg" id="textodecontraseña">Contraseña Olvidada</a></div>
+              <div class="button input-box">
+                <p class="text-danger"></p>
+                <input type="submit" value="Enviar">
+              </div>
+              <div class="text sign-up-text">No tienes cuenta? <label for="flip">Registrate</label></div>
+            </div>
+          </form>
+        </div>
+        <div class="signup-form">
+          <div class="title">Crear Usuarios</div>
+          <form (ngSubmit)="crearEmpleado()">
+            <div class="input-boxes">
+              <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Usuario" name="user_reg" id="user_reg" [(ngModel)]="user_reg" required="">
+              </div>
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="password" placeholder="Contraseña" name="passwd_reg" id="passwd_reg" [(ngModel)]="pass_reg" required="">
+              </div>
+              <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Repita la contraseña" name="passwd2" id="passwd2" [(ngModel)]="pass_reg2" required="">
+              </div>
+              <div class="button input-box">
+                <p class="text-danger"></p>
+                <input type="submit" value="Enviar">
+                <p class="text-success"></p>
+              </div>
+              <div class="text sign-up-text">Ya tienes cuenta? <label for="flip">Iniciar Sesión</label></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

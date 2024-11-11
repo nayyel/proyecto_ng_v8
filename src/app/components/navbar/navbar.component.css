@@ -1,0 +1,149 @@
+/* Estilos del iframe */
+#iframe-container {
+  position: absolute;
+  right: 0; /* Alineado a la derecha */
+  width: 100%; /* Ancho */
+  height: 100%; /* Altura */
+  animation: slideDown 0.5s forwards;
+  max-height: calc(100% - 56px); /* Altura máxima, teniendo en cuenta la altura del navbar */
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none; /* Inicialmente oculto */
+  align-items: center;
+  justify-content: center;
+}
+#iframe-container.hide {
+  animation: slideUp 0.5s forwards; /* Aplica la animación slideUp */
+}
+
+.iframe-overlay {
+  position: relative;
+  width: 100%;
+  height: 120%;
+  opacity: 0.9;
+  border-radius: 40%;
+}
+
+.iframe-overlay iframe {
+  width: 100%;
+  height: 120%;
+  border: none;
+}
+
+/* Botón para cerrar el iframe */
+.close-btn {
+  background-color: #D7CCC8; /* Beige */
+  position: absolute;
+  top: 50vh;
+  right:10vw;
+  color: #5D4037; /* Marrón oscuro */
+  padding: 10px 20px;
+  margin: 10px 0;
+  border: none;
+  cursor: pointer;
+  width: auto;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.close-btn:hover {
+  background-color: #BCAAA4; /* Beige oscuro */
+}
+
+.close-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, #BCAAA4, transparent);
+  transition: all 0.7s;
+}
+
+.close-btn:hover:before {
+  left: 100%;
+}
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* CSS DEL NAV */
+/* Estilos del navbar */
+.navbar.navbar-light.bg-light {
+  background: transparent !important; /* Fondo transparente */
+  position: fixed!important; /* Posición fija */
+  width: 100%; /* Ancho completo */
+  z-index: 1050; /* Z-index alto para que se superponga a otros elementos */
+  transition: background 0.3s ease;
+}
+
+.navbar.navbar-light.bg-light .navbar-brand,
+.navbar.navbar-light.bg-light .nav-link {
+  transition: color 0.3s ease, transform 0.3s ease; /* Agrega transición al transform */
+  font-size: 2.5vh; /* Tamaño de fuente más pequeño */
+}
+
+.navbar.navbar-light.bg-light .navbar-brand:hover,
+.navbar.navbar-light.bg-light .nav-link:hover {
+  color: #997b6c !important; /* Cambia el color al pasar el ratón por encima */
+  transform: scale(1.1); /* Hace los elementos más grandes al pasar el ratón por encima */
+}
+
+.navbar.navbar-light.bg-light .dropdown-menu {
+  transition: all 0.3s ease;
+  animation: slideIn 0.5s forwards; /* Agrega animación de deslizamiento */
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Estilos del formulario de búsqueda */
+.navbar .d-flex {
+  width: 50%; /* Ancho completo */
+  margin-right: 15%;
+  justify-content: center; /* Centrado */
+}
+
+.navbar.navbar-light.bg-light .dropdown-item {
+  position: relative; /* Posición relativa para el pseudo-elemento ::after */
+  background: #f8f9fa; /* Fondo estático */
+  transition: background 0.3s ease;
+  overflow: hidden; /* Oculta el pseudo-elemento ::after cuando se desborda */
+}
+
+.navbar.navbar-light.bg-light .dropdown-item::after {
+  content: ""; /* Contenido vacío */
+  position: absolute; /* Posición absoluta */
+  top: 0;
+  left: -100%; /* Inicia a la izquierda del elemento */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #997b6c, #eaddca); /* Fondo que cambia de color */
+  transition: left 2s ease; /* Transición en la propiedad left */
+}
+
+.navbar.navbar-light.bg-light .dropdown-item:hover::after {
+  left: 100%; /* Mueve el pseudo-elemento ::after a la derecha del elemento */
+}
+

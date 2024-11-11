@@ -1,0 +1,9 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container {
+    flex: 1; /* Para que el contenido ocupe el espacio restante */
+  }
+  

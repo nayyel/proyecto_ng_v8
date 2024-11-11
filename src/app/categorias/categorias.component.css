@@ -1,0 +1,107 @@
+.categorias-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .categoria-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 10px; /* Ajusta el margen superior e inferior */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    transition: transform 0.3s ease;
+    max-width: 240px;
+  }
+  #carouselExample {
+    margin-left: -11vw;
+    margin-right: -11vw;
+    margin-bottom: 2vw;
+  }
+  
+  .categoria-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .imagen-categoria img {
+    width: 100%;
+    height: 220px; /* Ajusta el tamaño de las imágenes */
+    object-fit: cover;
+  }
+  
+  .boton-mostrar button {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .boton-mostrar button:hover {
+    background-color: #999;
+  }
+  
+  #id_cat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #id_lib {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .libro {
+    width: 150px; /* Ajusta el ancho según tus necesidades */
+    margin: 10px; /* Espacio entre libros */
+  }
+  @media only screen and (min-width: 600px) {
+    /* Define 5 libros por línea en pantallas más grandes */
+    #id_lib {
+      flex-direction: row;
+    }
+    .libro {
+      flex: 1 0 20%; /* 20% de ancho para mostrar 5 libros en una fila */
+    }
+    /* Estilo para cada quinto libro */
+    .libro:nth-child(5n) {
+      margin-right: 0; /* Elimina el margen derecho para el quinto libro */
+    }
+  }
+  .underline-animation {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .underline-animation::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    transition: width 0.25s ease-in-out;
+  }
+  
+  .underline-animation:hover::after {
+    width: 100%;
+  }
+#id_lib{
+  display: flex; 
+  flex-direction: row; 
+  justify-content: center; 
+  align-items: flex-start;
+}
+#id_cat{
+  display: flex; 
+  flex-direction: row; 
+  justify-content:space-between; 
+  align-items: flex-start;
+}
+
+  
+  

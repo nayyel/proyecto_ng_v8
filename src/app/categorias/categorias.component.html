@@ -1,0 +1,46 @@
+  <!--El Foking Carrousel arrouse-->
+  <div id="fondo">
+    <div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="assets/images/Carrousel_1.png" class="d-block w-100" alt="">
+        </div>
+        <div class="carousel-item">
+          <img src="assets/images/Carrousel_2.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="assets/images/Carrousel_3.png" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <!--Botones de control de carrouse-->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    
+    <div id="id_cat">
+      <!--Imprimimos los divs de las categorais-->
+      <div *ngFor="let categoria of categorias" 
+           style="margin-bottom: 4vh; cursor: pointer;" 
+           (click)="MostrarDiv(categoria.id_categoria)" 
+           class="underline-animation">
+        <h3>{{categoria.nombre_categoria}}</h3>
+      </div>
+    </div>
+    
+    <div id="id_lib">
+      <div *ngFor="let libro of libros" class="libro" style="margin: 5px">
+        <a [routerLink]="['/libro/', libro.id_libro]">
+          <img [src]="libro.link" width="150">
+        </a>
+        <h4>{{libro.titulo}}</h4>
+        <p>Autor: {{libro.autor}}</p>
+      </div>
+    </div>
+  </div>
+
