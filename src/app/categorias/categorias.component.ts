@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, Renderer2, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, Inject, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadoService } from '../service/empleado.service';
+import { CarritoService } from '../service/carrito.service'; 
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -10,10 +11,17 @@ import { DOCUMENT } from '@angular/common';
 })
 export class CategoriasComponent implements OnInit, OnDestroy {
 
+  @Output() agregarAlCarritoEvent = new EventEmitter<any>();  // Evento para pasar el libro al carrito
   categorias: any[] = [];
   libros: any[] = [];
 
-  constructor(private router: Router, private serviceE: EmpleadoService, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) { }
+  constructor(
+    private router: Router,
+    private serviceE: EmpleadoService,
+    private carritoService: CarritoService, 
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document
+  ) { }
 
   ngOnInit(): void {
     const loggedInFromLogin = localStorage.getItem('loggedInFromLogin');
@@ -27,16 +35,22 @@ export class CategoriasComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.renderer.removeClass(this.document.body, 'categoria-pagina');
   }
-// Este metodo imprime los containers de cada categoría y añade su css
+
   mostrarCategorias(): void {
     this.serviceE.VerCategorias().subscribe((response: any) => {
       this.categorias = response.Categorias;
     });
   }
-// Este metodo imprime los containers de cada libro y añade su css
+
   MostrarDiv(id_categoria: number): void {
     this.serviceE.VerLibros().subscribe(response => {
       this.libros = response.Libros.filter((libro: any) => libro.id_categoria === id_categoria);
     });
+  }
+
+  // Método para agregar un libro al carrito
+  agregarAlCarrito(libro: any): void {
+    console.log('Añadir al carrito:', libro);
+    this.agregarAlCarritoEvent.emit(libro); // Emitimos el libro al componente padre
   }
 }

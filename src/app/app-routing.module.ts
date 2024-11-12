@@ -6,6 +6,7 @@ import { LibrosComponent } from './libros/libros.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { InfoComponent } from './info/info.component';
 import { AdminComponent } from './admin/admin.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/empleado' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'libro/:id_libro', component: LibrosComponent },
   { path: 'busqueda', component: BusquedaComponent },
   { path: 'info', component: InfoComponent },
+  { path: 'carrito', component: CarritoComponent },
   { path: 'administracion', component: AdminComponent },
 ];
 

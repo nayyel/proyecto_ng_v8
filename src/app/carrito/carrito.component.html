@@ -1,0 +1,6 @@
+<!-- carrito.component.html -->
+<h3>Carrito de Compras</h3>
+<div *ngFor="let libro of carrito">
+  <p>{{ libro.titulo }} - {{ libro.autor }}</p>
+</div>
+<button (click)="realizarCompra()">Realizar comra</button>
