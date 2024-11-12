@@ -1,54 +1,70 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: relative; z-index: 1050;">
-    <div class="container-fluid">
-      <a class="navbar-brand" (click)="navigateToCategoria()"> <img src="assets/images/Logo2.png" alt="Logo" height="40" style="height: 15vh;"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Cerrar Sesion</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/info">Sobre Nosotros</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Categorías
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Terror</a></li>
-              <li><a class="dropdown-item" href="#">Romance</a></li>
-              <li><a class="dropdown-item" href="#">Comedia</a></li>
-              <li><a class="dropdown-item" href="#">Drama</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Categoría Extra</a></li>
-            </ul>
-          </li>
-        </ul>
-        <form class="d-flex" (submit)="onSearch($event)">
-          <input id="search-input" class="form-control me-2" type="search" placeholder="Busca por título, categoría, autor..." aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
-        <!-- Botón de compra que muestra el iframe del carrito -->
-        <button class="btn btn-primary" (click)="showIframeCarrito()">Comprar</button>
+  <div class="container-fluid">
+    <a class="navbar-brand" (click)="navigateToCategoria()"> 
+      <img src="assets/images/Logo2.png" alt="Logo" height="40" style="height: 15vh;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Cerrar Sesion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/info">Sobre Nosotros</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categorías
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Terror</a></li>
+            <li><a class="dropdown-item" href="#">Romance</a></li>
+            <li><a class="dropdown-item" href="#">Comedia</a></li>
+            <li><a class="dropdown-item" href="#">Drama</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Categoría Extra</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex" (submit)="onSearch($event)">
+        <input id="search-input" class="form-control me-2" type="search" placeholder="Busca por título, categoría, autor..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
+      <!-- Botón de compra que muestra el div del carrito -->
+      <button class="btn btn-primary" (click)="showCarrito()">Comprar</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Contenedor del iframe de búsqueda -->
+<div id="iframe-container-busqueda" [ngStyle]="{'display': busquedaVisible ? 'block' : 'none'}" style="position: fixed; right: 0; top: 0; width: 40%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 9999;">
+  <div class="iframe-overlay" style="position: relative; height: 100%; padding: 20px; background-color: white;">
+    <button class="close-btn" (click)="hideIframeBusqueda()" style="position: absolute; top: 10px; right: 10px;">Cerrar</button>
+    <iframe src="/busqueda" frameborder="0" width="100%" height="100%"></iframe>
+  </div>
+</div>
+
+
+<!-- Contenedor del carrito -->
+<div id="carrito-container" [ngStyle]="{'display': carritoVisible ? 'block' : 'none'}" 
+     style="position: fixed; right: 0; top: 0; width: 35%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
+  <div class="overlay" style="height: 100%; padding: 20px; background-color: #f4f4f9; border-top-right-radius: 15px; border-bottom-right-radius: 15px; overflow-y: auto;">
+    <button class="close-btn" (click)="hideCarrito()">Cerrar</button>
+    
+    <!-- Mostrar los libros en el carrito -->
+    <div *ngFor="let item of carrito" class="item">
+      <img [src]="item.libro.link" alt="{{ item.libro.titulo }}">
+      <div>
+        <p>{{item.libro.titulo }}</p>
+        <p class="price">${{ item.libro.precio }}</p>
+        <p class="quantity">Cantidad: {{ item.cantidad }}</p>
       </div>
     </div>
-  </nav>
-  
-  <!-- Contenedor del iframe de búsqueda -->
-  <div id="iframe-container-busqueda" style="display: none; position: fixed; right: 0; top: 0; width: 40%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 9999;">
-    <div class="iframe-overlay" style="position: relative; height: 100%; padding: 20px; background-color: white;">
-      <button class="close-btn" (click)="hideIframeBusqueda()" style="position: absolute; top: 10px; right: 10px;">Cerrar</button>
-      <iframe src="/busqueda" frameborder="0" width="100%" height="100%"></iframe>
-    </div>
   </div>
+</div>
+
+
   
-  <!-- Contenedor del iframe del carrito -->
-  <div id="iframe-container-carrito" style="display: none; position: fixed; right: 0; top: 0; width: 40%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 9999;">
-    <div class="iframe-overlay" style="position: relative; height: 100%; padding: 20px; background-color: white;">
-      <button class="close-btn" (click)="hideIframeCarrito()" style="position: absolute; top: 10px; right: 10px;">Cerrar</button>
-      <iframe src="/carrito" frameborder="0" width="100%" height="100%"></iframe>
-    </div>
-  </div>
-  
+

@@ -1,69 +1,104 @@
-/* Estilos del iframe */
-#iframe-container {
+/* Botón de cerrar */
+.close-btn {
+  background-color: #ff7043;
   position: absolute;
-  right: 0; /* Alineado a la derecha */
-  width: 100%; /* Ancho */
-  height: 100%; /* Altura */
-  animation: slideDown 0.5s forwards;
-  max-height: calc(100% - 56px); /* Altura máxima, teniendo en cuenta la altura del navbar */
-  z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: none; /* Inicialmente oculto */
+  top: 20px; /* Separación desde la parte superior */
+  left: -30px; /* Fuera del contenedor, ajustable */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10000; /* Asegura que el botón esté encima */
+  width: 50px; /* Establece un ancho fijo para evitar que se alargue */
+  height: 50px; /* Establece un alto fijo */
+  display: flex;
   align-items: center;
   justify-content: center;
 }
-#iframe-container.hide {
-  animation: slideUp 0.5s forwards; /* Aplica la animación slideUp */
-}
-
-.iframe-overlay {
-  position: relative;
-  width: 100%;
-  height: 120%;
-  opacity: 0.9;
-  border-radius: 40%;
-}
-
-.iframe-overlay iframe {
-  width: 100%;
-  height: 120%;
-  border: none;
-}
-
-/* Botón para cerrar el iframe */
-.close-btn {
-  background-color: #D7CCC8; /* Beige */
-  position: absolute;
-  top: 50vh;
-  right:10vw;
-  color: #5D4037; /* Marrón oscuro */
-  padding: 10px 20px;
-  margin: 10px 0;
-  border: none;
-  cursor: pointer;
-  width: auto;
-  overflow: hidden;
-  transition: all 0.3s ease-in-out;
-}
 
 .close-btn:hover {
-  background-color: #BCAAA4; /* Beige oscuro */
+  background-color: #ff5722;
 }
 
-.close-btn:before {
-  content: "";
-  position: absolute;
+.close-btn:focus {
+  outline: none;
+}
+
+/* Contenedor del carrito */
+#carrito-container {
+  position: fixed;
+  right: 0; /* Fija el carrito a la derecha */
   top: 0;
-  left: -100%;
-  width: 100%;
+  width: 35%; /* Controla el ancho del carrito */
   height: 100%;
-  background: linear-gradient(120deg, transparent, #BCAAA4, transparent);
-  transition: all 0.7s;
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con opacidad */
+  z-index: 9999;
+  display: block;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  position: relative; /* Relativo para que los elementos dentro se posicionen bien */
+  padding-top: 60px; /* Añade algo de espacio para que el botón de cerrar no esté pegado al borde */
 }
 
-.close-btn:hover:before {
-  left: 100%;
+/* Estilo de la superposición */
+.overlay {
+  position: relative;
+  height: 100%;
+  padding: 20px;
+  background-color: white;
+  overflow-y: auto; /* Habilita el scroll vertical */
 }
+
+/* Estilo de los productos del carrito */
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.item:hover {
+  transform: scale(1.03); /* Agranda ligeramente el item cuando se pasa el ratón */
+}
+
+/* Estilo de las imágenes de los libros */
+.item img {
+  width: 50px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+/* Texto de los libros */
+.item p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Estilo para el precio y cantidad */
+.price, .quantity {
+  font-size: 1.2rem;
+  color: #ff7043;
+}
+
+.quantity {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Animación de deslizamiento */
 @keyframes slideDown {
   from {
     transform: translateY(-100%);
@@ -82,7 +117,39 @@
   }
 }
 
-/* CSS DEL NAV */
+/* Estilos del iframe */
+#iframe-container {
+  position: absolute;
+  right: 0; /* Alineado a la derecha */
+  width: 100%; /* Ancho */
+  height: 100%; /* Altura */
+  animation: slideDown 0.5s forwards;
+  max-height: calc(100% - 56px); /* Altura máxima, teniendo en cuenta la altura del navbar */
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none; /* Inicialmente oculto */
+  align-items: center;
+  justify-content: center;
+}
+
+#iframe-container.hide {
+  animation: slideUp 0.5s forwards; /* Aplica la animación slideUp */
+}
+
+.iframe-overlay {
+  position: relative;
+  width: 100%;
+  height: 120%;
+  opacity: 0.9;
+  border-radius: 40%;
+}
+
+.iframe-overlay iframe {
+  width: 100%;
+  height: 120%;
+  border: none;
+}
+
 /* Estilos del navbar */
 .navbar.navbar-light.bg-light {
   background: transparent !important; /* Fondo transparente */
@@ -146,4 +213,3 @@
 .navbar.navbar-light.bg-light .dropdown-item:hover::after {
   left: 100%; /* Mueve el pseudo-elemento ::after a la derecha del elemento */
 }
-

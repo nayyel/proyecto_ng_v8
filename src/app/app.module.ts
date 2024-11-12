@@ -12,7 +12,6 @@ import { LibrosComponent } from './libros/libros.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { InfoComponent } from './info/info.component';
 import { AdminComponent } from './admin/admin.component';
-import { CarritoComponent } from './carrito/carrito.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +22,6 @@ import { CarritoComponent } from './carrito/carrito.component';
     BusquedaComponent,
     InfoComponent,
     AdminComponent,
-    CarritoComponent,
     
   ],
   imports: [

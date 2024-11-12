@@ -1,26 +1,21 @@
-import { Component, OnInit, OnDestroy, Renderer2, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadoService } from '../service/empleado.service';
-import { CarritoService } from '../service/carrito.service'; 
-import { DOCUMENT } from '@angular/common';
+import { CarritoService } from '../service/carrito.service';
 
 @Component({
   selector: 'app-categorias',
   templateUrl: './categorias.component.html',
   styleUrls: ['./categorias.component.css']
 })
-export class CategoriasComponent implements OnInit, OnDestroy {
-
-  @Output() agregarAlCarritoEvent = new EventEmitter<any>();  // Evento para pasar el libro al carrito
+export class CategoriasComponent implements OnInit {
   categorias: any[] = [];
   libros: any[] = [];
 
   constructor(
     private router: Router,
     private serviceE: EmpleadoService,
-    private carritoService: CarritoService, 
-    private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document
+    private carritoService: CarritoService
   ) { }
 
   ngOnInit(): void {
@@ -28,12 +23,7 @@ export class CategoriasComponent implements OnInit, OnDestroy {
     if (loggedInFromLogin !== 'true') {
       this.router.navigate(['/empleado']);
     }
-    this.renderer.addClass(this.document.body, 'categoria-pagina');
     this.mostrarCategorias();
-  }
-
-  ngOnDestroy(): void {
-    this.renderer.removeClass(this.document.body, 'categoria-pagina');
   }
 
   mostrarCategorias(): void {
@@ -48,9 +38,7 @@ export class CategoriasComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Método para agregar un libro al carrito
   agregarAlCarrito(libro: any): void {
-    console.log('Añadir al carrito:', libro);
-    this.agregarAlCarritoEvent.emit(libro); // Emitimos el libro al componente padre
+    this.carritoService.agregarAlCarrito(libro); // Llama al servicio directamente
   }
 }
