@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'libro/:id_libro', component: LibrosComponent },
   { path: 'busqueda', component: BusquedaComponent },
   { path: 'info', component: InfoComponent },
+  { path: 'categoria/:id_categoria', component: CategoriasComponent },
   { path: 'administracion', component: AdminComponent },
 ];
 

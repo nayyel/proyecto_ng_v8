@@ -1,8 +1,13 @@
-// navbar.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CarritoService } from '../../service/carrito.service'; // Asegúrate de importar el servicio
+import { CarritoService } from '../../service/carrito.service';
 import { EmpleadoService } from '../../service/empleado.service';
+
+interface CarritoItem {  // Definir el tipo para los elementos del carrito
+  libro: any;
+  cantidad: number;
+}
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -11,57 +16,86 @@ import { EmpleadoService } from '../../service/empleado.service';
 export class NavbarComponent implements OnInit {
   carritoVisible: boolean = false;
   busquedaVisible: boolean = false;
-  carrito: { libro: any, cantidad: number }[] = [];
+  categorias: any[] = [];
+  carrito: CarritoItem[] = [];  // Usamos el tipo CarritoItem para el carrito
 
   constructor(
     private router: Router, 
-    private carritoService: CarritoService ,
-    private empleadoService: EmpleadoService// Inyección del servicio
-  ) { }
+    private carritoService: CarritoService,
+    private empleadoService: EmpleadoService
+  ) {}
 
   ngOnInit(): void {
-    // Suscribirse a los cambios en el carrito
+    // Obtener datos del carrito desde el servicio
     this.carritoService.obtenerCarrito().subscribe(carrito => {
-      // Convertir el Map a un array de objetos { libro, cantidad }
-      this.carrito = Array.from(carrito.values());
+      // Convertir el Map a un array de objetos con la estructura adecuada
+      this.carrito = Array.from(carrito.entries()).map(([libro, cantidad]) => ({
+        libro,
+        cantidad
+      }));
+    });
+
+    this.mostrarCategorias();
+  }
+
+  mostrarCategorias(): void {
+    this.empleadoService.VerCategorias().subscribe((response: any) => {
+      this.categorias = response.Categorias;
     });
   }
-  showCarrito() {
+
+  // Aumentar la cantidad del libro en el carrito
+  increaseQuantity(item: CarritoItem): void {  // Ahora 'item' tiene el tipo CarritoItem
+    if (item.cantidad < item.libro.stock) { // Verifica que no sobrepase el stock
+      item.cantidad++;
+      this.carritoService.actualizarCarrito(item.libro, item.cantidad);  // Actualiza el carrito en el servicio
+    }
+  }
+
+  // Disminuir la cantidad del libro en el carrito
+  decreaseQuantity(item: CarritoItem): void {  // Ahora 'item' tiene el tipo CarritoItem
+    if (item.cantidad > 0) { // Asegúrate de que no se pueda bajar a menos de 0
+      item.cantidad--;
+      this.carritoService.actualizarCarrito(item.libro, item.cantidad);  // Actualiza el carrito en el servicio
+    }
+  }
+
+  // Eliminar el libro del carrito
+  removeItem(item: CarritoItem): void {  // Ahora 'item' tiene el tipo CarritoItem
+    this.carrito = this.carrito.filter(i => i !== item);
+    this.carritoService.eliminarDelCarrito(item.libro);  // Elimina el libro del carrito en el servicio
+  }
+
+  // Calcular el total del carrito
+  totalCarrito(): string {
+    const total = this.carrito.reduce((total, item) => total + (item.libro.precio * item.cantidad), 0);
+    return total.toFixed(2);  // Redondear a 2 decimales y devolverlo como string
+  }
+
+  showCarrito(): void {
     this.carritoVisible = true;
-    // Bloquear el scroll solo en el body
-    document.body.style.overflow = 'auto';  // Bloquear scroll cuando el carrito esté visible
+    document.body.style.overflow = 'auto';
   }
 
-  // Ocultar carrito
-  hideCarrito() {
+  hideCarrito(): void {
     this.carritoVisible = false;
-    // Restaurar el scroll en el body
-    document.body.style.overflow = 'auto'; // Permitir el scroll cuando el carrito esté oculto
+    document.body.style.overflow = 'auto';
   }
 
-  // Mostrar iframe de búsqueda
-  showIframeBusqueda() {
+  showIframeBusqueda(): void {
     this.busquedaVisible = true;
-    document.body.style.overflow = 'auto';  // Bloquear scroll al mostrar el iframe de búsqueda
+    document.body.style.overflow = 'auto';
   }
 
-  // Ocultar iframe de búsqueda
-  hideIframeBusqueda() {
+  hideIframeBusqueda(): void {
     this.busquedaVisible = false;
-    document.body.style.overflow = 'auto'; // Restaurar el scroll al ocultar el iframe de búsqueda
-  }
-  // Función que recibe el libro y lo agrega al carrito
-  agregarAlCarrito(libro: any) {
-    console.log('Libro añadido al carrito:', libro);
-    this.carritoService.agregarAlCarrito(libro); // Usa el servicio para agregar al carrito
+    document.body.style.overflow = 'auto';
   }
 
-  // Navegar a la categoría
-  navigateToCategoria() {
-    this.router.navigate(['/categoria']);
+  agregarAlCarrito(libro: any): void {
+    this.carritoService.agregarAlCarrito(libro);  // Asegúrate de que este servicio maneja correctamente el libro
   }
 
-  // Lógica de búsqueda
   onSearch(event: Event) {
     event.preventDefault();
     const inputElement = (event.target as HTMLFormElement).querySelector('#search-input') as HTMLInputElement;
@@ -85,6 +119,27 @@ export class NavbarComponent implements OnInit {
       );
     } else {
       console.error("El término de búsqueda está vacío.");
+    }
+  }
+
+  // Método adicional para navegar a la página de categorías sin id específico
+  navigateToCategoria() {
+    this.router.navigate(['/categoria']);
+  }
+
+  // Navegar a la categoría con el id
+  navigateToCategoriaWhitId(id_categoria: number): void {
+    this.router.navigate(['/categoria', id_categoria]).then(() => {
+      setTimeout(() => {
+        this.scrollToCategory(id_categoria);
+      }, 100); // Esperar que el DOM se actualice antes de hacer el scroll
+    });
+  }
+
+  scrollToCategory(id_categoria: number): void {
+    const categoriaElement = document.getElementById(`categoria-${id_categoria}`);
+    if (categoriaElement) {
+      categoriaElement.scrollIntoView({ behavior: 'smooth' });
     }
   }
 }

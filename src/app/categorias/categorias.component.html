@@ -1,4 +1,3 @@
-<!--El Foking Carrousel arrouse-->
 <div id="fondo">
   <div id="carouselExample" class="carousel slide">
     <div class="carousel-inner">
@@ -12,7 +11,6 @@
         <img src="assets/images/Carrousel_3.png" class="d-block w-100" alt="...">
       </div>
     </div>
-    <!--Botones de control de carrousel-->
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
@@ -22,33 +20,32 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-  
+
   <div id="id_cat">
-    <!--Imprimimos los divs de las categorias-->
-    <div *ngFor="let categoria of categorias" 
-         style="margin-bottom: 4vh; cursor: pointer;" 
-         (click)="MostrarDiv(categoria.id_categoria)" 
-         class="underline-animation">
-      <h3>{{categoria.nombre_categoria}}</h3>
-    </div>
+    <!-- Categorías como un desplegable -->
+    <select (change)="onCategoriaChange($event)" class="form-select">
+      <option value="">Seleccione una categoría</option>
+      <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
+        {{ categoria.nombre_categoria }}
+      </option>
+    </select>
   </div>
-  
+
   <div id="id_lib">
-    <div *ngFor="let libro of libros" class="libro" style="margin: 5px">
+    <!-- Libros filtrados por la categoría seleccionada -->
+    <div *ngFor="let libro of librosFiltrados" class="libro" style="margin: 5px" [id]="'categoria-' + libro.id_categoria">
       <a [routerLink]="['/libro/', libro.id_libro]">
         <img [src]="libro.link" width="150">
       </a>
-      <h4>{{libro.nombre}}</h4>
-      <p>Autor: {{libro.autor}}</p>
-      <!-- Mostrar el precio -->
-      <p>Precio: ${{libro.precio}}</p>
-      <!-- Icono de carrito -->
-  <!-- categorias.component.html -->
-
-    <button (click)="agregarAlCarrito(libro)">Añadir al carrito</button>
- 
-</div>
-
+      <h4>{{ libro.nombre }}</h4>
+      <p>Autor: {{ libro.autor }}</p>
+      <p>Precio: ${{ libro.precio }}</p>
+      <button 
+      (click)="agregarAlCarrito(libro)" 
+      [ngClass]="{'disabled': libro.cantidad >= libro.stock}"
+      [disabled]="libro.cantidad >= libro.stock">
+      Agregar al carrito
+    </button>
     </div>
   </div>
-
+</div>

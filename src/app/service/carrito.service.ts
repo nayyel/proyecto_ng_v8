@@ -1,35 +1,39 @@
-// carrito.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
-  private carrito = new BehaviorSubject<Map<string, { libro: any, cantidad: number }>>(new Map()); // Usamos un Map
-  carrito$ = this.carrito.asObservable(); // Observable para obtener el carrito
+  private carrito: Map<any, number> = new Map();  // Usamos un Map para manejar el carrito
+  private carritoSubject: BehaviorSubject<Map<any, number>> = new BehaviorSubject(this.carrito);
 
-  // Método para agregar un libro al carrito
-  agregarAlCarrito(libro: any) {
-    const carritoActual = this.carrito.value; // Accedemos al carrito actual (que es un Map)
-    const claveLibro = libro.id_libro; // Usamos el id_libro como clave única
+  constructor() { }
 
-    // Verificar si el libro ya está en el carrito
-    if (carritoActual.has(claveLibro)) {
-      let item = carritoActual.get(claveLibro);
-      if (item) { // Asegurarnos de que 'item' no sea undefined
-        item.cantidad += 1; // Incrementar la cantidad
-      }
-    } else {
-      carritoActual.set(claveLibro, { libro, cantidad: 1 }); // Si no está, agregarlo con cantidad 1
-    }
-
-    // Actualizamos el carrito con el nuevo Map
-    this.carrito.next(new Map(carritoActual));
+  // Obtener el carrito
+  obtenerCarrito(): Observable<Map<any, number>> {
+    return this.carritoSubject.asObservable();
+  }
+  obtenerCantidadEnCarrito(libro: any): number {
+    const cantidad = this.carrito.get(libro);
+    return cantidad || 0; // Si no está en el carrito, retornar 0
+  }
+  // Actualizar la cantidad de un libro en el carrito
+  actualizarCarrito(libro: any, cantidad: number): void {
+    this.carrito.set(libro, cantidad);
+    this.carritoSubject.next(this.carrito);
   }
 
-  // Método para obtener el carrito
-  obtenerCarrito() {
-    return this.carrito$;
+  // Eliminar un libro del carrito
+  eliminarDelCarrito(libro: any): void {
+    this.carrito.delete(libro);
+    this.carritoSubject.next(this.carrito);
+  }
+
+  // Método para agregar al carrito (puede ser necesario dependiendo del flujo de tu aplicación)
+  agregarAlCarrito(libro: any): void {
+    const cantidad = this.carrito.get(libro) || 0;
+    this.carrito.set(libro, cantidad + 1);
+    this.carritoSubject.next(this.carrito);
   }
 }

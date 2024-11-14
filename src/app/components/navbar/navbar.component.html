@@ -19,12 +19,12 @@
             Categorías
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Terror</a></li>
-            <li><a class="dropdown-item" href="#">Romance</a></li>
-            <li><a class="dropdown-item" href="#">Comedia</a></li>
-            <li><a class="dropdown-item" href="#">Drama</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Categoría Extra</a></li>
+            <button 
+              *ngFor="let categoria of categorias" 
+              (click)="navigateToCategoriaWhitId(categoria.id_categoria)" 
+              class="dropdown-item">
+              {{ categoria.nombre_categoria }}
+            </button>
           </ul>
         </li>
       </ul>
@@ -48,22 +48,40 @@
 
 
 <!-- Contenedor del carrito -->
+<!-- Contenedor del carrito -->
 <div id="carrito-container" [ngStyle]="{'display': carritoVisible ? 'block' : 'none'}" 
      style="position: fixed; right: 0; top: 0; width: 35%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
   <div class="overlay" style="height: 100%; padding: 20px; background-color: #f4f4f9; border-top-right-radius: 15px; border-bottom-right-radius: 15px; overflow-y: auto;">
     <button class="close-btn" (click)="hideCarrito()">Cerrar</button>
     
-    <!-- Mostrar los libros en el carrito -->
-    <div *ngFor="let item of carrito" class="item">
-      <img [src]="item.libro.link" alt="{{ item.libro.titulo }}">
-      <div>
-        <p>{{item.libro.titulo }}</p>
-        <p class="price">${{ item.libro.precio }}</p>
-        <p class="quantity">Cantidad: {{ item.cantidad }}</p>
-      </div>
+  <!-- Mostrar los libros en el carrito -->
+  <div *ngFor="let item of carrito" class="item">
+    <img [src]="item.libro.link" alt="{{ item.libro.titulo }}">
+    <div>
+      <p>{{ item.libro.titulo }}</p>
+      <!-- Redondear el precio por producto a dos decimales -->
+      <p class="price">${{ (item.libro.precio * item.cantidad).toFixed(2) }}</p>
+      <p class="quantity">Cantidad: {{ item.cantidad }}</p>
+      <!-- Botón + con desactivación si no se puede aumentar -->
+      <button 
+        (click)="increaseQuantity(item)" 
+        [ngClass]="{'disabled': item.cantidad >= item.libro.stock}"
+        [disabled]="item.cantidad >= item.libro.stock">
+        +
+      </button>
+      <!-- Botón - -->
+      <button (click)="decreaseQuantity(item)">-</button>
+      <button (click)="removeItem(item)">❌</button>
+    </div>
+  </div>
+
+    <!-- Total del carrito -->
+    <div class="total">
+      <p><strong>Total: ${{ totalCarrito() }}</strong></p>
     </div>
   </div>
 </div>
+
 
 
   
