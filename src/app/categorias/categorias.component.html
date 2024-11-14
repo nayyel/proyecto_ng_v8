@@ -34,7 +34,7 @@
   <div id="id_lib">
     <!-- Libros filtrados por la categoría seleccionada -->
     <div *ngFor="let libro of librosFiltrados" class="libro" style="margin: 5px" [id]="'categoria-' + libro.id_categoria">
-      <a [routerLink]="['/libro/', libro.id_libro]">
+      <a [routerLink]="['/libro', libro.id_libro]">
         <img [src]="libro.link" width="150">
       </a>
       <h4>{{ libro.nombre }}</h4>

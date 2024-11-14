@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/empleado' },
   { path: 'empleado', component: EmpleadosComponent },
   { path: 'categoria', component: CategoriasComponent },
-  { path: 'libro/:id_libro', component: LibrosComponent },
+  { path: 'libro/:id_libro', component: LibrosComponent },  // Ruta para mostrar un libro específico
+  { path: '', redirectTo: '/libros', pathMatch: 'full' },  // Ruta predeterminada
   { path: 'busqueda', component: BusquedaComponent },
   { path: 'info', component: InfoComponent },
   { path: 'categoria/:id_categoria', component: CategoriasComponent },

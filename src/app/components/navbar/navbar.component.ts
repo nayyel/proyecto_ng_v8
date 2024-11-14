@@ -54,7 +54,7 @@ export class NavbarComponent implements OnInit {
 
   // Disminuir la cantidad del libro en el carrito
   decreaseQuantity(item: CarritoItem): void {  // Ahora 'item' tiene el tipo CarritoItem
-    if (item.cantidad > 0) { // Asegúrate de que no se pueda bajar a menos de 0
+    if (item.cantidad > 1) { // Asegúrate de que no se pueda bajar a menos de 0
       item.cantidad--;
       this.carritoService.actualizarCarrito(item.libro, item.cantidad);  // Actualiza el carrito en el servicio
     }

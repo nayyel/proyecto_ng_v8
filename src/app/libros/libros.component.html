@@ -1,4 +1,24 @@
-
-<div id="verlibro">
-
-</div>
+<div *ngIf="libroId">
+    <!-- Mostrar el libro solo si el libroId existe -->
+    <div *ngIf="libros.length > 0">
+      <!-- Mostrar los detalles del libro -->
+      <div *ngFor="let libro of libros">
+        <div *ngIf="libro.id_libro === libroId" class="libro">
+          <img [src]="libro.link" [alt]="libro.titulo" class="libro-img">
+          <h2 id="Titulo">{{ libro.titulo }}</h2>
+          <p id="Autor">Autor: {{ libro.autor }}</p>
+          <p id="Resumen">Resumen: {{ libro.resumen }}</p>
+          <p id="Precio">Precio: {{ libro.precio }}€</p>
+          <p id="Stock">Stock: {{ libro.stock }} unidades</p>
+          <button 
+          (click)="agregarAlCarrito(libro)" 
+          [ngClass]="{'disabled': libro.cantidad >= libro.stock}"
+          [disabled]="libro.cantidad >= libro.stock">
+          Agregar al carrito
+        </button>
+    
+        </div>
+      </div>
+    </div>
+  
+  </div>

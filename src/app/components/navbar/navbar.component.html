@@ -56,7 +56,10 @@
     
   <!-- Mostrar los libros en el carrito -->
   <div *ngFor="let item of carrito" class="item">
-    <img [src]="item.libro.link" alt="{{ item.libro.titulo }}">
+    <a [routerLink]="['/libro/', item.libro.id_libro]">
+      <img [src]="item.libro.link" alt="{{ item.libro.titulo }}">
+    </a>
+  
     <div>
       <p>{{ item.libro.titulo }}</p>
       <!-- Redondear el precio por producto a dos decimales -->
@@ -70,7 +73,12 @@
         +
       </button>
       <!-- Botón - -->
-      <button (click)="decreaseQuantity(item)">-</button>
+      <button 
+      (click)="decreaseQuantity(item)" 
+      [ngClass]="{'disabled': item.cantidad <= 1}"
+      [disabled]="item.cantidad <= 1">
+      -
+    </button>
       <button (click)="removeItem(item)">❌</button>
     </div>
   </div>

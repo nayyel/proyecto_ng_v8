@@ -62,19 +62,19 @@ export class CategoriasComponent implements OnInit {
     }
   }
 
-  agregarAlCarrito(libro: any): void {
-    // Primero, obtener la cantidad actual del libro en el carrito
-    const cantidadActual = this.carritoService.obtenerCantidadEnCarrito(libro);
-  
-    // Verificar si la cantidad actual es menor al stock disponible
-    if (cantidadActual < libro.stock) {
-      // Si aún hay stock disponible, agregar el libro al carrito
-      this.carritoService.agregarAlCarrito(libro);
-    } else {
-      // Si no hay stock suficiente, mostrar un mensaje o desactivar el botón
-      console.log('No se puede agregar más, el stock está agotado.');
-    }
+ agregarAlCarrito(libro: any): void {
+  // Primero, obtener la cantidad actual del libro en el carrito
+  const cantidadActual = this.carritoService.obtenerCantidadEnCarrito(libro);
+
+  // Verificar si la cantidad actual es menor al stock disponible
+  if (cantidadActual < libro.stock) {
+    // Si aún hay stock disponible, agregar el libro al carrito
+    this.carritoService.agregarAlCarrito(libro);
+  } else {
+    // Si no hay stock suficiente, mostrar un mensaje o desactivar el botón
+    console.log('No se puede agregar más, el stock está agotado.');
   }
+}
 
   // Esta función maneja la categoría desde la URL (cuando llegas desde el navbar)
   handleCategoryChange(): void {
