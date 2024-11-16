@@ -2,19 +2,19 @@
 .close-btn {
   background-color: #ff7043;
   position: absolute;
-  top: 20px; /* Separación desde la parte superior */
-  left: -30px; /* Fuera del contenedor, ajustable */
-  color: #fff;
+  top: 20px;
+  right: 10px; /* Cambiado a la esquina derecha */
+  color: #5a3e36; /* Cambiado el color */
   padding: 10px 20px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   font-size: 1.5rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 10000; /* Asegura que el botón esté encima */
-  width: 50px; /* Establece un ancho fijo para evitar que se alargue */
-  height: 50px; /* Establece un alto fijo */
+  z-index: 10000;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,6 +22,7 @@
 
 .close-btn:hover {
   background-color: #ff5722;
+  transform: scale(1.1);
 }
 
 .close-btn:focus {
@@ -31,29 +32,27 @@
 /* Contenedor del carrito */
 #carrito-container {
   position: fixed;
-  right: 0; /* Fija el carrito a la derecha */
+  right: 0;
   top: 0;
-  width: 35%; /* Controla el ancho del carrito */
+  width: 35%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro con opacidad */
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 9999;
   display: block;
   transition: transform 0.3s ease;
   overflow-y: auto;
-  position: relative; /* Relativo para que los elementos dentro se posicionen bien */
-  padding-top: 60px; /* Añade algo de espacio para que el botón de cerrar no esté pegado al borde */
+  padding-top: 60px;
 }
 
-/* Estilo de la superposición */
 .overlay {
-  position: relative;
   height: 100%;
   padding: 20px;
   background-color: white;
-  overflow-y: auto; /* Habilita el scroll vertical */
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  overflow-y: auto;
 }
 
-/* Estilo de los productos del carrito */
 .item {
   display: flex;
   align-items: center;
@@ -67,19 +66,17 @@
 }
 
 .item:hover {
-  transform: scale(1.03); /* Agranda ligeramente el item cuando se pasa el ratón */
+  transform: scale(1.03);
 }
 
-/* Estilo de las imágenes de los libros */
 .item img {
-  width: 50px;
-  height: 75px;
+  width: 60px; /* Asegurando que todas las imágenes de los libros tengan el mismo tamaño */
+  height: 100px; 
   object-fit: cover;
   border-radius: 5px;
   margin-right: 15px;
 }
 
-/* Texto de los libros */
 .item p {
   margin: 0;
   font-size: 1rem;
@@ -87,8 +84,7 @@
   font-weight: 500;
 }
 
-/* Estilo para el precio y cantidad */
-.price, .quantity {
+.price {
   font-size: 1.2rem;
   color: #ff7043;
 }
@@ -98,7 +94,43 @@
   color: #666;
 }
 
-/* Animación de deslizamiento */
+/* Mostrar la cantidad de libros */
+.quantity-display {
+  margin: 0 10px;
+  font-weight: bold;
+  color: #5a3e36;
+}
+
+.controls button {
+  padding: 5px 10px;
+  background-color: #5a3e36;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.controls button:hover {
+  background-color: #ff7043;
+  transform: scale(1.1);
+}
+
+.controls button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.total {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
 @keyframes slideDown {
   from {
     transform: translateY(-100%);
@@ -117,63 +149,94 @@
   }
 }
 
-/* Estilos del iframe */
 #iframe-container {
-  position: absolute;
-  right: 0; /* Alineado a la derecha */
-  width: 100%; /* Ancho */
-  height: 100%; /* Altura */
+  position: fixed;
+  right: 0;
+  width: 40%;
+  height: 100%;
   animation: slideDown 0.5s forwards;
-  max-height: calc(100% - 56px); /* Altura máxima, teniendo en cuenta la altura del navbar */
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.8);
-  display: none; /* Inicialmente oculto */
+  display: none;
   align-items: center;
   justify-content: center;
 }
 
-#iframe-container.hide {
-  animation: slideUp 0.5s forwards; /* Aplica la animación slideUp */
+#iframe-container.show {
+  display: flex;
 }
 
 .iframe-overlay {
   position: relative;
   width: 100%;
-  height: 120%;
+  height: 100%;
   opacity: 0.9;
-  border-radius: 40%;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 .iframe-overlay iframe {
   width: 100%;
-  height: 120%;
+  height: 100%;
   border: none;
 }
 
-/* Estilos del navbar */
-.navbar.navbar-light.bg-light {
-  background: transparent !important; /* Fondo transparente */
-  position: fixed!important; /* Posición fija */
-  width: 100%; /* Ancho completo */
-  z-index: 1050; /* Z-index alto para que se superponga a otros elementos */
-  transition: background 0.3s ease;
+/* Integrar los botones superiores izquierdos */
+.navbar .btn {
+  background-color: #a77e65; /* Más oscuro */
+  color: white;
+  border: none;
+  padding: 15px 25px; /* Botones más grandes */
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.navbar.navbar-light.bg-light .navbar-brand,
-.navbar.navbar-light.bg-light .nav-link {
-  transition: color 0.3s ease, transform 0.3s ease; /* Agrega transición al transform */
-  font-size: 2.5vh; /* Tamaño de fuente más pequeño */
+.navbar .btn:hover {
+  background-color: #8f654d; /* Más oscuro */
+  transform: scale(1.1);
 }
 
-.navbar.navbar-light.bg-light .navbar-brand:hover,
-.navbar.navbar-light.bg-light .nav-link:hover {
-  color: #997b6c !important; /* Cambia el color al pasar el ratón por encima */
-  transform: scale(1.1); /* Hace los elementos más grandes al pasar el ratón por encima */
+.navbar {
+  background-color: #d3b8ae !important; /* Ajustado a un tono ligeramente más oscuro */
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1050;
+  transition: background-color 0.3s ease;
 }
 
-.navbar.navbar-light.bg-light .dropdown-menu {
-  transition: all 0.3s ease;
-  animation: slideIn 0.5s forwards; /* Agrega animación de deslizamiento */
+body {
+  padding-top: 60px; /* Asegura que el contenido no se esconda detrás del header fijo */
+}
+
+.navbar .navbar-brand {
+  font-size: 1.8rem;
+  transition: color 0.3s ease;
+}
+
+.navbar .navbar-brand:hover {
+  color: #997b6c !important;
+  transform: scale(1.1); /* Efecto zoom */
+}
+
+.navbar .nav-link {
+  font-size: 1.2rem; /* Aumentado */
+  color: #a67c68; /* Ligera más clara que el fondo */
+  border: 1px solid #a67c68; /* Bordes finos */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 5px 10px;
+  margin-right: 15px; /* Espaciado entre los enlaces */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar .nav-link:hover {
+  color: #8f654d; /* Más oscuro */
+  transform: scale(1.1);
+}
+
+.navbar .dropdown-menu {
+  background-color: #f8f9fa;
+  animation: slideIn 0.5s forwards;
 }
 
 @keyframes slideIn {
@@ -185,31 +248,38 @@
   }
 }
 
-/* Estilos del formulario de búsqueda */
 .navbar .d-flex {
-  width: 50%; /* Ancho completo */
+  width: 50%;
   margin-right: 15%;
-  justify-content: center; /* Centrado */
+  justify-content: center;
 }
 
-.navbar.navbar-light.bg-light .dropdown-item {
-  position: relative; /* Posición relativa para el pseudo-elemento ::after */
-  background: #f8f9fa; /* Fondo estático */
-  transition: background 0.3s ease;
-  overflow: hidden; /* Oculta el pseudo-elemento ::after cuando se desborda */
+.navbar .dropdown-item {
+  background: #f8f9fa;
+  transition: background-color 0.3s ease;
 }
 
-.navbar.navbar-light.bg-light .dropdown-item::after {
-  content: ""; /* Contenido vacío */
-  position: absolute; /* Posición absoluta */
-  top: 0;
-  left: -100%; /* Inicia a la izquierda del elemento */
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, #997b6c, #eaddca); /* Fondo que cambia de color */
-  transition: left 2s ease; /* Transición en la propiedad left */
+.navbar .dropdown-item:hover {
+  background: #eaddca;
+  color: #5a3e36;
 }
 
-.navbar.navbar-light.bg-light .dropdown-item:hover::after {
-  left: 100%; /* Mueve el pseudo-elemento ::after a la derecha del elemento */
+/* Ajustar barra superior del carrito */
+#carrito-container .carrito-barra-superior {
+  background-color: #000; /* Color negro */
+  height: 50px;
+  border-top-right-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
 }
+
+
+
+
+
+
+
+
+

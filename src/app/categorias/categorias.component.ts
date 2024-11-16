@@ -32,19 +32,18 @@ export class CategoriasComponent implements OnInit {
 
   mostrarCategorias(): void {
     this.serviceE.VerCategorias().subscribe((response: any) => {
-      this.categorias = response.Categorias;
+      this.categorias = response.Categorias || []; // Asignar un array vacío si es undefined
     });
   }
-
+  
   cargarLibros(): void {
     this.serviceE.VerLibros().subscribe((response: any) => {
-      this.libros = response.Libros; // Cargar todos los libros
-      this.librosFiltrados = this.libros; // Al principio, mostrar todos los libros
-
-      // Ahora verificamos si hay una categoría en la URL para filtrar
-      this.handleCategoryChange(); // Llamar a esta función después de cargar los libros
+      this.libros = response.Libros || []; // Asignar un array vacío si es undefined
+      this.librosFiltrados = this.libros;
+      this.handleCategoryChange(); // Llamar después de cargar los libros
     });
   }
+  
 
   // Método para manejar el cambio en el filtro de categorías
   onCategoriaChange(event: Event): void {

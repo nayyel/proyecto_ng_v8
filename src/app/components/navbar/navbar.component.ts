@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit {
 
   showCarrito(): void {
     this.carritoVisible = true;
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'hidden';
   }
 
   hideCarrito(): void {

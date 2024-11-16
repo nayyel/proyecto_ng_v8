@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: relative; z-index: 1050;">
+<nav class="navbar navbar-expand-lg navbar-light" style="position: fixed; top: 0; width: 100%; background-color: #d3b8ae; z-index: 1050;">
   <div class="container-fluid">
-    <a class="navbar-brand" (click)="navigateToCategoria()"> 
+    <a class="navbar-brand" (click)="navigateToCategoria()" style="transition: transform 0.3s ease;"> 
       <img src="assets/images/Logo2.png" alt="Logo" height="40" style="height: 15vh;">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,13 +9,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Cerrar Sesion</a>
+          <a class="nav-link active" aria-current="page" href="/" style="margin-right: 15px;">Cerrar Sesión</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/info">Sobre Nosotros</a>
+          <a class="nav-link" href="/info" style="margin-right: 15px;">Sobre Nosotros</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 15px;">
             Categorías
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -46,45 +46,55 @@
   </div>
 </div>
 
-
-<!-- Contenedor del carrito -->
 <!-- Contenedor del carrito -->
 <div id="carrito-container" [ngStyle]="{'display': carritoVisible ? 'block' : 'none'}" 
      style="position: fixed; right: 0; top: 0; width: 35%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
-  <div class="overlay" style="height: 100%; padding: 20px; background-color: #f4f4f9; border-top-right-radius: 15px; border-bottom-right-radius: 15px; overflow-y: auto;">
-    <button class="close-btn" (click)="hideCarrito()">Cerrar</button>
-    
-  <!-- Mostrar los libros en el carrito -->
-  <div *ngFor="let item of carrito" class="item">
-    <a [routerLink]="['/libro/', item.libro.id_libro]">
-      <img [src]="item.libro.link" alt="{{ item.libro.titulo }}">
-    </a>
-  
-    <div>
-      <p>{{ item.libro.titulo }}</p>
-      <!-- Redondear el precio por producto a dos decimales -->
-      <p class="price">${{ (item.libro.precio * item.cantidad).toFixed(2) }}</p>
-      <p class="quantity">Cantidad: {{ item.cantidad }}</p>
-      <!-- Botón + con desactivación si no se puede aumentar -->
-      <button 
-        (click)="increaseQuantity(item)" 
-        [ngClass]="{'disabled': item.cantidad >= item.libro.stock}"
-        [disabled]="item.cantidad >= item.libro.stock">
-        +
-      </button>
-      <!-- Botón - -->
-      <button 
-      (click)="decreaseQuantity(item)" 
-      [ngClass]="{'disabled': item.cantidad <= 1}"
-      [disabled]="item.cantidad <= 1">
-      -
-    </button>
-      <button (click)="removeItem(item)">❌</button>
-    </div>
+  <!-- Barra superior del carrito -->
+  <div class="carrito-barra-superior" style="background-color: #d9c5b2; height: 50px; border-top-right-radius: 15px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px;">
+    <button class="close-btn" (click)="hideCarrito()" style="border: none; background: none; color: #5a3e36; font-size: 24px; font-weight: bold;">✖</button>
+    <span style="font-weight: bold; color: #5a3e36;">Tu Carrito</span>
   </div>
 
+  <div class="overlay" style="height: calc(100% - 50px); padding: 20px; background-color: #f4f4f9; border-bottom-right-radius: 15px; overflow-y: auto;">
+    <!-- Mostrar los libros en el carrito -->
+    <div *ngFor="let item of carrito" class="item" style="display: flex; align-items: center; margin-bottom: 20px;">
+      <!-- Imagen del libro -->
+      <a [routerLink]="['/libro/', item.libro.id_libro]" style="margin-right: 15px;">
+        <img [src]="item.libro.link" alt="{{ item.libro.titulo }}" style="height: 100px; width: 60px; object-fit: cover; border-radius: 5px;">
+      </a>
+
+      <!-- Información del libro -->
+      <div style="flex-grow: 1;">
+        <p style="margin: 0; font-weight: bold; color: #333;">{{ item.libro.titulo }}</p>
+        <p class="price" style="margin: 5px 0; color: #777;">${{ (item.libro.precio * item.cantidad).toFixed(2) }}</p>
+        <p class="quantity-display" style="margin: 0 10px; font-weight: bold; color: #5a3e36;">Cantidad: {{ item.cantidad }}</p>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <!-- Botones de control -->
+          <button 
+            (click)="increaseQuantity(item)" 
+            [ngClass]="{'disabled': item.cantidad >= item.libro.stock}"
+            [disabled]="item.cantidad >= item.libro.stock"
+            style="padding: 5px 10px; background-color: #5a3e36; color: white; border: none; border-radius: 3px;">
+            +
+          </button>
+          <button 
+            (click)="decreaseQuantity(item)" 
+            [ngClass]="{'disabled': item.cantidad <= 1}"
+            [disabled]="item.cantidad <= 1"
+            style="padding: 5px 10px; background-color: #5a3e36; color: white; border: none; border-radius: 3px;">
+            -
+          </button>
+          <button 
+            (click)="removeItem(item)" 
+            style="padding: 5px 10px; background-color: #b22222; color: white; border: none; border-radius: 3px;">
+            ❌
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Total del carrito -->
-    <div class="total">
+    <div class="total" style="text-align: right; margin-top: 20px;">
       <p><strong>Total: ${{ totalCarrito() }}</strong></p>
     </div>
   </div>
@@ -92,5 +102,5 @@
 
 
 
-  
+
 
