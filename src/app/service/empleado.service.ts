@@ -15,6 +15,8 @@ export class EmpleadoService {
   api_libro_crear: string = "http://localhost/api_crear_libro.php";
   api_libro_editar: string = "http://localhost/api_editar_libro.php";
   api_libro_eliminar: string = "http://localhost/api_borrar_libro.php"; 
+  api_actualizar_perfil: string = "http://localhost/api_actualizar_perfil.php"; // URL para actualizar el perfil
+  api_actualizar_contrasena: string = "http://localhost/api_actualizar_contrasena.php"; // URL para actualizar la contraseña
 
   constructor(private http: HttpClient) { }
 
@@ -40,7 +42,7 @@ export class EmpleadoService {
 
   editarlibro(libro: any): Observable<any> {
     return this.http.put<any>(this.api_libro_editar + "?bs=", libro);
-  } 
+  }
 
   eliminarLibro(id_libro: string): Observable<any> {
     return this.http.delete<any>(this.api_libro_eliminar, { body: { id_libro } });
@@ -48,5 +50,13 @@ export class EmpleadoService {
 
   searchBooks(data: { query: string }): Observable<any> {
     return this.http.post<any>(this.api_search, data);
+  }
+
+  // Nuevo método para actualizar el perfil
+  actualizarPerfil(usuario: any): Observable<any> {
+    return this.http.put<any>(this.api_actualizar_perfil + "?bs=",usuario);
+  }
+  actualizarContrasena(datos: any): Observable<any> {
+    return this.http.put<any>(this.api_actualizar_contrasena,datos);
   }
 }

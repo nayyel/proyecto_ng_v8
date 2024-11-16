@@ -8,9 +8,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/" style="margin-right: 15px;">Cerrar Sesión</a>
-        </li>
+       
         <li class="nav-item">
           <a class="nav-link" href="/info" style="margin-right: 15px;">Sobre Nosotros</a>
         </li>
@@ -32,6 +30,18 @@
         <input id="search-input" class="form-control me-2" type="search" placeholder="Busca por título, categoría, autor..." aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
+ 
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 15px;">
+        <img [src]="checkImageUrl(imageUrl)" alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%;">
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <!-- Si el usuario no está logueado, mostrar "Iniciar Sesión" -->
+        <li *ngIf="!loggedIn"><a class="dropdown-item" href="/empleado">Iniciar Sesión</a></li>
+      
+        <!-- Si el usuario está logueado, mostrar "Editar Perfil" y "Cerrar Sesión" -->
+        <li *ngIf="loggedIn"><a class="dropdown-item" href="/editar-perfil">Editar Perfil</a></li>
+        <li *ngIf="loggedIn"><a class="dropdown-item" href="/logout" (click)="logout()">Cerrar Sesión</a></li>
+      </ul>
       <!-- Botón de compra que muestra el div del carrito -->
       <button class="btn btn-primary" (click)="showCarrito()">Comprar</button>
     </div>
@@ -47,6 +57,7 @@
 </div>
 
 <!-- Contenedor del carrito -->
+<!-- Contenedor del carrito -->
 <div id="carrito-container" [ngStyle]="{'display': carritoVisible ? 'block' : 'none'}" 
      style="position: fixed; right: 0; top: 0; width: 35%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
   <!-- Barra superior del carrito -->
@@ -56,49 +67,58 @@
   </div>
 
   <div class="overlay" style="height: calc(100% - 50px); padding: 20px; background-color: #f4f4f9; border-bottom-right-radius: 15px; overflow-y: auto;">
-    <!-- Mostrar los libros en el carrito -->
-    <div *ngFor="let item of carrito" class="item" style="display: flex; align-items: center; margin-bottom: 20px;">
-      <!-- Imagen del libro -->
-      <a [routerLink]="['/libro/', item.libro.id_libro]" style="margin-right: 15px;">
-        <img [src]="item.libro.link" alt="{{ item.libro.titulo }}" style="height: 100px; width: 60px; object-fit: cover; border-radius: 5px;">
-      </a>
-
-      <!-- Información del libro -->
-      <div style="flex-grow: 1;">
-        <p style="margin: 0; font-weight: bold; color: #333;">{{ item.libro.titulo }}</p>
-        <p class="price" style="margin: 5px 0; color: #777;">${{ (item.libro.precio * item.cantidad).toFixed(2) }}</p>
-        <p class="quantity-display" style="margin: 0 10px; font-weight: bold; color: #5a3e36;">Cantidad: {{ item.cantidad }}</p>
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <!-- Botones de control -->
-          <button 
-            (click)="increaseQuantity(item)" 
-            [ngClass]="{'disabled': item.cantidad >= item.libro.stock}"
-            [disabled]="item.cantidad >= item.libro.stock"
-            style="padding: 5px 10px; background-color: #5a3e36; color: white; border: none; border-radius: 3px;">
-            +
-          </button>
-          <button 
-            (click)="decreaseQuantity(item)" 
-            [ngClass]="{'disabled': item.cantidad <= 1}"
-            [disabled]="item.cantidad <= 1"
-            style="padding: 5px 10px; background-color: #5a3e36; color: white; border: none; border-radius: 3px;">
-            -
-          </button>
-          <button 
-            (click)="removeItem(item)" 
-            style="padding: 5px 10px; background-color: #b22222; color: white; border: none; border-radius: 3px;">
-            ❌
-          </button>
-        </div>
-      </div>
+    
+    <!-- Mensaje si no ha iniciado sesión -->
+    <div *ngIf="!loggedIn" style="text-align: center; color: #5a3e36; font-weight: bold; font-size: 18px;">
+      <p>Inicia sesión para poder comprar</p>
     </div>
 
-    <!-- Total del carrito -->
-    <div class="total" style="text-align: right; margin-top: 20px;">
-      <p><strong>Total: ${{ totalCarrito() }}</strong></p>
+    <!-- Mostrar los libros en el carrito solo si está logueado -->
+    <div *ngIf="loggedIn">
+      <div *ngFor="let item of carrito" class="item" style="display: flex; align-items: center; margin-bottom: 20px;">
+        <!-- Imagen del libro -->
+        <a [routerLink]="['/libro/', item.libro.id_libro]" style="margin-right: 15px;">
+          <img [src]="item.libro.link" alt="{{ item.libro.titulo }}" style="height: 100px; width: 60px; object-fit: cover; border-radius: 5px;">
+        </a>
+
+        <!-- Información del libro -->
+        <div style="flex-grow: 1;">
+          <p style="margin: 0; font-weight: bold; color: #333;">{{ item.libro.titulo }}</p>
+          <p class="price" style="margin: 5px 0; color: #777;">${{ (item.libro.precio * item.cantidad).toFixed(2) }}</p>
+          <p class="quantity-display" style="margin: 0 10px; font-weight: bold; color: #5a3e36;">Cantidad: {{ item.cantidad }}</p>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <!-- Botones de control -->
+            <button 
+              (click)="increaseQuantity(item)" 
+              [ngClass]="{'disabled': item.cantidad >= item.libro.stock}"
+              [disabled]="item.cantidad >= item.libro.stock"
+              style="padding: 5px 10px; background-color: #5a3e36; color: white; border: none; border-radius: 3px;">
+              +
+            </button>
+            <button 
+              (click)="decreaseQuantity(item)" 
+              [ngClass]="{'disabled': item.cantidad <= 1}"
+              [disabled]="item.cantidad <= 1"
+              style="padding: 5px 10px; background-color: #5a3e36; color: white; border: none; border-radius: 3px;">
+              -
+            </button>
+            <button 
+              (click)="removeItem(item)" 
+              style="padding: 5px 10px; background-color: #b22222; color: white; border: none; border-radius: 3px;">
+              ❌
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Total del carrito -->
+      <div class="total" style="text-align: right; margin-top: 20px;">
+        <p><strong>Total: ${{ totalCarrito() }}</strong></p>
+      </div>
     </div>
   </div>
 </div>
+
 
 
 

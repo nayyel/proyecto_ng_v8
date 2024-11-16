@@ -24,7 +24,7 @@ export class CategoriasComponent implements OnInit {
   ngOnInit(): void {
     const loggedInFromLogin = localStorage.getItem('loggedInFromLogin');
     if (loggedInFromLogin !== 'true') {
-      this.router.navigate(['/empleado']);
+      
     }
     this.mostrarCategorias();
     this.cargarLibros(); // Cargar todos los libros al principio

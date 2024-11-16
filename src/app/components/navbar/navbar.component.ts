@@ -15,7 +15,10 @@ interface CarritoItem {  // Definir el tipo para los elementos del carrito
 })
 export class NavbarComponent implements OnInit {
   carritoVisible: boolean = false;
+  loggedIn: boolean = false;
   busquedaVisible: boolean = false;
+  imageUrl: string = ''; // Aquí va la URL de la imagen que quieres verificar
+
   categorias: any[] = [];
   carrito: CarritoItem[] = [];  // Usamos el tipo CarritoItem para el carrito
 
@@ -25,7 +28,12 @@ export class NavbarComponent implements OnInit {
     private empleadoService: EmpleadoService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+       // Comprobar el estado de login desde localStorage
+       this.loggedIn = localStorage.getItem('loggedInFromLogin') === 'true';
+       let fotoPerfil = localStorage.getItem('Foto_Perfil');
+       console.log(fotoPerfil);
+       this.imageUrl = fotoPerfil && fotoPerfil !== "" ? fotoPerfil : "https://static.vecteezy.com/system/resources/previews/027/728/804/non_2x/faceless-businessman-user-profile-icon-business-leader-profile-picture-portrait-user-member-people-icon-in-flat-style-circle-button-with-avatar-photo-silhouette-free-png.png";
     // Obtener datos del carrito desde el servicio
     this.carritoService.obtenerCarrito().subscribe(carrito => {
       // Convertir el Map a un array de objetos con la estructura adecuada
@@ -37,7 +45,18 @@ export class NavbarComponent implements OnInit {
 
     this.mostrarCategorias();
   }
-
+  logout(): void {
+    localStorage.removeItem('loggedInFromLogin');
+    localStorage.removeItem('Foto_Perfil');
+    this.loggedIn = false;  // Actualizar el estado local
+    // Redirigir a la página de inicio de sesión
+    window.location.href = '/empleado';
+  }
+  checkImageUrl(url: string): string {
+    const img = new Image();
+    img.src = url;
+    return img.complete ? url : this.imageUrl;
+  }
   mostrarCategorias(): void {
     this.empleadoService.VerCategorias().subscribe((response: any) => {
       this.categorias = response.Categorias;

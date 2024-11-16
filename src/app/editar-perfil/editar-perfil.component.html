@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>Actualizar Perfil</h2>
+
+  <!-- Formulario para actualizar el perfil -->
+  <div class="editar-perfil-form">
+    <form (ngSubmit)="onSubmitPerfil()">
+    
+
+      <div class="form-group">
+        <label for="fotoPerfil">Foto de Perfil (URL)</label>
+        <input type="text" id="fotoPerfil" class="form-control" [(ngModel)]="fotoPerfil" name="fotoPerfil" required />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+
+      <!-- Mensajes de éxito o error al actualizar perfil -->
+      <div *ngIf="fotoPerfil">
+        <p class="text-success" *ngIf="successMessage">{{ successMessage }}</p>
+        <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+      </div>
+    </form>
+  </div>
+
+  <hr />
+
+  <h2>Actualizar Contraseña</h2>
+
+  <!-- Formulario para actualizar la contraseña -->
+  <div class="editar-perfil-form">
+    <form (ngSubmit)="onSubmitPassword()">
+      <div class="form-group">
+        <label for="currentPassword">Contraseña Actual</label>
+        <input type="password" id="currentPassword" class="form-control" [(ngModel)]="currentPassword" name="currentPassword" />
+      </div>
+  
+      <div class="form-group">
+        <label for="newPassword">Nueva Contraseña</label>
+        <input type="password" id="newPassword" class="form-control" [(ngModel)]="newPassword" name="newPassword" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Nueva Contraseña</label>
+        <input type="password" id="confirmPassword" class="form-control" [(ngModel)]="confirmPassword" name="confirmPassword" required />
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
+  
+      <!-- Mensajes de éxito o error al actualizar contraseña -->
+      <div *ngIf="newPassword && confirmPassword">
+        <p class="text-success" *ngIf="successMessagePassword">{{ successMessagePassword }}</p>
+        <p class="text-danger" *ngIf="errorMessagePassword">{{ errorMessagePassword }}</p>
+      </div>
+    </form>
+  </div>

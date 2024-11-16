@@ -41,7 +41,7 @@
   display: block;
   transition: transform 0.3s ease;
   overflow-y: auto;
-  padding-top: 60px;
+
 }
 
 .overlay {

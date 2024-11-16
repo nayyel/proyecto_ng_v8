@@ -31,12 +31,15 @@ export class EmpleadosComponent implements OnInit {
     this.serviceE.Showempleado(empleado).subscribe(
       respuesta => {
         if (respuesta.exito) {
+          // Guardar la URL de la foto de perfil en localStorage
+          //localStorage.setItem('Foto_Perfil', respuesta.Foto_Perfil);  // Si no hay foto, guarda una cadena vacía
+          localStorage.setItem('userId', respuesta.id_usuario);
           localStorage.setItem('loggedInFromLogin', 'true');
-          if(respuesta.rol == 'admin')
-            {
-              this.router.navigate(['/administracion']);
-            }
-          else{
+          localStorage.setItem('Foto_Perfil', respuesta.Foto_Perfil);
+  
+          if(respuesta.rol == 'admin') {
+            this.router.navigate(['/administracion']);
+          } else {
             this.router.navigate(['/categoria']);
           }
         } else {

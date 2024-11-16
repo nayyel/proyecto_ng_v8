@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -12,6 +12,7 @@ import { LibrosComponent } from './libros/libros.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { InfoComponent } from './info/info.component';
 import { AdminComponent } from './admin/admin.component';
+import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,14 +22,18 @@ import { AdminComponent } from './admin/admin.component';
     LibrosComponent,
     BusquedaComponent,
     InfoComponent,
+    EditarPerfilComponent,
     AdminComponent,
+    EditarPerfilComponent
     
   ],
   imports: [
+    
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

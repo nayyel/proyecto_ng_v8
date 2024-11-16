@@ -14,10 +14,7 @@ export class BusquedaComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private empleadoService: EmpleadoService) { }
 
   ngOnInit(): void {
-    const loggedInFromLogin = localStorage.getItem('loggedInFromLogin');
-    if (loggedInFromLogin !== 'true') {
-      this.router.navigate(['/empleado']);
-    }
+
     window.addEventListener('message', this.receiveMessage.bind(this), false);
   }
 
