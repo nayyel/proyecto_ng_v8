@@ -40,6 +40,7 @@
       
         <!-- Si el usuario está logueado, mostrar "Editar Perfil" y "Cerrar Sesión" -->
         <li *ngIf="loggedIn"><a class="dropdown-item" href="/editar-perfil">Editar Perfil</a></li>
+        <li *ngIf="loggedIn"><a class="dropdown-item" href="/historial">Historial de compras</a></li>
         <li *ngIf="loggedIn"><a class="dropdown-item" href="/logout" (click)="logout()">Cerrar Sesión</a></li>
       </ul>
       <!-- Botón de compra que muestra el div del carrito -->
@@ -56,7 +57,7 @@
   </div>
 </div>
 
-<!-- Contenedor del carrito -->
+
 <!-- Contenedor del carrito -->
 <div id="carrito-container" [ngStyle]="{'display': carritoVisible ? 'block' : 'none'}" 
      style="position: fixed; right: 0; top: 0; width: 35%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
@@ -115,6 +116,13 @@
       <div class="total" style="text-align: right; margin-top: 20px;">
         <p><strong>Total: ${{ totalCarrito() }}</strong></p>
       </div>
+              <!-- Botón de Comprar -->
+              <button 
+              (click)="procesarCompra()" 
+              [disabled]="carrito.length === 0" 
+              style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+              Comprar
+            </button>
     </div>
   </div>
 </div>

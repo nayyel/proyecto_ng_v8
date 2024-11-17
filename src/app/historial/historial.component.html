@@ -1,0 +1,17 @@
+<div class="contenido">
+    <div *ngFor="let venta of historialCompras" class="venta">
+      <h3 class="venta-header">
+       Fecha: {{ venta.fecha }} - Total: {{ venta.total | currency:'USD':true }}
+      </h3>
+      <ul class="libros-lista">
+        <li *ngFor="let libro of venta.libros" class="libro">
+          <img [src]="libro.link" alt="{{ libro.titulo }}" class="libro-imagen"/>
+          <div class="libro-detalles">
+            <strong>{{ libro.titulo }}</strong> - {{ libro.cantidad }} x {{ libro.precio | currency:'USD':true }} = 
+            <span class="total">{{ libro.cantidad * libro.precio | currency:'USD':true }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

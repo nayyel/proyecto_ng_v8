@@ -13,6 +13,7 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 import { InfoComponent } from './info/info.component';
 import { AdminComponent } from './admin/admin.component';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
+import { HistorialComponent } from './historial/historial.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
     InfoComponent,
     EditarPerfilComponent,
     AdminComponent,
-    EditarPerfilComponent
+    EditarPerfilComponent,
+    HistorialComponent
     
   ],
   imports: [

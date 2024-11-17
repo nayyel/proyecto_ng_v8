@@ -32,11 +32,10 @@ export class NavbarComponent implements OnInit {
        // Comprobar el estado de login desde localStorage
        this.loggedIn = localStorage.getItem('loggedInFromLogin') === 'true';
        let fotoPerfil = localStorage.getItem('Foto_Perfil');
-       console.log(fotoPerfil);
        this.imageUrl = fotoPerfil && fotoPerfil !== "" ? fotoPerfil : "https://static.vecteezy.com/system/resources/previews/027/728/804/non_2x/faceless-businessman-user-profile-icon-business-leader-profile-picture-portrait-user-member-people-icon-in-flat-style-circle-button-with-avatar-photo-silhouette-free-png.png";
     // Obtener datos del carrito desde el servicio
     this.carritoService.obtenerCarrito().subscribe(carrito => {
-      // Convertir el Map a un array de objetos con la estructura adecuada
+      // Re-sincronizar el carrito después de la compra
       this.carrito = Array.from(carrito.entries()).map(([libro, cantidad]) => ({
         libro,
         cantidad
@@ -161,4 +160,32 @@ export class NavbarComponent implements OnInit {
       categoriaElement.scrollIntoView({ behavior: 'smooth' });
     }
   }
+
+  procesarCompra(): void {
+  
+  
+    // Obtén el total del carrito
+    const total = parseFloat(this.totalCarrito());
+  
+    // Crea un objeto con los datos a enviar
+    const compra = {
+      carrito: this.carrito,
+      total: total,
+      id_usuario: localStorage.getItem('userId')
+    };
+  
+    // Llama al servicio para procesar la compra
+    this.carritoService.procesarCompra(compra).subscribe(
+      response => {
+        console.log(response);  
+        this.carrito = []; 
+        this.carritoService.vaciarCarrito()// Vaciar el carrito después de la compra
+      },
+      error => {
+        console.error('Error al procesar la compra:', error, );
+        alert('Ocurrió un error al realizar la compra. Intenta nuevamente.');
+      }
+    );
+  }
+  
 }

@@ -17,7 +17,7 @@ export class EmpleadoService {
   api_libro_eliminar: string = "http://localhost/api_borrar_libro.php"; 
   api_actualizar_perfil: string = "http://localhost/api_actualizar_perfil.php"; // URL para actualizar el perfil
   api_actualizar_contrasena: string = "http://localhost/api_actualizar_contrasena.php"; // URL para actualizar la contraseña
-
+  api_historial: string = "http://localhost/api_historial.php";
   constructor(private http: HttpClient) { }
 
   Showempleado(Buscador: any): Observable<any> {
@@ -56,7 +56,12 @@ export class EmpleadoService {
   actualizarPerfil(usuario: any): Observable<any> {
     return this.http.put<any>(this.api_actualizar_perfil + "?bs=",usuario);
   }
+  
   actualizarContrasena(datos: any): Observable<any> {
     return this.http.put<any>(this.api_actualizar_contrasena,datos);
+  }
+
+  cargarHistorialCompras(usuario: any): Observable<any> {
+    return this.http.put<any>(this.api_historial,usuario);
   }
 }

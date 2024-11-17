@@ -1,0 +1,66 @@
+/* Aseguramos que el contenedor tenga más margen superior */
+.contenido {
+    padding-top: 150px; /* Aumenta este valor si quieres más espacio */
+    margin-top: 20px; /* Opcional: agrega un margen adicional si es necesario */
+  }
+  
+  /* Estilos generales para el historial de ventas */
+  .venta {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .venta-header {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+  }
+  
+  /* Estilos para la lista de libros */
+  .libros-lista {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .libro {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .libro-imagen {
+    width: 50px; /* Tamaño pequeño de la imagen */
+    height: 75px;
+    object-fit: cover;
+    margin-right: 15px;
+    border-radius: 4px;
+  }
+  
+  .libro-detalles {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1em;
+  }
+  
+  .total {
+    font-weight: bold;
+    color: #006400;
+    font-size: 1.1em;
+  }
+  
+  /* Añadir algo de espaciado */
+  .libro + .libro {
+    margin-top: 10px;
+  }
+  
