@@ -5,7 +5,9 @@
       </h3>
       <ul class="libros-lista">
         <li *ngFor="let libro of venta.libros" class="libro">
-          <img [src]="libro.link" alt="{{ libro.titulo }}" class="libro-imagen"/>
+            <a [routerLink]="['/libro/', libro.id_libro]" style="margin-right: 15px;">
+                <img [src]="libro.link" alt="{{libro.titulo }}" style="height: 100px; width: 60px; object-fit: cover; border-radius: 5px;">
+              </a>
           <div class="libro-detalles">
             <strong>{{ libro.titulo }}</strong> - {{ libro.cantidad }} x {{ libro.precio | currency:'USD':true }} = 
             <span class="total">{{ libro.cantidad * libro.precio | currency:'USD':true }}</span>
