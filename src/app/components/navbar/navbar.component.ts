@@ -92,7 +92,7 @@ export class NavbarComponent implements OnInit {
 
   showCarrito(): void {
     this.carritoVisible = true;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'auto'; //Cambio por iñaki
   }
 
   hideCarrito(): void {
