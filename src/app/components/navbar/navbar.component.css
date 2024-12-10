@@ -1,27 +1,27 @@
 /* Botón de cerrar */
 .close-btn {
-  background-color: #ff7043;
+  background-color: #70ac69;
   position: absolute;
   top: 20px;
   right: 10px; /* Cambiado a la esquina derecha */
-  color: #5a3e36; /* Cambiado el color */
+  color: #000000; /* Cambiado el color */
   padding: 10px 20px;
   border: none;
-  border-radius: 50%;
+  border-radius: 10%;
   cursor: pointer;
   font-size: 1.5rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   z-index: 10000;
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .close-btn:hover {
-  background-color: #ff5722;
+  background-color: #63995d;
   transform: scale(1.1);
 }
 
@@ -35,19 +35,19 @@
   right: 0;
   top: 0;
   width: 35%;
-  height: 100%;
+  height: 110%;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 9999;
   display: block;
   transition: transform 0.3s ease;
   overflow-y: auto;
-
+  padding-top: 0px;
 }
 
 .overlay {
   height: 100%;
   padding: 20px;
-  background-color: white;
+  background-color: rgb(233, 218, 198);
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   overflow-y: auto;
@@ -70,7 +70,7 @@
 }
 
 .item img {
-  width: 60px; /* Asegurando que todas las imágenes de los libros tengan el mismo tamaño */
+  width: 60px; 
   height: 100px; 
   object-fit: cover;
   border-radius: 5px;
@@ -86,7 +86,7 @@
 
 .price {
   font-size: 1.2rem;
-  color: #ff7043;
+  color: #6eb168;
 }
 
 .quantity {
@@ -98,7 +98,7 @@
 .quantity-display {
   margin: 0 10px;
   font-weight: bold;
-  color: #5a3e36;
+  color: #ceffba;
 }
 
 .controls button {
@@ -113,7 +113,7 @@
 }
 
 .controls button:hover {
-  background-color: #ff7043;
+  background-color: #558351;
   transform: scale(1.1);
 }
 
@@ -181,23 +181,23 @@
   border: none;
 }
 
-/* Integrar los botones superiores izquierdos */
+
 .navbar .btn {
-  background-color: #a77e65; /* Más oscuro */
+  background-color: #74a765; 
   color: white;
   border: none;
-  padding: 15px 25px; /* Botones más grandes */
+  padding: 15px 25px; 
   border-radius: 5px;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .navbar .btn:hover {
-  background-color: #8f654d; /* Más oscuro */
+  background-color: #6c7c68; 
   transform: scale(1.1);
 }
 
 .navbar {
-  background-color: #d3b8ae !important; /* Ajustado a un tono ligeramente más oscuro */
+  background-color: #e7d3c7 !important;
   position: fixed;
   width: 100%;
   top: 0;
@@ -206,7 +206,8 @@
 }
 
 body {
-  padding-top: 60px; /* Asegura que el contenido no se esconda detrás del header fijo */
+  padding-top: 60px; 
+  background-color: #ffffff;
 }
 
 .navbar .navbar-brand {
@@ -215,38 +216,32 @@ body {
 }
 
 .navbar .navbar-brand:hover {
-  color: #997b6c !important;
+  color: #99d394 !important;
   transform: scale(1.1); /* Efecto zoom */
 }
 
 .navbar .nav-link {
   font-size: 1.2rem; /* Aumentado */
-  color: #a67c68; /* Ligera más clara que el fondo */
-  border: 1px solid #a67c68; /* Bordes finos */
+  color: #4d9953; /* Ligera más clara que el fondo */
+  border: 1px solid #4d9953; /* Bordes finos */
   border-radius: 8px; /* Bordes redondeados */
   padding: 5px 10px;
   margin-right: 15px; /* Espaciado entre los enlaces */
   transition: color 0.3s ease, transform 0.2s ease;
+  background-color: #f3efe1;
 }
 
 .navbar .nav-link:hover {
-  color: #8f654d; /* Más oscuro */
+  color: #9cbb9a; /* Más oscuro */
   transform: scale(1.1);
 }
 
 .navbar .dropdown-menu {
-  background-color: #f8f9fa;
+  background-color: #006405;
   animation: slideIn 0.5s forwards;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
+
 
 .navbar .d-flex {
   width: 50%;
@@ -255,25 +250,31 @@ body {
 }
 
 .navbar .dropdown-item {
-  background: #f8f9fa;
+  background: #ffffff;
   transition: background-color 0.3s ease;
 }
 
 .navbar .dropdown-item:hover {
-  background: #eaddca;
-  color: #5a3e36;
+  background: #d1eec6;
+  color: #000000;
+}
+@keyframes slideIn {
+  from {
+    transform: translatey(-50%);
+  }
+  to {
+    transform: translatey(0);
+  }
+}
+#laslistas{
+  margin-left: 87%;
+  margin-top: -3%;
 }
 
-/* Ajustar barra superior del carrito */
-#carrito-container .carrito-barra-superior {
-  background-color: #000; /* Color negro */
-  height: 50px;
-  border-top-right-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 15px;
-}
+
+
+
+
 
 
 
