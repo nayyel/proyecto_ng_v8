@@ -271,6 +271,89 @@ body {
   margin-top: -3%;
 }
 
+/* Media Query para Tablets (768px o menos) */
+@media (max-width: 768px) {
+  /* Cambio la estructura de la navbar */
+  .navbar-links {
+    display: none; /* Escondemos los enlaces en tabletas */
+  }
+
+  .menu-toggle {
+    display: block; /* Mostramos el botón hamburguesa */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .hamburger {
+    width: 30px;
+    height: 3px;
+    background-color: #4d9953; /* Color de las líneas del hamburguesa */
+    border-radius: 5px;
+    position: relative;
+  }
+
+  .hamburger:before, .hamburger:after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background-color: #4d9953;
+    border-radius: 5px;
+  }
+
+  .hamburger:before {
+    top: -8px;
+  }
+
+  .hamburger:after {
+    top: 8px;
+  }
+
+  .navbar-links.open {
+    display: block; /* Mostramos los enlaces cuando el menú hamburguesa se active */
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #e7d3c7;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .navbar-links ul {
+    display: block;
+    padding: 0;
+  }
+
+  .navbar-links ul li {
+    margin: 10px 0;
+  }
+
+  .navbar-links ul li a {
+    font-size: 1.4rem;
+    color: #4d9953;
+    text-decoration: none;
+  }
+}
+
+/* Media Query para Móviles (480px o menos) */
+@media (max-width: 480px) {
+  /* Reducir el tamaño de los enlaces */
+  .navbar-links ul li a {
+    font-size: 1.2rem;
+  }
+
+  /* Ajustar la posición del hamburguesa */
+  .hamburger {
+    background-color: #4d9953;
+  }
+
+  .navbar {
+    padding: 10px 20px; /* Reducir padding para dispositivos móviles */
+  }
+}
 
 
 

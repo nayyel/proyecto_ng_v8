@@ -189,3 +189,13 @@ export class NavbarComponent implements OnInit {
   }
   
 }
+/*Funcionalidades Responsive */
+
+// Obtener elementos del DOM
+const menuToggle = document.querySelector('.menu-toggle') as HTMLButtonElement;
+const navbarLinks = document.querySelector('.navbar-links') as HTMLElement;
+
+// Agregar evento al botón hamburguesa
+menuToggle.addEventListener('click', () => {
+  navbarLinks.classList.toggle('open');  // Añadir o quitar la clase 'open' que muestra el menú
+});
