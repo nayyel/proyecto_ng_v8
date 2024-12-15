@@ -1,4 +1,35 @@
 
-<h3>RESULTADOS</h3>
-<div id="noBusca"></div>
-<div id="siBusca"></div>
+
+<!-- Si hay categorías -->
+<div *ngIf="categorias.length > 0; else noResultados">
+  <div *ngFor="let categoria of categorias" class="categoria">
+    <h3>Categoría {{ categoria.nombre_categoria }}</h3>
+
+    <!-- Libros por categoría -->
+    <div style="display: flex; flex-direction: row; align-items: baseline;">
+      <div *ngFor="let libro of librosPorCategoria(categoria.id_categoria)" class="libro">
+        <!-- Imagen y link -->
+        <a [href]="'/libro/' + libro.id_libro" target="_top">
+          <img [src]="libro.link" width="100px" alt="Portada del libro">
+        </a>
+
+        <!-- Título dividido -->
+        <div class="titulo">
+          <span *ngFor="let segmento of dividirTitulo(libro.titulo)">
+            {{ segmento }}<br>
+          </span>
+        </div>
+
+        <!-- Autor -->
+        <span class="autor">{{ libro.autor }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Si no hay resultados -->
+<ng-template #noResultados>
+  <div id="noBusca">
+    <p>No se encontraron resultados.</p>
+  </div>
+</ng-template>
