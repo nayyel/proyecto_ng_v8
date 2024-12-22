@@ -272,6 +272,156 @@ body {
 }
 
 
+@media (max-width: 576px) {
+  /* Ajustamos el formulario */
+  .d-flex {
+      display: flex;              /* Activamos Flexbox */
+      gap: 10px;                  /* Añadimos espacio entre el input y el botón */
+      width: 100% !important;                /* El formulario ocupa todo el ancho */
+      box-sizing: border-box;     /* Incluimos el padding en el tamaño total */
+      margin-left: 2px;
+  }
+
+  /* Aseguramos que  el input ocupe el ancho que queremos */
+  #search-input {
+      width: 70%;                /* El input ocupa el 70% del ancho */
+      padding: 5px;              /* Ajustamos el padding */
+      box-sizing: border-box;     /* Evita el desbordamiento debido al padding */
+      margin-bottom: 10px;                  /* Eliminamos márgenes */
+  }
+
+  /* Hacemos que el botón ajuste su tamaño */
+  .d-flex button[type="submit"]{
+      width: 25%;                /* El botón ocupa el 25% del ancho */
+      margin-bottom: 10px;           /* Añadimos espacio entre el input y el botón */
+  }
+
+    /* A todos los botones .nav-link */
+  .nav-link {
+    width: 60%;                /* Ajustamos el ancho de cada botón al 60% */
+    text-align: center;        /* Centramos el texto dentro del botón */
+    margin-bottom: 10px;
+    margin-left: 1%;
+  }
+
+    /* Mover el botón del menú hamburguesa hacia la izquierda */
+  .navbar-toggler {
+    margin-right: 10px;
+  }
+  .nav-link.dropdown-toggle {
+    width: 80px; /* Ajusta el boton para que cubra justo el contenido */
+    padding: 0; /* Elimina cualquier espacio extra */
+  }
+
+  /* Ajustamos la vista de carrito para dispositivos moviles */
+    #carrito-container {
+    width: 60% !important; /* Ocupa más ancho de la pantalla */
+  }
+
+  .close-btn {
+    font-size: 1rem;
+    width: 60px;
+  }
+
+  /* Ajustamos la vista de busqueda para dispositivos moviles */
+
+  #iframe-container-busqueda {
+    width: 70% !important; /* Más ancho en pantallas pequeñas */
+    height: 100% !important; /* Ajustar altura */
+    margin-left: 15% !important; /* Centrar horizontalmente */
+    margin-right: 15% !important; /* Centrar horizontalmente */
+  }
+ 
+}
+  /* Ajustes para formato tablet  */
+
+/* Responsive para tablets */
+@media (min-width: 577px) and (max-width: 992px) {
+  /* Ajustamos la barra de navegación */
+  .navbar {
+    padding: 15px 20px !important;
+    
+  }
+
+  .navbar-toggler {
+    margin-right: 15px !important;
+  }
+
+  .nav-link {
+    width: 80% !important;  /* Aumentamos el tamaño de los botones */
+    margin-bottom: 15px !important; /* Más espacio entre los elementos */
+    text-align: center !important;
+  }
+
+  /* Ajustamos el formulario de búsqueda */
+  .d-flex {
+    gap: 20px !important;
+    width: 100% !important;
+  }
+
+  #search-input {
+    width: 70% !important;  /* Aumentamos el tamaño del input */
+    padding: 8px !important; /* Más padding para comodidad */
+    box-sizing: border-box !important;
+  }
+
+  .d-flex button[type="submit"] {
+    width: 30% !important; /* El botón de búsqueda más grande */
+    padding: 10px !important; /* Más grande para facilitar la interacción */
+  }
+
+  /* Ajustamos los elementos de la navbar */
+  .navbar-nav {
+    margin-bottom: 10px !important;
+  }
+
+  /* Ajuste del botón del carrito */
+  #carrito-container {
+    width: 60% !important;
+    margin: 0 auto !important; /* Centrado horizontal */
+    padding: 10px !important; /* Espacio interno */
+  }
+
+  /* Ajuste de la vista del perfil de usuario */
+  .nav-link.dropdown-toggle {
+    width: 20% !important;
+    padding: 5px !important;
+    margin-top: 20px;
+  }
+
+  /* Ajustes del contenedor de búsqueda */
+  #iframe-container-busqueda {
+    width: 70% !important;
+    height: 85% !important;  /* Ajustamos la altura */
+    margin-left: 15% !important; /* Centrado horizontal */
+    margin-right: 15% !important; 
+  }
+
+  /* Ajustes de los botones de la lista desplegable */
+  .dropdown-item {
+    font-size: 1rem !important;
+    padding: 10px 15px !important; /* Más espacio para los botones */
+  }
+
+  /* Botón comprar */
+  .btn.btn-primary {
+    width: 30% !important; /* Aumentamos el ancho para tablets */
+    padding: 10px !important; /* Aumentamos el padding para mejor interacción */
+    margin-top: 10px !important; /* Espacio superior para que no quede pegado al contenido */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
