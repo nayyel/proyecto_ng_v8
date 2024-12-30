@@ -99,14 +99,27 @@ export class NavbarComponent implements OnInit {
     this.carritoVisible = false;
     document.body.style.overflow = 'auto';
   }
-
   showIframeBusqueda(): void {
-    this.busquedaVisible = true;
-    document.body.style.overflow = 'auto';
+    this.busquedaVisible = true; // Configura la bandera para mostrar el iframe
+  
+    // Asegurar que el DOM refleje el cambio
+    setTimeout(() => {
+      const iframeContainer = document.getElementById('iframe-container-busqueda');
+      if (iframeContainer) {
+        iframeContainer.style.display = 'block';
+      } else {
+        console.warn('El contenedor del iframe no se encontró.');
+      }
+    }, 0);
+  
+    // Deshabilita el desplazamiento del cuerpo mientras el iframe está abierto
+    document.body.style.overflow = 'hidden';
   }
-
+  
   hideIframeBusqueda(): void {
-    this.busquedaVisible = false;
+    this.busquedaVisible = false; // Configura la bandera para ocultar el iframe
+  
+    // Restaurar el desplazamiento del cuerpo
     document.body.style.overflow = 'auto';
   }
 
@@ -116,17 +129,19 @@ export class NavbarComponent implements OnInit {
 
   onSearch(event: Event) {
     event.preventDefault();
+  
+    // Obtener el término de búsqueda
     const inputElement = (event.target as HTMLFormElement).querySelector('#search-input') as HTMLInputElement;
     const searchTerm = inputElement.value.trim();
-
+  
     if (searchTerm) {
       // Llamada al servicio de búsqueda
       this.empleadoService.searchBooks({ query: searchTerm }).subscribe(
         response => {
-          this.showIframeBusqueda(); 
+          this.showIframeBusqueda(); // Mostrar el iframe
           const iframe = document.querySelector('#iframe-container-busqueda iframe') as HTMLIFrameElement;
           if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.postMessage(response, '*');
+            iframe.contentWindow.postMessage(response, '*'); // Enviar resultados al iframe
           } else {
             console.error("El iframe o su contenido no están disponibles.");
           }
@@ -136,9 +151,12 @@ export class NavbarComponent implements OnInit {
         }
       );
     } else {
-      console.error("El término de búsqueda está vacío.");
+  
+      this.showIframeBusqueda();
+
     }
   }
+  
 
   // Método adicional para navegar a la página de categorías sin id específico
   navigateToCategoria() {
