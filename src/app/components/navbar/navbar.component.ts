@@ -134,12 +134,14 @@ export class NavbarComponent implements OnInit {
     const inputElement = (event.target as HTMLFormElement).querySelector('#search-input') as HTMLInputElement;
     const searchTerm = inputElement.value.trim();
   
+    const iframe = document.querySelector('#iframe-container-busqueda iframe') as HTMLIFrameElement;
+  
     if (searchTerm) {
       // Llamada al servicio de búsqueda
       this.empleadoService.searchBooks({ query: searchTerm }).subscribe(
         response => {
           this.showIframeBusqueda(); // Mostrar el iframe
-          const iframe = document.querySelector('#iframe-container-busqueda iframe') as HTMLIFrameElement;
+  
           if (iframe && iframe.contentWindow) {
             iframe.contentWindow.postMessage(response, '*'); // Enviar resultados al iframe
           } else {
@@ -148,15 +150,22 @@ export class NavbarComponent implements OnInit {
         },
         error => {
           console.error("Error en la solicitud de búsqueda:", error);
+  
+          // Asegurar que el iframe se actualice incluso en caso de error
+          if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage({ Libros: [], Categorias: [] }, '*');
+          }
         }
       );
     } else {
-  
       this.showIframeBusqueda();
-
+  
+      // Enviar un mensaje vacío al iframe
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ Libros: [], Categorias: [] }, '*');
+      }
     }
   }
-  
 
   // Método adicional para navegar a la página de categorías sin id específico
   navigateToCategoria() {
