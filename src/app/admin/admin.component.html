@@ -1,8 +1,23 @@
 <div class="button-group">
-  <h3>Libros</h3>
-  <button (click)="toggleCreateBookForm()">Crear Libro</button>
+  <a href="/empleado"><button>Cerrar sesion</button></a>
+
+<div class="button-group">
+  <h3>{{ showCategories ? 'Categorías' : 'Libros' }}</h3>
+  <button (click)="toggleView()">
+    {{ showCategories ? 'Ver Libros' : 'Ver Categorías' }}
+  </button>
+</div>
+
+
+<div>
+  <h3>Tabla</h3>
+  <table>
+    <ng-container *ngIf="!showCategories">
+    <thead>
+        <!-- Formulario de creación -->
   <div *ngIf="showCreateBookForm">
     <form (ngSubmit)="createBook()">
+      <h3>Crear Libro</h3>
       <select [(ngModel)]="id_categoria" name="id_categoria" required>
         <option value="">Categorias</option>
         <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">{{ categoria.nombre_categoria }}</option>
@@ -17,63 +32,82 @@
     </form>
   </div>
 
-  <button (click)="toggleEditBookForm()">Editar Libro</button>
-<div *ngIf="showEditBookForm">
-  <form (ngSubmit)="editBook()">
-    <select [(ngModel)]="id_categoria" name="id_categoria_edit" required>
-      <option value="">Categorias</option>
-      <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
-        {{ categoria.nombre_categoria }}
-      </option>
-    </select>
-    <input type="text" placeholder="ID del Libro" [(ngModel)]="id_libro" name="id_libro_edit" required>
-    <input type="text" placeholder="Título" [(ngModel)]="titulo" name="Titulo_edit" required>
-    <input type="text" placeholder="Autor" [(ngModel)]="autor" name="Autor_edit" required>
-    <input type="number" placeholder="Precio" [(ngModel)]="precio" name="Precio_edit" [ngModelOptions]="{updateOn: 'blur'}" required>
-    <input type="number" placeholder="Stock" [(ngModel)]="stock" name="Stock_edit" [ngModelOptions]="{updateOn: 'blur'}" required>
-    <input type="url" placeholder="Link" [(ngModel)]="link" name="Link_edit" required>
-    <textarea placeholder="Resumen" [(ngModel)]="resumen" name="Resumen_edit" required></textarea><br>
-    <button type="submit">Guardar</button>
-  </form>
-</div>
 
-
-  <button (click)="toggleDeleteBookForm()">Borrar Libro</button>
-  <div *ngIf="showDeleteBookForm">
-    <form (ngSubmit)="deleteBook()">
-      <input type="text" placeholder="ID del Libro" [(ngModel)]="id_libro" name="id_libro_delete" required>
-      <button type="submit">Borrar</button>
-    </form>
-  </div>
-  <!-- Nuevo: Contenedor para el mensaje -->
-  <div *ngIf="mostrarMensaje" class="mensaje">
-    {{ mensaje }}
-  </div>
-</div>
-<a href="/empleado"><button>Cerrar sesion</button></a>
-<div>
-  <h3>Tabla</h3>
-  <table>
-    <thead>
-      <tr>
+      <button (click)="toggleCreateBookForm()">
+        {{ showCreateBookForm ? 'Cerrar' : 'Crear Libro' }}
+      </button>
+      <!-- Encabezado de tabla dinámico -->
+      <tr *ngIf="!showCategories">
         <th>ID</th>
         <th>Título</th>
         <th>Autor</th>
         <th>Precio</th>
         <th>Stock</th>
         <th>Link</th>
-
+        <th>Acciones</th>
+      </tr>
+      <tr *ngIf="showCategories">
+        <th>ID</th>
+        <th>Nombre Categoría</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let libro of libros">
-        <td>{{ libro.id_libro }}</td>
-        <td>{{ libro.titulo }}</td>
-        <td>{{ libro.autor }}</td>
-        <td>{{ libro.precio }}</td>
-        <td>{{ libro.stock }}</td>
-        <td>{{ libro.link }}</td>
-      </tr>
-    </tbody>
+      <!-- Mostrar libros -->
+
+    
+        <tr *ngFor="let libro of libros">
+          <td>{{ libro.id_libro }}</td>
+          <td>{{ libro.titulo }}</td>
+          <td>{{ libro.autor }}</td>
+          <td>{{ libro.precio }}</td>
+          <td>{{ libro.stock }}</td>
+          <td>
+            <img [src]="libro.link" [alt]="libro.titulo" style="max-width: 150px; max-height: 200px; object-fit: cover; border-radius: 5px;">
+            <br>
+           
+          </td>
+          <td>
+            <button (click)="prepareEditBook(libro)">Editar</button>
+            <button (click)="deleteBookById(libro.id_libro)">Eliminar</button>
+          </td>
+        </tr>
+      </ng-container>
+
+      <!-- Mostrar categorías -->
+      <ng-container *ngIf="showCategories">
+        <tr *ngFor="let categoria of categorias">
+          <td>{{ categoria.id_categoria }}</td>
+          <td>{{ categoria.nombre_categoria }}</td>
+        </tr>
+   
+
+  </ng-container>
   </table>
 </div>
+
+<!-- Formulario de edición -->
+<ng-container *ngIf="!showCategories">
+<div *ngIf="showEditBookForm" id="editBookForm">
+  <form (ngSubmit)="editBook()">
+    <h3>Editar Libro</h3>
+    <select [(ngModel)]="id_categoria" name="id_categoria_edit" required>
+      <option value="">Categorias</option>
+      <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
+        {{ categoria.nombre_categoria }}
+      </option>
+    </select>
+    <input type="text" placeholder="Título" [(ngModel)]="titulo" name="Titulo_edit" required>
+    <input type="text" placeholder="Autor" [(ngModel)]="autor" name="Autor_edit" required>
+    <input type="number" placeholder="Precio" [(ngModel)]="precio" name="Precio_edit" required>
+    <input type="number" placeholder="Stock" [(ngModel)]="stock" name="Stock_edit" required>
+    <input type="url" placeholder="Link" [(ngModel)]="link" name="Link_edit" required>
+    <textarea placeholder="Resumen" [(ngModel)]="resumen" name="Resumen_edit" required></textarea><br>
+    <button type="submit">Guardar Cambios</button>
+  </form>
+</div>
+
+<!-- Mensaje de notificación -->
+<div *ngIf="mostrarMensaje" class="mensaje">
+  {{ mensaje }}
+</div>
+</ng-container>
