@@ -287,7 +287,8 @@ body {
       width: 70%;                /* El input ocupa el 70% del ancho */
       padding: 5px;              /* Ajustamos el padding */
       box-sizing: border-box;     /* Evita el desbordamiento debido al padding */
-      margin-bottom: 10px;                  /* Eliminamos márgenes */
+      margin-bottom: 10px;
+      margin-left: 0px !important;
   }
 
   /* Hacemos que el botón ajuste su tamaño */
@@ -340,29 +341,79 @@ body {
   /* Ajustamos la barra de navegación */
   .navbar {
     padding: 15px 20px !important;
-    
+    display: grid;
+    grid-template-columns: 1fr; /* Cuatro columnas */
+    grid-template-rows: auto auto auto auto; /* Cuatro filas */
+    gap: 10px;
   }
+
+  /* "Sobre Nosotros" ocupa las dos primeras celdas en la primera fila */
+  .navbar-nav .nav-item:nth-child(1) {
+    grid-column: 1 / span 2; /* Ocupa las dos primeras columnas */
+    grid-row: 1;
+  }
+
+  /* "Categorías" ocupa las dos siguientes celdas en la primera fila */
+  .navbar-nav .nav-item.dropdownCategorias {
+    grid-column: 3 / span 2; /* Ocupa las dos últimas columnas de la primera fila */
+    grid-row: 1;
+  }
+
+  /* "Login dropdown" ocupa dos celdas si es necesario */
+  .navbar-nav .nav-link.dropdown-toggle {
+    grid-column: 1 / span 2; /* Ocupa las dos primeras columnas en la segunda fila */
+    grid-row: 2;
+  }
+
+  /* Botón "Comprar" ocupa una celda en la tercera fila, pero puede ocupar dos si es necesario */
+  .btn-primary {
+    grid-column: 1 / span 2; /* Ocupa dos celdas si es necesario */
+    grid-row: 3;
+  }
+
+  /* "Input de búsqueda" ocupa tres celdas en la cuarta fila */
+  #search-input {
+    grid-column: 1 / span 3; /* Ocupa tres celdas */
+    grid-row: 4 !important;
+  }
+
+  /* El "Botón de búsqueda" ocupa la cuarta celda de la cuarta fila */
+  .btn-outline-success {
+    grid-column: 4; /* Ocupa la cuarta celda */
+    grid-row: 4 !important;
+  }
+  
 
   .navbar-toggler {
     margin-right: 15px !important;
   }
 
   .nav-link {
-    width: 80% !important;  /* Aumentamos el tamaño de los botones */
+    width: 100% !important;  /* Aumentamos el tamaño de los botones */
     margin-bottom: 15px !important; /* Más espacio entre los elementos */
     text-align: center !important;
+    display: block; /* Los hacemos inline para estar en fila */
+  
   }
-
+  .nav-link:hover {
+    transform: scale(1.03)!important; /* Reducimos el tamaño del crecimiento a 3% */
+  }
   /* Ajustamos el formulario de búsqueda */
   .d-flex {
     gap: 20px !important;
     width: 100% !important;
+    order: 1 !important; /* Establece que el formulario de búsqueda vaya al final */
+  }
+  /* Mueve el formulario de búsqueda al final */
+  .navbar-nav > .d-flex {
+    order: 2 !important; /* Asigna un valor de order mayor que los otros elementos */
   }
 
   #search-input {
     width: 70% !important;  /* Aumentamos el tamaño del input */
     padding: 8px !important; /* Más padding para comodidad */
     box-sizing: border-box !important;
+    margin-left: 0px !important;
   }
 
   .d-flex button[type="submit"] {
@@ -372,7 +423,12 @@ body {
 
   /* Ajustamos los elementos de la navbar */
   .navbar-nav {
-    margin-bottom: 10px !important;
+    display: grid; /* Usamos grid en lugar de flex */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Los elementos se distribuyen en columnas dinámicas */
+    gap: 15px; /* Espacio entre los botones */
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   /* Ajuste del botón del carrito */
@@ -395,6 +451,7 @@ body {
     height: 85% !important;  /* Ajustamos la altura */
     margin-left: 15% !important; /* Centrado horizontal */
     margin-right: 15% !important; 
+    /* margin-top: 50%; */
   }
 
   /* Ajustes de los botones de la lista desplegable */
@@ -408,6 +465,12 @@ body {
     width: 30% !important; /* Aumentamos el ancho para tablets */
     padding: 10px !important; /* Aumentamos el padding para mejor interacción */
     margin-top: 10px !important; /* Espacio superior para que no quede pegado al contenido */
+  }
+
+  /*Lista de usuarios*/
+  #laslistas{
+    margin-left: 35%;
+    margin-top: -20.5%;
   }
 }
 

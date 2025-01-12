@@ -1,19 +1,24 @@
 <div class="contenido">
     <div *ngFor="let venta of historialCompras" class="venta">
-      <h3 class="venta-header">
-       Fecha: {{ venta.fecha }} - Total: {{ venta.total | currency:'USD':true }}
-      </h3>
+      <h2 class="venta-header">
+       Fecha: <span class="total">{{ venta.fecha }}</span> <!-- - Total: {{ venta.total | currency:'USD':true }} -->
+      </h2>
       <ul class="libros-lista">
         <li *ngFor="let libro of venta.libros" class="libro">
             <a [routerLink]="['/libro/', libro.id_libro]" style="margin-right: 15px;">
-                <img [src]="libro.link" alt="{{libro.titulo }}" style="height: 100px; width: 60px; object-fit: cover; border-radius: 5px;">
+                <img [src]="libro.link" alt="{{libro.titulo }}" style="height: 120px; width: auto; object-fit: cover; border-radius: 5px;">
               </a>
           <div class="libro-detalles">
-            <strong>{{ libro.titulo }}</strong> - {{ libro.cantidad }} x {{ libro.precio | currency:'USD':true }} = 
-            <span class="total">{{ libro.cantidad * libro.precio | currency:'USD':true }}</span>
+            <span class="titulo"> <strong>{{ libro.titulo }}</strong> </span>
+            <span class="unidades">Unidades: <strong>{{ libro.cantidad }}</strong> </span>
+            <span class="precio">Precio unidad: <strong>{{ libro.precio | currency:'USD':true }}</strong></span>
+            <span class="total">Total:{{ libro.cantidad * libro.precio | currency:'USD':true }}</span>
           </div>
         </li>
       </ul>
+      <h3 class="venta-footer">Total: 
+        <span class="total">{{ venta.total | currency:'USD':true }}</span>
+      </h3>
     </div>
   </div>
   

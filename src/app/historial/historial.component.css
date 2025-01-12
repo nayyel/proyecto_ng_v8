@@ -1,57 +1,97 @@
 /* Aseguramos que el contenedor tenga más margen superior */
+
 .contenido {
-    padding-top: 150px; /* Aumenta este valor si quieres más espacio */
-    margin-top: 20px; /* Opcional: agrega un margen adicional si es necesario */
+    margin-top: 10% !important; /* Opcional: agrega un margen adicional si es necesario */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Mínimo 250px por tarjeta */
+    gap: 25px; /* Espaciado entre tarjetas */
+    padding: 25px; /* Espaciado interior */
+    
   }
   
   /* Estilos generales para el historial de ventas */
   .venta {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    margin: 10px 0;
-    padding: 15px;
+    display: grid;
+    grid-template-rows: auto 1fr; /* Header seguido del contenido */
+    grid-template-areas: 
+      "header"
+      "details"
+      "footer";
+    background-color: #d9c5b2ad; /* Fondo según tu paleta */
+    border: 1px solid #5a3e36; /* Bordes marrón oscuro */
     border-radius: 8px;
-    font-family: Arial, sans-serif;
+    padding: 15px;
+    gap: 10px; /* Espacio entre header y detalles */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
   }
   
-  .venta-header {
-    font-size: 1.2em;
-    color: #333;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
+  /* Efecto hover */
+  .venta:hover {
+    background-color: #d9c5b2; /* Fondo más oscuro al hacer hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
   }
+  .venta-header {
+    grid-area: header;
+    color: #5a3e36;
+    font-size: 1.2em;
+    border-bottom: 2px solid #b29280;
+    padding-bottom: 5px;
+    text-align: center;
+  }
+
+  .venta-footer {
+    grid-area: footer;
+    color: #5a3e36;
+    font-size: 1.2em;
+    border-bottom: 2px solid #b29280;
+    padding-bottom: 5px;
+    text-align: right;
+  }
+  
+
+  
   
   /* Estilos para la lista de libros */
+
   .libros-lista {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    grid-area: details;
+    display: grid;
+    gap: 10px; /* Espacio entre libros */
+    
+    max-height: 300px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Activa el scroll vertical */
+    padding-right: 10px; /* Espacio para evitar que el scroll tape contenido */
+    padding-left: 20px  ;/* Espacio para evitar que el scroll tape contenido */ 
   }
-  
-  .libro {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .libro-imagen {
-    width: 50px; /* Tamaño pequeño de la imagen */
-    height: 75px;
-    object-fit: cover;
-    margin-right: 15px;
-    border-radius: 4px;
-  }
-  
-  .libro-detalles {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 1em;
-  }
+
+.libro {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr; /* Imagen fija y contenido fluido */
+  gap: 15px; /* Espacio entre columnas */
+  align-items: center;
+  border-bottom: 1px solid #bfb2a4;
+  padding-bottom: 10px;
+}
+
+.libro-imagen {
+  width: 100%; /* Ajusta al tamaño de la celda */
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out !important; /* Transición suave */
+}
+
+.libro-imagen:hover {
+  transform: scale(1.1) !important; /* Aumenta el tamaño al 110% */
+}
+.libro-detalles {
+  display: grid;
+  grid-template-rows: auto auto; /* Título y precio en filas */
+  font-size: 0.95em;
+  color: #5a3e36;
+}
+
   
   .total {
     font-weight: bold;
@@ -63,4 +103,30 @@
   .libro + .libro {
     margin-top: 10px;
   }
-  
+  /* Opcional: Personalización de la barra de scroll */
+.libros-lista::-webkit-scrollbar {
+  width: 8px; /* Anchura de la barra */
+}
+
+.libros-lista::-webkit-scrollbar-thumb {
+  background-color: #5a3e36; /* Color de la barra */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.libros-lista::-webkit-scrollbar-thumb:hover {
+  background-color: #b29280; /* Color al pasar el cursor */
+}
+
+/* Responsive para tablets */
+@media (min-width: 577px) and (max-width: 1024px) {
+  .contenido {
+    margin-top: 250px !important; /* Ajuste para tablets */
+  }
+}
+
+/* Responsive para dispositivos moviles */
+@media (max-width: 576px) {
+  .contenido {
+    margin-top: 160px !important; /* Ajuste para dispositivos moviles */
+  }
+}
