@@ -1,97 +1,112 @@
 .libro {
-    background-color: #eaddca;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    width: 90%;
-    margin-top:15vh;
-    margin-left: 8vh;
-  }
+  background-color: #eaddca;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 80%;
+  margin: 15vh auto;
+  padding: 15px;
+}
 
-  .libro:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  }
+.libro:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
 
-  .libro img {
-    border-radius: 5px 5px 0 0;
-    width: 20%;
-    height: 40vh;
-  }
+.libro img {
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
 
-  #Titulo {
-    color: #8B4513;
-    font-size: 26px;
-    text-align: center;
-    padding: 10px;
-  }
+#Titulo {
+  color: #8B4513;
+  font-size: 24px;
+  text-align: center;
+  padding: 10px;
+}
 
-  #Autor, #Resumen, #Precio, #Stock {
-    color: #A0522D;
-    padding: 2px 16px;
-    font-size: 19px;
-  }
+#Autor, #Resumen, #Precio, #Stock {
+  color: #A0522D;
+  font-size: 18px;
+  padding: 10px 0;
+  text-align: center;
+}
 
-  #Autor:hover, #Resumen:hover, #Precio:hover, #Stock:hover {
-    background-color: #987a6b;
-    transition: background-color 0.5s ease;
-    color:white;
-  }
+#Autor:hover, #Resumen:hover, #Precio:hover, #Stock:hover {
+  background-color: #987a6b;
+  transition: background-color 0.5s ease;
+  color: white;
+}
+
+#footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Ajusta los elementos para que tengan un espacio uniforme */
+  background-color: #74A765;
+  color: #fff;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  margin: 0 auto; /* Centra el footer */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+.footer-section {
+  flex: 1 1 200px;
+  margin: 10px;
+  min-width: 200px; /* Asegura que no se colapsen las secciones */
+  padding: 0 20px;
+  text-align: left; /* Alinea el contenido a la izquierda */
+}
+
+.footer-section h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #d4d4d4;
+}
+
+iframe {
+  border: none;
+  border-radius: 5px;
+  width: 100%; /* Asegura que el iframe sea responsivo */
+  max-width: 300px; /* Máximo ancho para pantallas grandes */
+  height: auto;
+}
+
+@media screen and (max-width: 768px) {
   #footer {
-    display: flex;
-    justify-content: space-around;
-    background-color: #74A765; 
-    color: #fff;
-    
-    padding-top: 20px;
-    font-family: Arial, sans-serif;
-    width: 2000px; 
-    box-sizing: border-box;
-    margin-left: -305px;
-    margin-right: 0px;
-    margin-top: -300px;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos en pantallas pequeñas */
   }
-  
+
   .footer-section {
-    flex: 1 1 200px;
-    margin: 10px;
-    min-width: 200px;
-    padding-left: 40px;
+    margin: 20px 0;
+    text-align: center;
   }
-  
-  .footer-section:first-child + .footer-section {
-    margin-left: -250px; 
-    margin-right: 100px;
-  }
-  
-  .footer-section h3 {
-    margin-bottom: 15px;
-    font-size: 18px;
-  }
-  
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-section ul li {
-    margin-bottom: 10px;
-  }
-  
-  .footer-section ul li a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .footer-section ul li a:hover {
-    color: #d4d4d4;
-  }
-  
+
   iframe {
-    border: none;
-    border-radius: 5px;
-    height: 220px;
+    max-width: 90%;
+    height: 200px;
   }
-  .libro-img:hover{
-    transform: scale(1.1);
-  }
+}
