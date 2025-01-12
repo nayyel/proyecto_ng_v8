@@ -2,23 +2,66 @@
     <!-- Mostrar el libro solo si el libroId existe -->
     <div *ngIf="libros.length > 0">
       <!-- Mostrar los detalles del libro -->
-      <div *ngFor="let libro of libros">
-        <div *ngIf="libro.id_libro === libroId" class="libro">
-          <img [src]="libro.link" [alt]="libro.titulo" class="libro-img">
-          <h2 id="Titulo">{{ libro.titulo }}</h2>
-          <p id="Autor">Autor: {{ libro.autor }}</p>
-          <p id="Resumen">Resumen: {{ libro.resumen }}</p>
-          <p id="Precio">Precio: {{ libro.precio }}€</p>
-          <p id="Stock">Stock: {{ libro.stock }} unidades</p>
-          <button 
+      <div  *ngFor="let libro of libros" style="text-align: center;"><br><br>
+        <div *ngIf="libro.id_libro === libroId" class="libro" style="background-color: rgb(204, 240, 204); border: 2px solid green;">
+         <br><br><img [src]="libro.link" [alt]="libro.titulo" class="libro-img">
+          <h1 id="Titulo">{{ libro.titulo }}</h1>
+          <p id="Autor"><b>Autor:</b> {{ libro.autor }}</p>
+          <p id="Resumen"><b>Resumen:</b> {{ libro.resumen }}</p>
+          <p id="Precio"><b>Precio:</b> {{ libro.precio }}€</p>
+          <p id="Stock"><b>Stock:</b> {{ libro.stock }} unidades</p>
+          <button style="background-color: blanchedalmond; color: rgb(1, 66, 1); border-radius: 15px; border-color: rgb(1, 66, 1);"
           (click)="agregarAlCarrito(libro)" 
           [ngClass]="{'disabled': libro.cantidad >= libro.stock}"
           [disabled]="libro.cantidad >= libro.stock">
           Agregar al carrito
-        </button>
+        </button><br><br>
     
         </div>
       </div>
     </div>
   
+  </div>
+  <div id="footer">
+    <div class="footer-section">
+      <h3>Libreria Libera</h3>
+      <ul>
+        <li><a href="#">Quienes somos</a></li>
+        <li><a href="#">Trabaja con nosotros</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Donde estamos</h3>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3034.7990221406867!2d-3.70978052460646!3d40.479711051804685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42299ea90534b7%3A0xccee98581c84edbe!2sCentro%20Comercial%20La%20Vaguada!5e0!3m2!1ses!2ses!4v1716489401552!5m2!1ses!2ses"
+        width="100%"
+        height="150"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+      ></iframe>
+    </div>
+    <div class="footer-section">
+      <h3>Servicios</h3>
+      <ul>
+        <li><a href="#">Libreria Libero Plus</a></li>
+        <li><a href="#">Vende con nosotros</a></li>
+        <li><a href="#">Venta a empresas e instituciones</a></li>
+        <li><a href="#">Preventa</a></li>
+        <li><a href="#">Información para editoriales</a></li>
+        <li><a href="#">Libros al por mayor</a></li>
+        <li><a href="#">Programa afiliados</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Ayuda</h3>
+      <ul>
+        <li><a href="#">Pago seguro con tarjeta</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Gastos y formas de envío</a></li>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacta con nosotros</a></li>
+        <li><a href="#">Bono cultural joven</a></li>
+      </ul>
+    </div>
   </div>
