@@ -27,7 +27,7 @@
     <!-- Categorías como un desplegable -->
     
     <select (change)="onCategoriaChange($event)" class="form-select">
-      <option  value="">Seleccione una categoría</option>
+      <option  value="">Todos</option>
       <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
         {{ categoria.nombre_categoria }}
       </option>

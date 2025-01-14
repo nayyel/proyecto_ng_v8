@@ -12,7 +12,7 @@ export class AdminComponent {
   // Variables
   categorias: { id_categoria: number, nombre_categoria: string }[] = [];
   libros: any[] = [];
-  id_libro: string = ''; // ID del libro
+  id_libro: string = '';
   id_categoria: string = '';
   titulo: string = '';
   autor: string = '';
@@ -20,71 +20,47 @@ export class AdminComponent {
   stock: number | null = null;
   link: string = '';
   resumen: string = '';
-  
-  mensaje: string = ''; // Mensaje de notificación
-  mostrarMensaje: boolean = false; // Controlar visibilidad del mensaje
-
+  mensaje: string = '';
+  mostrarMensaje: boolean = false;
   showCreateBookForm = false;
   showEditBookForm = false;
-  showDeleteBookForm = false;
-  showCreateCategoryForm = false;
-  showEditCategoryForm = false;
-  showDeleteCategoryForm = false;
+  showCategories = false;
 
   ngOnInit(): void {
-    // Al inicializar el componente, cargar las categorías
     this.getCategorias();
     this.getLibros();
   }
+
   getLibros() {
     this.serviceE.VerLibros().subscribe(
       (respuesta: any) => {
-        this.libros = respuesta.Libros; // Asegúrate de usar la propiedad correcta
-        console.log('Libros:', this.libros); // Agregar este console.log
+        this.libros = respuesta.Libros;
       },
       error => {
         console.error("Error al obtener los libros:", error);
       }
     );
   }
+
   getCategorias() {
     this.serviceE.VerCategorias().subscribe(
       (respuesta: any) => {
-        this.categorias = respuesta.Categorias; // Asegúrate de usar la propiedad correcta
-        console.log('Categorías:', this.categorias); // Agregar este console.log
+        this.categorias = respuesta.Categorias;
       },
       error => {
         console.error("Error al obtener las categorías:", error);
       }
     );
   }
-  
-  // Funciones para alternar la visibilidad de los formularios
+
   toggleCreateBookForm() {
     this.showCreateBookForm = !this.showCreateBookForm;
   }
 
-  toggleEditBookForm() {
-    this.showEditBookForm = !this.showEditBookForm;
+  toggleView() {
+    this.showCategories = !this.showCategories;
   }
 
-  toggleDeleteBookForm() {
-    this.showDeleteBookForm = !this.showDeleteBookForm;
-  }
-
-  toggleCreateCategoryForm() {
-    this.showCreateCategoryForm = !this.showCreateCategoryForm;
-  }
-
-  toggleEditCategoryForm() {
-    this.showEditCategoryForm = !this.showEditCategoryForm;
-  }
-
-  toggleDeleteCategoryForm() {
-    this.showDeleteCategoryForm = !this.showDeleteCategoryForm;
-  }
-
-  // Función para crear un libro
   createBook() {
     const libro = {
       id_categoria: this.id_categoria,
@@ -95,44 +71,44 @@ export class AdminComponent {
       link: this.link,
       resumen: this.resumen
     };
-  
+
     this.serviceE.Crearlibro(libro).subscribe(
       respuesta => {
-        console.log(respuesta); // Verificar la respuesta del backend
-        this.mensaje = 'Libro creado exitosamente'; // Establecer mensaje
-        this.mostrarMensaje = true; // Mostrar el mensaje
-  
-        // Limpiar los campos del formulario
-        this.id_categoria = '';
-        this.titulo = '';
-        this.autor = '';
-        this.precio = null;
-        this.stock = null;
-        this.link = '';
-        this.resumen = '';
-  
-        // Actualizar la lista de libros
+        this.mensaje = 'Libro creado exitosamente';
+        this.mostrarMensaje = true;
         this.getLibros();
-  
-        // Ocultar el mensaje después de 4 segundos
-        setTimeout(() => {
-          this.mostrarMensaje = false;
-        }, 4000);
+        this.resetForm();
       },
       error => {
-        console.error(error); // Manejo de errores
-        this.mensaje = 'Error al crear el libro'; // Establecer mensaje de error
-        this.mostrarMensaje = true; // Mostrar el mensaje
-  
-        // Ocultar el mensaje después de 4 segundos
-        setTimeout(() => {
-          this.mostrarMensaje = false;
-        }, 4000);
+        this.mensaje = 'Error al crear el libro';
+        this.mostrarMensaje = true;
       }
     );
   }
 
-  // Función para editar un libro
+  prepareEditBook(libro: any) {
+    // Rellenar los datos del formulario
+    this.id_libro = libro.id_libro;
+    this.id_categoria = libro.id_categoria;
+    this.titulo = libro.titulo;
+    this.autor = libro.autor;
+    this.precio = libro.precio;
+    this.stock = libro.stock;
+    this.link = libro.link;
+    this.resumen = libro.resumen;
+  
+    // Mostrar el formulario de edición
+    this.showEditBookForm = true;
+  
+    // Esperar un pequeño momento para asegurar que el formulario se renderice y luego desplazar
+    setTimeout(() => {
+      const editForm = document.getElementById('editBookForm');
+      if (editForm) {
+        editForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 0);
+  }
+
   editBook() {
     const libro = {
       id_libro: this.id_libro,
@@ -144,79 +120,44 @@ export class AdminComponent {
       link: this.link,
       resumen: this.resumen
     };
-  
+
     this.serviceE.editarlibro(libro).subscribe(
       respuesta => {
-        console.log(respuesta); // Verificar la respuesta del backend
-        this.mensaje = 'Libro editado exitosamente'; // Establecer mensaje
-        this.mostrarMensaje = true; // Mostrar el mensaje
-  
-        // Limpiar los campos del formulario
-        this.id_libro = '';
-        this.id_categoria = '';
-        this.titulo = '';
-        this.autor = '';
-        this.precio = null;
-        this.stock = null;
-        this.link = '';
-        this.resumen = '';
-  
-        // Ocultar el mensaje después de 4 segundos
-        setTimeout(() => {
-          this.mostrarMensaje = false;
-        }, 4000);
-  
-        // Refrescar toda la página
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      },
-      error => {
-        console.error(error); // Manejo de errores
-        this.mensaje = 'Error al editar el libro'; // Establecer mensaje de error
-        this.mostrarMensaje = true; // Mostrar el mensaje
-  
-        // Ocultar el mensaje después de 4 segundos
-        setTimeout(() => {
-          this.mostrarMensaje = false;
-        }, 4000);
-      }
-    );
-  }
-  
-
-  // Función para eliminar un libro
-  deleteBook() {
-    this.serviceE.eliminarLibro(this.id_libro).subscribe(
-      respuesta => {
-        console.log(respuesta); // Verificar la respuesta del backend
-        this.mensaje = 'Libro eliminado exitosamente'; // Establecer mensaje
-        this.mostrarMensaje = true; // Mostrar el mensaje
-
-        // Limpiar los campos del formulario
-        this.id_libro = '';
-
-        // Actualizar la lista de libros
+        this.mensaje = 'Libro editado exitosamente';
+        this.mostrarMensaje = true;
         this.getLibros();
-
-        // Ocultar el mensaje después de 4 segundos
-        setTimeout(() => {
-          this.mostrarMensaje = false;
-        }, 4000);
+        this.showEditBookForm = false;
       },
       error => {
-        console.error(error); // Manejo de errores
-        this.mensaje = 'Error al eliminar el libro'; // Establecer mensaje de error
-        this.mostrarMensaje = true; // Mostrar el mensaje
-
-        // Ocultar el mensaje después de 4 segundos
-        setTimeout(() => {
-          this.mostrarMensaje = false;
-        }, 4000);
+        this.mensaje = 'Error al editar el libro';
+        this.mostrarMensaje = true;
       }
     );
   }
 
+  deleteBookById(id_libro: string) {
+    if (confirm('¿Estás seguro de que deseas eliminar este libro?')) {
+      this.serviceE.eliminarLibro(id_libro).subscribe(
+        respuesta => {
+          this.mensaje = 'Libro eliminado exitosamente';
+          this.mostrarMensaje = true;
+          this.getLibros();
+        },
+        error => {
+          this.mensaje = 'Error al eliminar el libro';
+          this.mostrarMensaje = true;
+        }
+      );
+    }
+  }
 
-
+  resetForm() {
+    this.id_categoria = '';
+    this.titulo = '';
+    this.autor = '';
+    this.precio = null;
+    this.stock = null;
+    this.link = '';
+    this.resumen = '';
+  }
 }

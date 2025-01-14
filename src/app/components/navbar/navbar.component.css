@@ -271,6 +271,81 @@ body {
   margin-top: -3%;
 }
 
+/* Media Query para Tablets (768px o menos) */
+@media (max-width: 768px) {
+  /* Asegurar que los cuadros de búsqueda y botones no desborden */
+  .navbar-links {
+    padding: 15px;
+    width: 100%; /* Aseguramos que se adapten al 100% del contenedor */
+    box-sizing: border-box; /* Incluye el padding y el border en el tamaño total */
+  }
+
+  .navbar .btn {
+    width: 100%; /* Los botones ahora ocuparán el 100% del ancho disponible */
+    padding: 10px; /* Reducir el tamaño del padding */
+    font-size: 1.1rem; /* Ajustar el tamaño de la fuente */
+  }
+
+  .navbar-links ul {
+    padding: 0;
+    margin: 0;
+    width: 100%; /* Evitar desbordamiento */
+  }
+
+  .navbar-links ul li {
+    margin: 10px 0;
+    width: 100%; /* Aseguramos que los elementos se ajusten */
+  }
+
+  .navbar-links ul li a {
+    font-size: 1.4rem;
+    padding: 10px; /* Espaciado más cómodo en pantallas pequeñas */
+  }
+
+  /* Asegurar que los inputs de búsqueda no desborden */
+  .search-container input {
+    width: 100%; /* Ajustar el campo de búsqueda al 100% */
+    box-sizing: border-box;
+  }
+
+  .search-container button {
+    width: 100%; /* Hacer que el botón ocupe todo el ancho */
+    padding: 12px; /* Ajustar padding */
+  }
+}
+
+/* Media Query para Móviles (480px o menos) */
+@media (max-width: 480px) {
+  /* Reducir tamaño de los botones y cuadros de búsqueda */
+  .navbar .btn {
+    padding: 8px 16px; /* Menos padding en móviles */
+    font-size: 1rem;
+  }
+
+  .navbar-links ul li a {
+    font-size: 1.1rem; /* Reducir tamaño de los enlaces */
+    padding: 8px 0; /* Ajustar el padding */
+  }
+
+  .search-container input {
+    width: 100%;
+    font-size: 1rem; /* Reducir el tamaño del texto en input */
+  }
+
+  .search-container button {
+    width: 100%; /* El botón ocupará el 100% */
+    padding: 12px; /* Ajustar padding */
+  }
+}
+
+/* Para asegurar que los botones no se desborden en tamaños grandes */
+@media (min-width: 769px) {
+  .navbar .btn {
+    max-width: 250px; /* Máximo tamaño para los botones */
+    width: auto; /* Dejar que el ancho se ajuste automáticamente */
+  }
+}
+
 
 
 
