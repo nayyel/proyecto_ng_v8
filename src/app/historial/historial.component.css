@@ -1,7 +1,7 @@
 /* Aseguramos que el contenedor tenga más margen superior */
 
 .contenido {
-    margin-top: 10% !important; /* Opcional: agrega un margen adicional si es necesario */
+    margin-top: 185px !important; /* Opcional: agrega un margen adicional si es necesario */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Mínimo 250px por tarjeta */
     gap: 25px; /* Espaciado entre tarjetas */
