@@ -99,14 +99,27 @@ export class NavbarComponent implements OnInit {
     this.carritoVisible = false;
     document.body.style.overflow = 'auto';
   }
-
   showIframeBusqueda(): void {
-    this.busquedaVisible = true;
-    document.body.style.overflow = 'auto';
+    this.busquedaVisible = true; // Configura la bandera para mostrar el iframe
+  
+    // Asegurar que el DOM refleje el cambio
+    setTimeout(() => {
+      const iframeContainer = document.getElementById('iframe-container-busqueda');
+      if (iframeContainer) {
+        iframeContainer.style.display = 'block';
+      } else {
+        console.warn('El contenedor del iframe no se encontró.');
+      }
+    }, 0);
+  
+    // Deshabilita el desplazamiento del cuerpo mientras el iframe está abierto
+    document.body.style.overflow = 'hidden';
   }
-
+  
   hideIframeBusqueda(): void {
-    this.busquedaVisible = false;
+    this.busquedaVisible = false; // Configura la bandera para ocultar el iframe
+  
+    // Restaurar el desplazamiento del cuerpo
     document.body.style.overflow = 'auto';
   }
 
@@ -116,27 +129,41 @@ export class NavbarComponent implements OnInit {
 
   onSearch(event: Event) {
     event.preventDefault();
+  
+    // Obtener el término de búsqueda
     const inputElement = (event.target as HTMLFormElement).querySelector('#search-input') as HTMLInputElement;
     const searchTerm = inputElement.value.trim();
-
+  
+    const iframe = document.querySelector('#iframe-container-busqueda iframe') as HTMLIFrameElement;
+  
     if (searchTerm) {
       // Llamada al servicio de búsqueda
       this.empleadoService.searchBooks({ query: searchTerm }).subscribe(
         response => {
-          this.showIframeBusqueda(); 
-          const iframe = document.querySelector('#iframe-container-busqueda iframe') as HTMLIFrameElement;
+          this.showIframeBusqueda(); // Mostrar el iframe
+  
           if (iframe && iframe.contentWindow) {
-            iframe.contentWindow.postMessage(response, '*');
+            iframe.contentWindow.postMessage(response, '*'); // Enviar resultados al iframe
           } else {
             console.error("El iframe o su contenido no están disponibles.");
           }
         },
         error => {
           console.error("Error en la solicitud de búsqueda:", error);
+  
+          // Asegurar que el iframe se actualice incluso en caso de error
+          if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage({ Libros: [], Categorias: [] }, '*');
+          }
         }
       );
     } else {
-      console.error("El término de búsqueda está vacío.");
+      this.showIframeBusqueda();
+  
+      // Enviar un mensaje vacío al iframe
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ Libros: [], Categorias: [] }, '*');
+      }
     }
   }
 
@@ -189,3 +216,4 @@ export class NavbarComponent implements OnInit {
   }
   
 }
+
