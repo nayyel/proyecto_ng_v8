@@ -248,6 +248,20 @@ body {
   margin-right: 15%;
   justify-content: center;
 }
+#iframe-container-busqueda{
+  position: fixed; 
+  margin-top: 6%;  
+  background-color: rgb(255, 255, 255); 
+  margin-left: 39%; 
+  margin-right: 40%; 
+  width: 36%; 
+  height: 80%; 
+  z-index: 9999;
+}
+
+#busc{
+  position: relative; height: 100%; padding: 20px; background-color: white;
+}
 
 .navbar .dropdown-item {
   background: #ffffff;
@@ -270,6 +284,7 @@ body {
   margin-left: 87%;
   margin-top: -3%;
 }
+<<<<<<< HEAD
 
 /* Media Query para Tablets (768px o menos) */
 @media (max-width: 768px) {
@@ -559,6 +574,275 @@ body {
 
 
 
+=======
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    padding: 10px;
+  }
+  #botonusuario{
+    position: absolute;
+    margin-top: -110px;
+    margin-left: 270px;
+  }
+  #desaparecer{
+    position: absolute;  
+    margin-top: 0px;
+    margin-left: 140px;
+  }
+  #laslistas{
+    width: 30px;
+    margin-top: -33%;
+    position: absolute;
+    margin-left: 235px;
+    font-size: small;
+  }
+
+  #categolist{
+    position: absolute;
+    width: 60px;
+    margin-left: -13px;
+  }
+
+ #search-input{
+position: absolute;
+margin-right: 1000px;
+width: 270px;
+margin-top: 30px;
+ }
+#buscarq{
+  width: 75px;
+  height: 35px;
+  margin-top: 20px;
+  text-align: center;
+  align-content: center;
+  padding-top: 4px;
+}
+#compraq{
+  margin-top: 20px;
+}
+  .navbar .navbar-brand img {
+    height: 10vh; /* Ajustar tamaño del logo */
+  }
+
+  .navbar .nav-link {
+    font-size: 1rem;
+    margin-right: 10px;
+    padding: 5px;
+  }
+
+  .navbar .d-flex {
+    flex-direction: column;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .navbar .d-flex input {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .navbar .btn {
+    padding: 10px;
+    width: 100%;
+  }
+  #navbarDropdown{
+    width: 130px;
+    text-align: center;
+  }
+  /* Menú desplegable */
+  .navbar .dropdown-menu {
+    position: static;
+    float: none;
+    width: 100%;
+  }
+
+  .navbar .dropdown-item {
+    text-align: center;
+    padding: 10px;
+  }
+
+  /* Contenedor del carrito */
+  #carrito-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .overlay {
+    padding: 10px;
+  }
+
+  .item img {
+    width: 50px;
+    height: 80px;
+  }
+
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Botones de control */
+  .controls button {
+    padding: 5px 8px;
+    font-size: 0.9rem;
+  }
+
+  /* Total del carrito */
+  .total {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+}
+
+/* Ajustes para pantallas medianas */
+@media (max-width: 992px) {
+ /* Navbar */
+ .navbar {
+  padding: 10px;
+}
+#botonusuario{
+  width: 90px;
+  height: 65px;
+  position: absolute;
+  margin-top: -152px;
+  margin-left: 650px;
+  font-size: xx-large;
+}
+#desaparecer{
+  width: 190px;
+  height: 65px;
+  align-items: center;
+  text-align: center;
+  padding-top: 12px;
+  position: absolute;  
+  margin-top: 0px;
+  margin-left: 330px;
+  font-size: x-large;
+  
+}
+#laslistas{
+  width: 190px;
+  margin-top: -20%;
+  position: absolute;
+  margin-left: 620px;
+  font-size: larger;
+}
+
+#categolist{
+  position: absolute;
+  width: 215px;
+  margin-left: -13px;
+  height: 65px;
+  font-size: x-large;
+}
+
+#search-input{
+position: absolute;
+margin-right: 1000px;
+width: 610px;
+margin-top: 30px;
+height: 60px;
+font-size: larger;
+}
+#buscarq{
+width: 85px;
+margin-top: 20px;
+width: 140px;
+height: 50px;
+align-items: center;
+text-align: center;
+padding-top: 10px;
+height: 60px;
+font-size: x-large;
+}
+#compraq{
+margin-top: 20px;
+height: 52px;
+font-size: x-large;
+align-items: center;
+padding-top: 5px;
+}
+.navbar .navbar-brand img {
+  height: 10vh; /* Ajustar tamaño del logo */
+}
+
+.navbar .nav-link {
+  font-size: 1rem;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.navbar .d-flex {
+  flex-direction: column;
+  width: 100%;
+  margin-right: 0;
+}
+
+.navbar .d-flex input {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.navbar .btn {
+  padding: 10px;
+  width: 100%;
+}
+#navbarDropdown{
+  width: 130px;
+  text-align: center;
+  width: 190px;
+  height: 65px;
+  font-size: x-large;
+  padding-top: 12px;
+}
+/* Menú desplegable */
+.navbar .dropdown-menu {
+  position: static;
+  float: none;
+  width: 100%;
+}
+
+.navbar .dropdown-item {
+  text-align: center;
+  padding: 10px;
+}
+
+/* Contenedor del carrito */
+#carrito-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.overlay {
+  padding: 10px;
+}
+
+.item img {
+  width: 50px;
+  height: 80px;
+}
+
+.item {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Botones de control */
+.controls button {
+  padding: 5px 8px;
+  font-size: 0.9rem;
+}
+
+/* Total del carrito */
+.total {
+  text-align: center;
+  font-size: 1.2rem;
+}
+}
+>>>>>>> origin/elnavbarivan
 
 
 

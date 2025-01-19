@@ -10,13 +10,13 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
        
         <li class="nav-item">
-          <a class="nav-link" href="/info" style="margin-right: 15px;">Sobre Nosotros</a>
+          <a id="desaparecer" class="nav-link" href="/info" style="margin-right: 15px;">Sobre Nosotros</a>
         </li>
         <li class="nav-item dropdownCategorias">
           <a class="nav-link dropdown-toggleCategorias" href="#" id="navbarDropdownCategorias" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 15px;">
             Categorías
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul id="categolist" class="dropdown-menu" aria-labelledby="navbarDropdown">
             <button 
               *ngFor="let categoria of categorias" 
               (click)="navigateToCategoriaWhitId(categoria.id_categoria)" 
@@ -28,10 +28,10 @@
       </ul>
       <form class="d-flex" (submit)="onSearch($event)">
         <input id="search-input" class="form-control me-2" type="search" placeholder="Busca por título, categoría, autor..." aria-label="Search" style=" margin-left: 20%; margin-right: 30%;">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
+        <button id="buscarq" class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
  
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 15px;">
+      <a class="nav-link dropdown-toggle" href="#" id="botonusuario" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 15px;">
         <img [src]="checkImageUrl(imageUrl)" alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%;">
       </a>
       <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="laslistas">
@@ -44,17 +44,23 @@
         <li *ngIf="loggedIn"><a class="dropdown-item" href="/logout" (click)="logout()">Cerrar Sesión</a></li>
       </ul>
       <!-- Botón de compra que muestra el div del carrito -->
-      <button class="btn btn-primary" (click)="showCarrito()">Comprar</button>
+      <button id="compraq" class="btn btn-primary" (click)="showCarrito()">Comprar</button>
     </div>
   </div>
 </nav>
 
 <!-- Contenedor del iframe de búsqueda -->
+<<<<<<< HEAD
 <div id="iframe-container-busqueda" [ngStyle]="{'display': busquedaVisible ? 'block' : 'none'}" 
      style="position: fixed; margin-top: 6%; background-color: rgb(255, 255, 255); margin-left: 39%; margin-right: 40%; width: 36%; height: 80%; z-index: 9999;">
   <div class="iframe-overlay" style="position: relative; height: 100%; padding: 20px; background-color: white;">
     <button class="close-btn" (click)="hideIframeBusqueda()" 
             style="position: absolute; top: 10px; right: 10px;">✖</button>
+=======
+<div id="iframe-container-busqueda" [ngStyle]="{'display': busquedaVisible ? 'block' : 'none'}" >
+  <div id="busc" class="iframe-overlay">
+    <button class="close-btn" (click)="hideIframeBusqueda()" style="position: absolute; top: 10px; right: 10px;">✖</button>
+>>>>>>> origin/elnavbarivan
     <iframe src="/busqueda" frameborder="0" width="100%" height="100%"></iframe>
   </div>
 </div>
