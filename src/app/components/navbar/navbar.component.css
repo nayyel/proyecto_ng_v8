@@ -284,51 +284,6 @@ body {
   margin-left: 87%;
   margin-top: -3%;
 }
-<<<<<<< HEAD
-
-/* Media Query para Tablets (768px o menos) */
-@media (max-width: 768px) {
-  /* Asegurar que los cuadros de búsqueda y botones no desborden */
-  .navbar-links {
-    padding: 15px;
-    width: 100%; /* Aseguramos que se adapten al 100% del contenedor */
-    box-sizing: border-box; /* Incluye el padding y el border en el tamaño total */
-  }
-
-  .navbar .btn {
-    width: 100%; /* Los botones ahora ocuparán el 100% del ancho disponible */
-    padding: 10px; /* Reducir el tamaño del padding */
-    font-size: 1.1rem; /* Ajustar el tamaño de la fuente */
-  }
-
-  .navbar-links ul {
-    padding: 0;
-    margin: 0;
-    width: 100%; /* Evitar desbordamiento */
-  }
-
-  .navbar-links ul li {
-    margin: 10px 0;
-    width: 100%; /* Aseguramos que los elementos se ajusten */
-  }
-
-  .navbar-links ul li a {
-    font-size: 1.4rem;
-    padding: 10px; /* Espaciado más cómodo en pantallas pequeñas */
-  }
-
-  /* Asegurar que los inputs de búsqueda no desborden */
-  .search-container input {
-    width: 100%; /* Ajustar el campo de búsqueda al 100% */
-    box-sizing: border-box;
-  }
-
-  .search-container button {
-    width: 100%; /* Hacer que el botón ocupe todo el ancho */
-    padding: 12px; /* Ajustar padding */
-  }
-}
-
 /* Media Query para Móviles (480px o menos) */
 @media (max-width: 480px) {
   /* Reducir tamaño de los botones y cuadros de búsqueda */
@@ -564,17 +519,6 @@ body {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-=======
 @media (max-width: 768px) {
   /* Navbar */
   .navbar {
@@ -842,8 +786,6 @@ padding-top: 5px;
   font-size: 1.2rem;
 }
 }
->>>>>>> origin/elnavbarivan
-
 
 
 
