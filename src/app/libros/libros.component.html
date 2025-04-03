@@ -7,6 +7,18 @@
     <p id="Resumen"><b>Resumen:</b> {{ libroSeleccionado.resumen }}</p>
     <p id="Precio"><b>Precio:</b> {{ libroSeleccionado.precio }}€</p>
     <p id="Stock"><b>Stock:</b> {{ libroSeleccionado.stock }} unidades</p>
+    <div>
+      <p *ngIf="valoracionesLibro.length > 0">
+        <strong>Valoración promedio:</strong>
+        <span *ngFor="let _ of estrellasLlenas">⭐</span>
+        <span *ngIf="mediaDecimal">✨</span>
+        <span *ngFor="let _ of estrellasVacias">☆</span>
+        ({{ averageRating.toFixed(2) }} / 5)
+      </p>
+      <p *ngIf="valoracionesLibro.length === 0">
+        <strong>Valoración promedio:</strong> Sin valorar
+      </p>
+    </div>
     <button 
       style="background-color: blanchedalmond; color: rgb(1, 66, 1); border-radius: 15px; border-color: rgb(1, 66, 1);"
       (click)="agregarAlCarrito(libroSeleccionado)" 
@@ -16,48 +28,55 @@
     </button>
     <br><br>
   </div>
-</div>
 
-<div id="footer">
-  <div class="footer-section">
-    <h3>Libreria Libera</h3>
-    <ul>
-      <li><a href="#">Quienes somos</a></li>
-      <li><a href="#">Trabaja con nosotros</a></li>
-    </ul>
-  </div>
-  <div class="footer-section">
-    <h3>Donde estamos</h3>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3034.7990221406867!2d-3.70978052460646!3d40.479711051804685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42299ea90534b7%3A0xccee98581c84edbe!2sCentro%20Comercial%20La%20Vaguada!5e0!3m2!1ses!2ses!4v1716489401552!5m2!1ses!2ses"
-      width="100%"
-      height="150"
-      style="border:0;"
-      allowfullscreen=""
-      loading="lazy"
-    ></iframe>
-  </div>
-  <div class="footer-section">
-    <h3>Servicios</h3>
-    <ul>
-      <li><a href="#">Libreria Libero Plus</a></li>
-      <li><a href="#">Vende con nosotros</a></li>
-      <li><a href="#">Venta a empresas e instituciones</a></li>
-      <li><a href="#">Preventa</a></li>
-      <li><a href="#">Información para editoriales</a></li>
-      <li><a href="#">Libros al por mayor</a></li>
-      <li><a href="#">Programa afiliados</a></li>
-    </ul>
-  </div>
-  <div class="footer-section">
-    <h3>Ayuda</h3>
-    <ul>
-      <li><a href="#">Pago seguro con tarjeta</a></li>
-      <li><a href="#">Devoluciones</a></li>
-      <li><a href="#">Gastos y formas de envío</a></li>
-      <li><a href="#">Preguntas frecuentes</a></li>
-      <li><a href="#">Contacta con nosotros</a></li>
-      <li><a href="#">Bono cultural joven</a></li>
-    </ul>
+  <!-- Formulario de Valoración -->
+  <div class="comentarios-container" style="margin-top: 30px; padding: 20px; border-top: 2px solid #ccc; text-align: left;">
+    <h2>Deja tu valoración</h2>
+  
+
+  
+    <label>Valoración:</label>
+    <div>
+      <ng-container *ngFor="let estrella of [0, 1, 2, 3, 4]">
+        <input type="radio" [value]="estrella" name="valoracion" [(ngModel)]="nuevaValoracion.valoracion">
+        {{ estrella }} ⭐
+      </ng-container>
+    </div>
+    
+    <label for="comentario">Comentario:</label>
+    <textarea [(ngModel)]="nuevaValoracion.comentario" rows="5" style="width: 100%;" placeholder="Cuéntanos tu experiencia con el libro, artista..."></textarea>
+    
+    <br><br>
+    
+    <!-- Botones en línea -->
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <button 
+        style="background-color: darkolivegreen; color: white; border-radius: 10px; padding: 10px 20px;"
+        (click)="crearValoracion()">
+        {{ tieneComentario ? 'Actualizar comentario' : 'Crear valoración' }}
+      </button>
+    
+      <button 
+        *ngIf="tieneComentario"
+        style="background-color: #ff4444; color: white; border-radius: 10px; padding: 10px 20px;"
+        (click)="borrarComentario()">
+        Borrar mi comentario
+      </button>
+    </div>
+    
+
+
+  <!-- Lista de valoraciones -->
+  <div *ngIf="valoracionesLibro.length > 0" style="margin-top: 40px;">
+    <h3>Opiniones de otros lectores</h3>
+    <div *ngFor="let val of valoracionesLibro" style="border-bottom: 1px solid #ccc; padding: 10px 0;">
+      <p><strong>Usuario:</strong> {{ val.nombre_usuario }}</p>
+      <p>
+        <strong>Valoración:</strong>
+        <span *ngFor="let estrella of [].constructor(val.Valoracion)">⭐</span>
+        <span *ngFor="let vacia of [].constructor(5 - val.Valoracion)">☆</span>
+      </p>
+      <p><strong>Comentario:</strong> {{ val.Comentario || 'Sin comentario' }}</p>
+    </div>
   </div>
 </div>

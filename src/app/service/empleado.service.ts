@@ -18,6 +18,8 @@ export class EmpleadoService {
   api_actualizar_perfil: string = "http://localhost/api_actualizar_perfil.php"; // URL para actualizar el perfil
   api_actualizar_contrasena: string = "http://localhost/api_actualizar_contrasena.php"; // URL para actualizar la contraseña
   api_historial: string = "http://localhost/api_historial.php";
+  api_valoraciones: string = 'http://localhost/api_valoracion.php';
+  api_valoraciones_obtener: string = 'http://localhost/api_valoracion_obtener.php';
   constructor(private http: HttpClient) { }
 
   Showempleado(Buscador: any): Observable<any> {
@@ -34,6 +36,9 @@ export class EmpleadoService {
 
   VerLibros(): Observable<any> {
     return this.http.get<any>(this.api_libros);
+  }
+  verValoracionesPorLibro(id_libro: number): Observable<any> {
+    return this.http.get<any>(`${this.api_valoraciones}?id_libro=${id_libro}`);
   }
 
   Crearlibro(libro: any): Observable<any> {
@@ -64,4 +69,43 @@ export class EmpleadoService {
   cargarHistorialCompras(usuario: any): Observable<any> {
     return this.http.put<any>(this.api_historial,usuario);
   }
+
+  crearValoracion(valoracion: any): Observable<any> {
+    return this.http.post<any>(this.api_valoraciones, valoracion);
+  }
+  
+
+  
+  borrarValoracion(ID_usuario: number, ID_libro: number): Observable<any> {
+    return this.http.delete<any>(this.api_valoraciones, {
+      body: { ID_usuario, ID_libro }
+    });
+  }
+  
+
+  // Método actualizado para crear/actualizar valoración
+  actualizarValoracion(valoracionData: any): Observable<any> {
+    return new Observable(observer => {
+      // Primero borramos si existe
+      this.borrarValoracion(valoracionData.ID_usuario, valoracionData.ID_libro).subscribe({
+        next: (deleteResponse) => {
+          console.log('Valoración anterior borrada:', deleteResponse);
+          // Luego creamos la nueva
+          this.crearValoracion(valoracionData).subscribe({
+            next: (createResponse) => {
+              observer.next(createResponse);
+              observer.complete();
+            },
+            error: (createError) => {
+              observer.error(createError);
+            }
+          });
+        },
+        error: (deleteError) => {
+          observer.error(deleteError);
+        }
+      });
+    });
+  }
+
 }
