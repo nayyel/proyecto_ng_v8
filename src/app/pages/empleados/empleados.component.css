@@ -11,7 +11,7 @@ html {
 }
 
 .imagenfondo {
-  background-image: url("https://marketplace.canva.com/EAE2vY_3aos/2/0/1600w/canva-fondo-virtual-para-zoom-moderno-gradiente-ondulado-marr%C3%B3n-beis-6ulBHmgfEuQ.jpg");
+  background-image: url("https://wallpapercave.com/wp/WOAttEL.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -26,10 +26,11 @@ html {
   margin: 20vh auto;
   max-width: 850px;
   width: 90%;
-  background: #fff;
+  background: #ffffff;
   padding: 40px 30px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   perspective: 2700px;
+  border-radius: 20px;
 }
 
 .container .cover {
@@ -42,9 +43,12 @@ html {
   transition: all 1s ease;
   transform-origin: left;
   transform-style: preserve-3d;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
 }
 
-.container #flip:checked~.cover {
+.container #flip:checked ~ .cover {
   transform: rotateY(-180deg);
 }
 
@@ -68,7 +72,7 @@ html {
   position: absolute;
   height: 100%;
   width: 100%;
-  background: #d0b5a7;
+  background: #cfe9dd;
   opacity: 0.5;
   z-index: 12;
 }
@@ -118,7 +122,8 @@ html {
 .container .forms {
   height: 100%;
   width: 100%;
-  background: #fff;
+  background: #ffffff;
+  border-radius: 20px;
 }
 
 .container .form-content {
@@ -135,18 +140,19 @@ html {
 .forms .form-content .title {
   position: relative;
   font-size: 24px;
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: #295d4f;
 }
 
 .forms .form-content .title:before {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -5px;
   height: 3px;
   width: 25px;
-  background: #9e8272;
+  background: #7bbf91;
+  border-radius: 2px;
 }
 
 .forms .signup-form .title:before {
@@ -164,6 +170,8 @@ html {
   width: 100%;
   margin: 10px 0;
   position: relative;
+  border-radius: 8px;
+  background-color: #f0f9f5;
 }
 
 .form-content .input-box input {
@@ -174,19 +182,22 @@ html {
   padding: 0 30px;
   font-size: 16px;
   font-weight: 500;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  background: transparent;
+  color: #333;
+  border-radius: 8px;
 }
 
 .form-content .input-box input:focus,
 .form-content .input-box input:valid {
-  border-color: #9e8272;
+  border: 2px solid #7bbf91;
+  background-color: #e6f7ef;
 }
 
 .form-content .input-box i {
   position: absolute;
-  color: #9e8272;
+  color: #7bbf91;
   font-size: 17px;
+  left: 10px;
 }
 
 .forms .form-content .text {
@@ -197,6 +208,7 @@ html {
 
 .forms .form-content .text a {
   text-decoration: none;
+  color: #295d4f;
 }
 
 .forms .form-content .text a:hover {
@@ -210,19 +222,20 @@ html {
 
 .forms .form-content .button input {
   color: #fff;
-  background: #e5d6ce;
-  border-radius: 6px;
-  padding: 0;
+  background: #7bbf91;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
   cursor: pointer;
   transition: all 0.4s ease;
 }
 
 .forms .form-content .button input:hover {
-  background: #9e8272;
+  background: #295d4f;
 }
 
 .forms .form-content label {
-  color: #9e8272;
+  color: #295d4f;
   cursor: pointer;
 }
 
@@ -238,25 +251,6 @@ html {
 
 .container #flip {
   display: none;
-}
-
-@media (max-width: 730px) {
-  .container .cover {
-    display: none;
-  }
-  .form-content .login-form,
-  .form-content .signup-form {
-    width: 100%;
-  }
-  .form-content .signup-form {
-    display: none;
-  }
-  .container #flip:checked~.forms .signup-form {
-    display: block;
-  }
-  .container #flip:checked~.forms .login-form {
-    display: none;
-  }
 }
 
 .text-danger,
@@ -279,17 +273,21 @@ html {
   .container .cover {
     display: none;
   }
+
   .form-content .login-form,
   .form-content .signup-form {
     width: 100%;
   }
+
   .form-content .signup-form {
     display: none;
   }
-  .container #flip:checked~.forms .signup-form {
+
+  .container #flip:checked ~ .forms .signup-form {
     display: block;
   }
-  .container #flip:checked~.forms .login-form {
+
+  .container #flip:checked ~ .forms .login-form {
     display: none;
   }
 }

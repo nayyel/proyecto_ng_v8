@@ -10,11 +10,12 @@ import { EmpleadoService } from '../../service/empleado.service';
 export class EmpleadosComponent implements OnInit {
   passwd: string = '';
   user: string = '';
-  correo_usuario: string = '';
+  
   //Variables Registro Abajo
   user_reg: string = '';
   pass_reg: string = '';
   pass_reg2: string = '';
+  correo_reg: string = '';
   
   constructor(private router: Router, private serviceE: EmpleadoService) { }
 
@@ -82,8 +83,8 @@ export class EmpleadosComponent implements OnInit {
     const empleado = {
       nombre: this.user_reg,
       password: this.pass_reg,
-      rol: "usuario",
-      correo: this.correo_usuario
+      correo: this.correo_reg,
+      rol: "usuario"
     };
 
     this.serviceE.CrearEmpleado(empleado).subscribe(
@@ -121,5 +122,6 @@ export class EmpleadosComponent implements OnInit {
     this.user_reg = '';
     this.pass_reg = '';
     this.pass_reg2 = '';
+    this.correo_reg = '';
   }
 }
