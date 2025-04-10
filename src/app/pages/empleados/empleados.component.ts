@@ -15,6 +15,7 @@ export class EmpleadosComponent implements OnInit {
   user_reg: string = '';
   pass_reg: string = '';
   pass_reg2: string = '';
+  email_reg: string = '';
   
   constructor(private router: Router, private serviceE: EmpleadoService) { }
 
@@ -82,6 +83,7 @@ export class EmpleadosComponent implements OnInit {
     const empleado = {
       nombre: this.user_reg,
       password: this.pass_reg,
+      email: this.email_reg,
       rol: "usuario"
     };
 
@@ -120,5 +122,6 @@ export class EmpleadosComponent implements OnInit {
     this.user_reg = '';
     this.pass_reg = '';
     this.pass_reg2 = '';
+    this.email_reg = '';
   }
 }
