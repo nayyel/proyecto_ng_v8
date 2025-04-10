@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadoService } from '../service/empleado.service';
 import { ChangeDetectorRef } from '@angular/core';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 // Definir las interfaces para los detalles de la compra
 interface Libro {
   id_libro: number;
@@ -88,4 +89,47 @@ export class HistorialComponent implements OnInit {
   cargarHistorialCompras(): void {
     // Este método no está siendo usado, lo puedes eliminar si no lo necesitas
   }
+
+  generatePDF(venta: Venta) {
+    const doc = new jsPDF();
+    let y = 10;
+  
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.text(`Factura - Venta Nº ${venta.id_venta}`, 10, y);
+    y += 10;
+  
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.text(`Fecha: ${venta.fecha}`, 10, y);
+    y += 10;
+  
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Detalles de la compra:`, 10, y);
+    y += 10;
+  
+    venta.libros.forEach((libro, index) => {
+      const precio = Number(libro.precio); // <- AQUI CONVERTIMOS
+      const subtotal = precio * Number(libro.cantidad);
+  
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(12);
+      doc.text(`${index + 1}. ${libro.titulo}`, 10, y); y += 6;
+      doc.text(`   Unidades: ${libro.cantidad}`, 10, y); y += 6;
+      doc.text(`   Precio unidad: ${precio.toFixed(2)} €`, 10, y); y += 6;
+      doc.text(`   Subtotal: ${subtotal.toFixed(2)} €`, 10, y); y += 10;
+    });
+  
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.text(`Total venta: ${Number(venta.total).toFixed(2)} €`, 10, y);
+  
+    doc.save(`factura_venta_${venta.id_venta}.pdf`);
+  }
+  
+  
+  
+  
+  
 }

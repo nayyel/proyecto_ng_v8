@@ -12,14 +12,10 @@ export class EmpleadoService {
   api_categorias: string = "http://localhost/api_categorias.php";
   api_libros: string = "http://localhost/api_libros.php";
   api_search: string = "http://localhost/api_search.php";
-  api_libro_crear: string = "http://localhost/api_crear_libro.php";
-  api_libro_editar: string = "http://localhost/api_editar_libro.php";
-  api_libro_eliminar: string = "http://localhost/api_borrar_libro.php"; 
   api_actualizar_perfil: string = "http://localhost/api_actualizar_perfil.php"; // URL para actualizar el perfil
   api_actualizar_contrasena: string = "http://localhost/api_actualizar_contrasena.php"; // URL para actualizar la contraseña
   api_historial: string = "http://localhost/api_historial.php";
   api_valoraciones: string = 'http://localhost/api_valoracion.php';
-  api_valoraciones_obtener: string = 'http://localhost/api_valoracion_obtener.php';
   constructor(private http: HttpClient) { }
 
   Showempleado(Buscador: any): Observable<any> {
@@ -27,13 +23,47 @@ export class EmpleadoService {
   }
 
   CrearEmpleado(empleado: any): Observable<any> {
-    return this.http.post<any>(this.api_alta + "?bs=", empleado);
+    return this.http.post<any>(this.api_alta, empleado);
   }
 
   VerCategorias(): Observable<any> {
     return this.http.get<any>(this.api_categorias);
   }
+  CrearCategoria(categoria: any) {
+    return this.http.post(this.api_categorias, categoria);
+  }
 
+  EditarCategoria(categoria: any) {
+    return this.http.put(this.api_categorias, categoria);
+  }
+
+  EliminarCategoria(id: string) {
+    return this.http.delete(this.api_categorias, {
+      body: { id_categoria: id }
+    });
+  } 
+
+  VerUsuarios(): Observable<any> {
+    return this.http.get<any>(this.api_alta);
+  }
+  
+  // Crear nuevo usuario
+  CrearUsuario(usuario: any): Observable<any> {
+    return this.http.post<any>(this.api_alta, usuario);
+  }
+  
+  // Editar usuario
+  EditarUsuario(usuario: any) {
+    return this.http.put(this.api_alta, usuario);
+  }
+  
+  
+
+  EliminarUsuario(id_usuario: number) {
+    return this.http.delete(this.api_alta, {
+      body: { id_usuario: id_usuario.toString() }
+    });
+  }
   VerLibros(): Observable<any> {
     return this.http.get<any>(this.api_libros);
   }
@@ -42,15 +72,15 @@ export class EmpleadoService {
   }
 
   Crearlibro(libro: any): Observable<any> {
-    return this.http.post<any>(this.api_libro_crear + "?bs=", libro);
+    return this.http.post<any>(this.api_libros + "?bs=", libro);
   }
 
   editarlibro(libro: any): Observable<any> {
-    return this.http.put<any>(this.api_libro_editar + "?bs=", libro);
+    return this.http.put<any>(this.api_libros + "?bs=", libro);
   }
 
   eliminarLibro(id_libro: string): Observable<any> {
-    return this.http.delete<any>(this.api_libro_eliminar, { body: { id_libro } });
+    return this.http.delete<any>(this.api_libros, { body: { id_libro } });
   }
 
   searchBooks(data: { query: string }): Observable<any> {

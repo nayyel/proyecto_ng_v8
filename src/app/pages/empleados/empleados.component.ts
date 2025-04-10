@@ -10,7 +10,7 @@ import { EmpleadoService } from '../../service/empleado.service';
 export class EmpleadosComponent implements OnInit {
   passwd: string = '';
   user: string = '';
-
+  correo_usuario: string = '';
   //Variables Registro Abajo
   user_reg: string = '';
   pass_reg: string = '';
@@ -82,7 +82,8 @@ export class EmpleadosComponent implements OnInit {
     const empleado = {
       nombre: this.user_reg,
       password: this.pass_reg,
-      rol: "usuario"
+      rol: "usuario",
+      correo: this.correo_usuario
     };
 
     this.serviceE.CrearEmpleado(empleado).subscribe(

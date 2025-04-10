@@ -8,7 +8,7 @@
     <p id="Precio"><b>Precio:</b> {{ libroSeleccionado.precio }}€</p>
     <p id="Stock"><b>Stock:</b> {{ libroSeleccionado.stock }} unidades</p>
     <div>
-      <p *ngIf="valoracionesLibro.length > 0">
+      <p *ngIf="valoracionesLibro.length > 0 -1">
         <strong>Valoración promedio:</strong>
         <span *ngFor="let _ of estrellasLlenas">⭐</span>
         <span *ngIf="mediaDecimal">✨</span>
@@ -37,7 +37,7 @@
   
     <label>Valoración:</label>
     <div>
-      <ng-container *ngFor="let estrella of [0, 1, 2, 3, 4]">
+      <ng-container *ngFor="let estrella of [1, 2, 3, 4, 5]">
         <input type="radio" [value]="estrella" name="valoracion" [(ngModel)]="nuevaValoracion.valoracion">
         {{ estrella }} ⭐
       </ng-container>
@@ -53,14 +53,14 @@
       <button 
         style="background-color: darkolivegreen; color: white; border-radius: 10px; padding: 10px 20px;"
         (click)="crearValoracion()">
-        {{ tieneComentario ? 'Actualizar comentario' : 'Crear valoración' }}
+        {{ tieneComentario ? 'Actualizar reseña' : 'Crear reseña' }}
       </button>
     
       <button 
         *ngIf="tieneComentario"
         style="background-color: #ff4444; color: white; border-radius: 10px; padding: 10px 20px;"
         (click)="borrarComentario()">
-        Borrar mi comentario
+        Borrar mi reseña
       </button>
     </div>
     
@@ -68,7 +68,7 @@
 
   <!-- Lista de valoraciones -->
   <div *ngIf="valoracionesLibro.length > 0" style="margin-top: 40px;">
-    <h3>Opiniones de otros lectores</h3>
+    <h3>RESEÑAS</h3>
     <div *ngFor="let val of valoracionesLibro" style="border-bottom: 1px solid #ccc; padding: 10px 0;">
       <p><strong>Usuario:</strong> {{ val.nombre_usuario }}</p>
       <p>

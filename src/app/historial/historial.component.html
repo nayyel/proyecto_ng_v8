@@ -19,6 +19,8 @@
       <h3 class="venta-footer">Total: 
         <span class="total">{{ venta.total | currency:'USD':true }}</span>
       </h3>
+      <button (click)="generatePDF(venta)">Generar PDF Factura</button>
+
     </div>
   </div>
   
