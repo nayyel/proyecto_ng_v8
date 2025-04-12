@@ -1,22 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="position: fixed; top: 0; width: 100%; background-color: #d3b8ae; z-index: 1050;">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" (click)="navigateToCategoria()" style="transition: transform 0.3s ease;"> 
-      <img src="assets/images/logolibreria.png" alt="Logo" height="40" style="height: 15vh;">
+    <!-- Logo and Brand -->
+    <a class="navbar-brand" (click)="navigateToCategoria()"> 
+      <img src="assets/images/logolibreria.png" alt="Logo" class="logo">
+      <span class="brand-name">Libera</span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    
+    <!-- Navbar Toggler for Mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" 
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       
+    
+    <!-- Collapsible Content -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Navigation Links -->
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/info" style="margin-right: 15px;">Sobre Nosotros</a>
+          <a class="nav-link" href="/info">Sobre Nosotros</a>
         </li>
-        <li class="nav-item dropdownCategorias">
-          <a class="nav-link dropdown-toggleCategorias" href="#" id="navbarDropdownCategorias" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 15px;">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" 
+             data-bs-toggle="dropdown" aria-expanded="false">
             Categorías
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
             <button 
               *ngFor="let categoria of categorias" 
               (click)="navigateToCategoriaWhitId(categoria.id_categoria)" 
@@ -26,111 +34,109 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex" (submit)="onSearch($event)">
-        <input id="search-input" class="form-control me-2" type="search" placeholder="Busca por título, categoría, autor..." aria-label="Search" style=" margin-left: 20%; margin-right: 30%;">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
- 
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-right: 15px;">
-        <img [src]="checkImageUrl(imageUrl)" alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%;">
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="laslistas">
-        <!-- Si el usuario no está logueado, mostrar "Iniciar Sesión" -->
-        <li *ngIf="!loggedIn"><a class="dropdown-item" href="/empleado">Iniciar Sesión</a></li>
       
-        <!-- Si el usuario está logueado, mostrar "Editar Perfil" y "Cerrar Sesión" -->
-        <li *ngIf="loggedIn"><a class="dropdown-item" href="/editar-perfil">Editar Perfil</a></li>
-        <li *ngIf="loggedIn"><a class="dropdown-item" href="/historial">Historial de compras</a></li>
-        <li *ngIf="loggedIn"><a class="dropdown-item" href="/logout" (click)="logout()">Cerrar Sesión</a></li>
-      </ul>
-      <!-- Botón de compra que muestra el div del carrito -->
-      <button class="btn btn-primary" (click)="showCarrito()">Comprar</button>
+      <!-- Search Form -->
+      <div class="search-container">
+        <form class="search-form" (submit)="onSearch($event)">
+          <input id="search-input" class="form-control" type="search" 
+                 placeholder="Busca por título, categoría, autor..." aria-label="Search">
+          <button class="btn btn-search" type="submit">Buscar</button>
+        </form>
+      </div>
+      
+      <!-- User Profile -->
+      <div class="nav-actions">
+        <div class="dropdown user-dropdown">
+          <a class="nav-link dropdown-toggle user-link" href="#" id="userDropdown" 
+             data-bs-toggle="dropdown" aria-expanded="false">
+            <img [src]="checkImageUrl(imageUrl)" alt="Usuario" class="user-image">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li *ngIf="!loggedIn"><a class="dropdown-item" href="/empleado">Iniciar Sesión</a></li>
+            <li *ngIf="loggedIn"><a class="dropdown-item" href="/editar-perfil">Editar Perfil</a></li>
+            <li *ngIf="loggedIn"><a class="dropdown-item" href="/historial">Historial de compras</a></li>
+            <li *ngIf="loggedIn"><a class="dropdown-item" href="/logout" (click)="logout()">Cerrar Sesión</a></li>
+          </ul>
+        </div>
+        
+        <!-- Cart Button -->
+        <button class="btn btn-cart" (click)="showCarrito()">Carrito</button>
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- Contenedor del iframe de búsqueda -->
-<div id="iframe-container-busqueda" [ngStyle]="{'display': busquedaVisible ? 'block' : 'none'}" 
-     style="position: fixed; margin-top: 6%; background-color: rgb(255, 255, 255); margin-left: 39%; margin-right: 40%; width: 36%; height: 80%; z-index: 9999;">
-  <div class="iframe-overlay" style="position: relative; height: 100%; padding: 20px; background-color: white;">
-    <button class="close-btn" (click)="hideIframeBusqueda()" 
-            style="position: absolute; top: 10px; right: 10px;">✖</button>
+<!-- Search Results Container -->
+<div id="iframe-container-busqueda" [ngStyle]="{'display': busquedaVisible ? 'block' : 'none'}" class="search-results-container">
+  <div class="iframe-overlay">
+    <button class="close-btn" (click)="hideIframeBusqueda()">✖</button>
     <iframe src="/busqueda" frameborder="0" width="100%" height="100%"></iframe>
   </div>
 </div>
 
-
-
-<!-- Contenedor del carrito -->
-<div id="carrito-container" [ngStyle]="{'display': carritoVisible ? 'block' : 'none'}" 
-     style="position: fixed; right: 0; top: 0; width: 35%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
-  <!-- Barra superior del carrito -->
-  <div class="carrito-barra-superior" style="background-color: #d9c5b2; height: 50px; border-top-right-radius: 15px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px;">
-    <button class="close-btn" (click)="hideCarrito()" style="border: none; background: green; color: #5a3e36; font-size: 24px; font-weight: bold;">✖</button>
-    <span style="font-weight: bold; color: #5a3e36;">Tu Carrito</span>
+<!-- Shopping Cart Container -->
+<div id="carrito-container" [ngStyle]="{'display': carritoVisible ? 'block' : 'none'}" class="cart-container">
+  <!-- Cart Header -->
+  <div class="cart-header">
+    <span class="cart-title">Tu Carrito</span>
+    <button class="close-btn" (click)="hideCarrito()">✖</button>
   </div>
 
-  <div class="overlay" style="height: calc(100% - 50px); padding: 20px; background-color: #f4f4f9; border-bottom-right-radius: 15px; overflow-y: auto;">
-    
-    <!-- Mensaje si no ha iniciado sesión -->
-    <div *ngIf="!loggedIn" style="text-align: center; color: #5a3e36; font-weight: bold; font-size: 18px;">
+  <div class="cart-content">
+    <!-- Not Logged In Message -->
+    <div *ngIf="!loggedIn" class="login-message">
       <p>Inicia sesión para poder comprar</p>
     </div>
 
-    <!-- Mostrar los libros en el carrito solo si está logueado -->
-    <div *ngIf="loggedIn">
-      <div *ngFor="let item of carrito" class="item" style="display: flex; align-items: center; margin-bottom: 20px;">
-        <!-- Imagen del libro -->
-        <a [routerLink]="['/libro/', item.libro.id_libro]" style="margin-right: 15px;">
-          <img [src]="item.libro.link" alt="{{ item.libro.titulo }}" style="height: 100px; width: 60px; object-fit: cover; border-radius: 5px;">
+    <!-- Cart Items -->
+    <div *ngIf="loggedIn" class="cart-items">
+      <div *ngFor="let item of carrito" class="cart-item">
+        <!-- Book Image -->
+        <a [routerLink]="['/libro/', item.libro.id_libro]" class="item-image-link">
+          <img [src]="item.libro.link" alt="{{ item.libro.titulo }}" class="item-image">
         </a>
 
-        <!-- Información del libro -->
-        <div style="flex-grow: 1;">
-          <p style="margin: 0; font-weight: bold; color: #333;">{{ item.libro.titulo }}</p>
-          <p class="price" style="margin: 5px 0; color: #777;">${{ (item.libro.precio * item.cantidad).toFixed(2) }}</p>
-          <p class="quantity-display" style="margin: 0 10px; font-weight: bold; color: #5a3e36;">Cantidad: {{ item.cantidad }}</p>
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <!-- Botones de control -->
+        <!-- Item Info -->
+        <div class="item-details">
+          <p class="item-title">{{ item.libro.titulo }}</p>
+          <p class="item-price">${{ (item.libro.precio * item.cantidad).toFixed(2) }}</p>
+          <p class="item-quantity">Cantidad: {{ item.cantidad }}</p>
+          
+          <!-- Item Controls -->
+          <div class="item-controls">
             <button 
               (click)="increaseQuantity(item)" 
-              [ngClass]="{'disabled': item.cantidad >= item.libro.stock}"
               [disabled]="item.cantidad >= item.libro.stock"
-              style="padding: 5px 10px; background-color: #5a3e36; color: white; border: none; border-radius: 3px;">
+              class="control-btn increase-btn">
               +
             </button>
             <button 
               (click)="decreaseQuantity(item)" 
-              [ngClass]="{'disabled': item.cantidad <= 1}"
               [disabled]="item.cantidad <= 1"
-              style="padding: 5px 10px; background-color: #5a3e36; color: white; border: none; border-radius: 3px;">
+              class="control-btn decrease-btn">
               -
             </button>
             <button 
               (click)="removeItem(item)" 
-              style="padding: 5px 10px; background-color: #b22222; color: white; border: none; border-radius: 3px;">
+              class="control-btn remove-btn">
               ❌
             </button>
           </div>
         </div>
       </div>
       
-      <!-- Total del carrito -->
-      <div class="total" style="text-align: right; margin-top: 20px;">
+      <!-- Cart Total -->
+      <div class="cart-total">
         <p><strong>Total: ${{ totalCarrito() }}</strong></p>
       </div>
-              <!-- Botón de Comprar -->
-              <button 
-              (click)="procesarCompra()" 
-              [disabled]="carrito.length === 0" 
-              style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
-              Comprar
-            </button>
+      
+      <!-- Checkout Button -->
+      <button 
+        (click)="procesarCompra()" 
+        [disabled]="carrito.length === 0" 
+        class="checkout-btn">
+        Comprar
+      </button>
     </div>
   </div>
 </div>
-
-
-
-
-

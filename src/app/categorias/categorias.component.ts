@@ -46,20 +46,27 @@ export class CategoriasComponent implements OnInit {
   
 
   // Método para manejar el cambio en el filtro de categorías
-  onCategoriaChange(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const id_categoria = selectElement.value;
-
-    if (id_categoria) {
-      // Filtrar los libros por la categoría seleccionada
-      this.librosFiltrados = this.libros.filter(libro => libro.id_categoria === +id_categoria);
-      this.router.navigate(['/categorias', id_categoria]); // Actualizar la ruta con la categoría seleccionada
-    } else {
-      // Si no hay categoría seleccionada, mostrar todos los libros
-      this.librosFiltrados = this.libros;
-      this.router.navigate(['/categorias']); // Volver a la ruta de todas las categorías
-    }
+  // En tu componente de Angular
+onCategoriaChange(event: any): void {
+  // Si el evento viene de un botón
+  let categoriaId = event.target.value;
+  
+  // Actualizar clase active
+  const botones = document.querySelectorAll('.categoria-btn');
+  botones.forEach(btn => {
+    (btn as HTMLElement).classList.remove('active');
+  });
+  event.target.classList.add('active');
+  
+  // Filtrar los libros por categoría
+  if (categoriaId === '') {
+    this.librosFiltrados = this.libros; // Mostrar todos los libros
+  } else {
+    this.librosFiltrados = this.libros.filter(libro => 
+      libro.id_categoria.toString() === categoriaId
+    );
   }
+}
 
  agregarAlCarrito(libro: any): void {
   // Primero, obtener la cantidad actual del libro en el carrito
