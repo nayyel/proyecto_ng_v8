@@ -1,91 +1,117 @@
-h3{
-    margin-top: 30vh;
-    color: #5D4037; /* Marrón oscuro */
-}
-
-.libro {
-    text-align: center;
+h3 {
+    margin-top: 30px;
     margin-bottom: 20px;
-    background-color: #D7CCC8; /* Beige */
-    padding: 20px; /* Aumenta el espacio interno */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(93, 64, 55, 0.2); /* Sombra marrón oscuro */
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    width: 240px; /* Aumenta el ancho */
-    height: 300px; /* Aumenta la altura */
-    margin-right: 30px; /* Aumenta el margen derecho */
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: baseline;
-}
-
-div{
-    display: flex;
-    align-items: baseline;
-    flex-direction: column;
-}
-
-div>div{
-    display: flex;
-    align-items: baseline;
-}
-
-.libro:last-child {
-    margin-right: 0;
-}
-
-.libro:hover {
-    box-shadow: 0 8px 16px rgba(93, 64, 55, 0.4); /* Sombra marrón oscuro más intensa */
-    transform: scale(1.05); /* Aumenta el tamaño del libro al pasar el ratón */
-}
-
-.libro a {
-    text-decoration: none;
-    color: #5D4037; /* Marrón oscuro */
-}
-
-.libro img {
-    width: 100px;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 8px rgba(93, 64, 55, 0.2); /* Sombra marrón oscuro */
-    transition: transform 0.3s ease;
-}
-
-.libro img:hover {
-    transform: scale(1.1); /* Aumenta el tamaño de la imagen al pasar el ratón */
-}
-
-.libro .titulo {
-    font-weight: bold;
-    max-height: 60px; /* Aumenta la altura máxima */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 14px;
-    color: #5D4037; /* Marrón oscuro */
-}
-
-.libro .autor {
-    font-style: italic;
-    color: #5D4037; /* Marrón oscuro */
-}
-
-.categoria {
-    align-items: baseline;
-    margin-bottom: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.categoria h3 {
-    margin-bottom: 15px;
     color: #5D4037; /* Marrón oscuro */
     text-transform: uppercase;
     font-size: 20px;
     letter-spacing: 1px;
-}
+    width: 100%;
+  }
+  
+  .categoria {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  /* Grid para los libros (2 columnas) */
+  .libros-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .libro {
+    text-align: center;
+    background-color: #f2f8f2; /* Beige */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(93, 64, 55, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .libro:hover {
+    box-shadow: 0 8px 16px rgba(93, 64, 55, 0.4);
+    transform: scale(1.03);
+  }
+  
+  .libro a {
+    text-decoration: none;
+    color: #5D4037;
+    display: block;
+  }
+  
+  .libro img {
+    width: 120px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(93, 64, 55, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .libro img:hover {
+    transform: scale(1.1);
+  }
+  
+  .libro-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .titulo {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #5D4037;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 48px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .autor {
+    font-style: italic;
+    color: #5D4037;
+    font-size: 14px;
+  }
+  
+  #noBusca {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+    font-size: 20px;
+    color: #5D4037;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    margin-top: 30px;
+    box-shadow: 0 2px 4px rgba(93, 64, 55, 0.1);
+  }
+  
+  /* Responsive para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .libros-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .libro {
+      height: auto;
+      min-height: 280px;
+    }
+  }

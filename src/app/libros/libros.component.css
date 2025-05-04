@@ -1,112 +1,229 @@
+/* Estilo general para la página de detalle del libro */
+.libro-detalle-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  margin-top: 10%;
+}
+
 .libro {
-  background-color: #eaddca;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  width: 80%;
-  margin: 15vh auto;
-  padding: 15px;
+  background-color: #f2f8f2;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin: 2rem auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.libro:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+@media (min-width: 768px) {
+  .libro {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 }
 
-.libro img {
-  border-radius: 5px;
+.libro-img-container {
+  flex: 0 0 300px;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .libro-img-container {
+    margin-right: 3rem;
+    margin-bottom: 0;
+  }
+}
+
+.libro-img {
   width: 100%;
   max-width: 300px;
-  height: auto;
-  margin: 0 auto;
-  display: block;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#Titulo {
-  color: #8B4513;
-  font-size: 24px;
-  text-align: center;
-  padding: 10px;
+.libro-info {
+  flex: 1;
+  text-align: left;
 }
 
-#Autor, #Resumen, #Precio, #Stock {
-  color: #A0522D;
-  font-size: 18px;
-  padding: 10px 0;
-  text-align: center;
+.libro-titulo {
+  color: #2e5b2e;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  border-bottom: 2px solid #74A765;
+  padding-bottom: 0.5rem;
 }
 
-#Autor:hover, #Resumen:hover, #Precio:hover, #Stock:hover {
-  background-color: #987a6b;
-  transition: background-color 0.5s ease;
-  color: white;
+.info-item {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.1rem;
 }
 
-#footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; /* Ajusta los elementos para que tengan un espacio uniforme */
+.info-label {
+  color: #5a8751;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.valoracion-container {
+  margin: 1.5rem 0;
+}
+
+.btn-carrito {
   background-color: #74A765;
   color: #fff;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  box-sizing: border-box;
-  margin: 0 auto; /* Centra el footer */
-  width: 100%; /* Asegura que ocupe todo el ancho disponible */
-}
-
-.footer-section {
-  flex: 1 1 200px;
-  margin: 10px;
-  min-width: 200px; /* Asegura que no se colapsen las secciones */
-  padding: 0 20px;
-  text-align: left; /* Alinea el contenido a la izquierda */
-}
-
-.footer-section h3 {
-  margin-bottom: 15px;
-  font-size: 18px;
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-section ul li {
-  margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.footer-section ul li a:hover {
-  color: #d4d4d4;
-}
-
-iframe {
   border: none;
-  border-radius: 5px;
-  width: 100%; /* Asegura que el iframe sea responsivo */
-  max-width: 300px; /* Máximo ancho para pantallas grandes */
-  height: auto;
+  border-radius: 8px;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
 }
 
-@media screen and (max-width: 768px) {
-  #footer {
-    flex-direction: column;
-    align-items: center; /* Centra los elementos en pantallas pequeñas */
-  }
+.btn-carrito:hover {
+  background-color: #5a8751;
+  transform: translateY(-2px);
+}
 
-  .footer-section {
-    margin: 20px 0;
-    text-align: center;
-  }
+.btn-carrito:active {
+  transform: translateY(0);
+}
 
-  iframe {
-    max-width: 90%;
-    height: 200px;
-  }
+.btn-carrito.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Sección de comentarios */
+.comentarios-container {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 2rem auto;
+}
+
+.comentarios-titulo {
+  color: #2e5b2e;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #74A765;
+  padding-bottom: 0.5rem;
+}
+
+.rating-input {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  align-items: center;
+}
+
+.comentario-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  margin: 1rem 0;
+  resize: vertical;
+}
+
+.botones-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-comentario {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-enviar {
+  background-color: #74A765;
+  color: #fff;
+}
+
+.btn-enviar:hover {
+  background-color: #5a8751;
+}
+
+.btn-borrar {
+  background-color: #ff4444;
+  color: #fff;
+}
+
+.btn-borrar:hover {
+  background-color: #e53935;
+}
+
+/* Lista de reseñas */
+.reseñas-container {
+  margin-top: 2rem;
+}
+
+.reseña-item {
+  border-bottom: 1px solid #eee;
+  padding: 1.5rem 0;
+}
+
+.reseña-usuario {
+  font-weight: 600;
+  color: #444;
+}
+
+.reseña-estrellas {
+  margin: 0.5rem 0;
+}
+
+.estrella-llena {
+  color: #FFD700;
+}
+
+.estrella-vacia {
+  color: #ddd;
+}
+
+.reseña-texto {
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Animaciones y efectos */
+.libro:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-carrito:hover, .btn-comentario:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el promedio de valoración */
+.valoracion-promedio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.valoracion-estrellas {
+  color: #FFD700;
+  letter-spacing: 0.1rem;
+}
+
+.valoracion-numero {
+  font-weight: 600;
+  color: #555;
 }

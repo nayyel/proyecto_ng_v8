@@ -1,82 +1,121 @@
-<div *ngIf="libroId && libroSeleccionado" style="text-align: center;">
-  <div class="libro" style="background-color: rgb(204, 240, 204); border: 2px solid green;">
-    <br><br>
-    <img [src]="libroSeleccionado.link" [alt]="libroSeleccionado.titulo" class="libro-img">
-    <h1 id="Titulo">{{ libroSeleccionado.titulo }}</h1>
-    <p id="Autor"><b>Autor:</b> {{ libroSeleccionado.autor }}</p>
-    <p id="Resumen"><b>Resumen:</b> {{ libroSeleccionado.resumen }}</p>
-    <p id="Precio"><b>Precio:</b> {{ libroSeleccionado.precio }}€</p>
-    <p id="Stock"><b>Stock:</b> {{ libroSeleccionado.stock }} unidades</p>
-    <div>
-      <p *ngIf="valoracionesLibro.length > 0 -1">
-        <strong>Valoración promedio:</strong>
-        <span *ngFor="let _ of estrellasLlenas">⭐</span>
-        <span *ngIf="mediaDecimal">✨</span>
-        <span *ngFor="let _ of estrellasVacias">☆</span>
-        ({{ averageRating.toFixed(2) }} / 5)
-      </p>
-      <p *ngIf="valoracionesLibro.length === 0">
-        <strong>Valoración promedio:</strong> Sin valorar
-      </p>
+<div class="libro-detalle-container" *ngIf="libroId && libroSeleccionado">
+  <!-- Detalle del libro -->
+  <div class="libro">
+    <div class="libro-img-container">
+      <img [src]="libroSeleccionado.link" [alt]="libroSeleccionado.titulo" class="libro-img">
     </div>
-    <button 
-      style="background-color: blanchedalmond; color: rgb(1, 66, 1); border-radius: 15px; border-color: rgb(1, 66, 1);"
-      (click)="agregarAlCarrito(libroSeleccionado)" 
-      [ngClass]="{'disabled': libroSeleccionado.cantidad >= libroSeleccionado.stock}"
-      [disabled]="libroSeleccionado.cantidad >= libroSeleccionado.stock">
-      Agregar al carrito
-    </button>
-    <br><br>
+    
+    <div class="libro-info">
+      <h1 class="libro-titulo">{{ libroSeleccionado.titulo }}</h1>
+      
+      <div class="info-item">
+        <span class="info-label">Autor:</span>
+        <span>{{ libroSeleccionado.autor }}</span>
+      </div>
+      
+      <div class="info-item">
+        <span class="info-label">Resumen:</span>
+        <span>{{ libroSeleccionado.resumen }}</span>
+      </div>
+      
+      <div class="info-item">
+        <span class="info-label">Precio:</span>
+        <span>{{ libroSeleccionado.precio }}€</span>
+      </div>
+      
+      <div class="info-item">
+        <span class="info-label">Stock:</span>
+        <span>{{ libroSeleccionado.stock }} unidades</span>
+      </div>
+      
+      <div class="valoracion-container" *ngIf="valoracionesLibro.length > 0">
+        <div class="info-label">Valoración promedio:</div>
+        <div class="valoracion-promedio">
+          <div class="valoracion-estrellas">
+            <span *ngFor="let _ of estrellasLlenas">⭐</span>
+            <span *ngIf="mediaDecimal"><img src="../../assets/images/mediaestrellabuena.png" alt="" height="35px"></span>
+            <span *ngFor="let _ of estrellasVacias">☆</span>
+          </div>
+          <span class="valoracion-numero">({{ averageRating.toFixed(2) }} / 5)</span>
+        </div>
+      </div>
+      
+      <div class="valoracion-container" *ngIf="valoracionesLibro.length === 0">
+        <div class="info-label">Valoración promedio:</div>
+        <span>Sin valorar</span>
+      </div>
+      
+      <button 
+        class="btn-carrito"
+        [ngClass]="{'disabled': libroSeleccionado.cantidad >= libroSeleccionado.stock}"
+        [disabled]="libroSeleccionado.cantidad >= libroSeleccionado.stock"
+        (click)="agregarAlCarrito(libroSeleccionado)">
+        Agregar al carrito
+      </button>
+    </div>
   </div>
 
   <!-- Formulario de Valoración -->
-  <div class="comentarios-container" style="margin-top: 30px; padding: 20px; border-top: 2px solid #ccc; text-align: left;">
-    <h2>Deja tu valoración</h2>
-  
-
-  
-    <label>Valoración:</label>
+  <div class="comentarios-container">
+    <h2 class="comentarios-titulo">Deja tu valoración</h2>
+    
     <div>
-      <ng-container *ngFor="let estrella of [1, 2, 3, 4, 5]">
-        <input type="radio" [value]="estrella" name="valoracion" [(ngModel)]="nuevaValoracion.valoracion">
-        {{ estrella }} ⭐
-      </ng-container>
+      <div class="info-label">Valoración:</div>
+      <div class="rating-input">
+        <ng-container *ngFor="let estrella of [1, 2, 3, 4, 5]">
+          <label class="rating-star">
+            <input type="radio" [value]="estrella" name="valoracion" [(ngModel)]="nuevaValoracion.valoracion" style="margin-right: 5px;">
+            {{ estrella }} ⭐
+            
+          </label>
+        </ng-container>
+      </div>
     </div>
     
-    <label for="comentario">Comentario:</label>
-    <textarea [(ngModel)]="nuevaValoracion.comentario" rows="5" style="width: 100%;" placeholder="Cuéntanos tu experiencia con el libro, artista..."></textarea>
+    <div>
+      <label for="comentario" class="info-label">Comentario:</label>
+      <textarea 
+        [(ngModel)]="nuevaValoracion.comentario" 
+        rows="5" 
+        class="comentario-input" 
+        placeholder="Cuéntanos tu experiencia con el libro...">
+      </textarea>
+    </div>
     
-    <br><br>
-    
-    <!-- Botones en línea -->
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <div class="botones-container">
       <button 
-        style="background-color: darkolivegreen; color: white; border-radius: 10px; padding: 10px 20px;"
+        class="btn-comentario btn-enviar"
         (click)="crearValoracion()">
         {{ tieneComentario ? 'Actualizar reseña' : 'Crear reseña' }}
       </button>
     
       <button 
         *ngIf="tieneComentario"
-        style="background-color: #ff4444; color: white; border-radius: 10px; padding: 10px 20px;"
+        class="btn-comentario btn-borrar"
         (click)="borrarComentario()">
         Borrar mi reseña
       </button>
     </div>
-    
-
+  </div>
 
   <!-- Lista de valoraciones -->
-  <div *ngIf="valoracionesLibro.length > 0" style="margin-top: 40px;">
-    <h3>RESEÑAS</h3>
-    <div *ngFor="let val of valoracionesLibro" style="border-bottom: 1px solid #ccc; padding: 10px 0;">
-      <p><strong>Usuario:</strong> {{ val.nombre_usuario }}</p>
-      <p>
-        <strong>Valoración:</strong>
-        <span *ngFor="let estrella of [].constructor(val.Valoracion)">⭐</span>
-        <span *ngFor="let vacia of [].constructor(5 - val.Valoracion)">☆</span>
+  <div class="comentarios-container reseñas-container" *ngIf="valoracionesLibro.length > 0">
+    <h3 class="comentarios-titulo">RESEÑAS</h3>
+    
+    <div class="reseña-item" *ngFor="let val of valoracionesLibro">
+      <p class="reseña-usuario">
+        <strong>Usuario:</strong> {{ val.nombre_usuario }}
       </p>
-      <p><strong>Comentario:</strong> {{ val.Comentario || 'Sin comentario' }}</p>
+      
+      <p class="reseña-estrellas">
+        <strong>Valoración:</strong>
+        <span class="estrella-llena" *ngFor="let estrella of [].constructor(val.Valoracion)">⭐</span>
+        <span class="estrella-vacia" *ngFor="let vacia of [].constructor(5 - val.Valoracion)">☆</span>
+      </p>
+      
+      <p class="reseña-texto">
+        <strong>Comentario:</strong> {{ val.Comentario || 'Sin comentario' }}
+      </p>
     </div>
   </div>
 </div>
