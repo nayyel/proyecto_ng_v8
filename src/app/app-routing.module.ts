@@ -8,7 +8,7 @@ import { InfoComponent } from './info/info.component';
 import { AdminComponent } from './admin/admin.component';
 import { HistorialComponent } from './historial/historial.component';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
-
+import { PasarelaComponent } from './pasarela/pasarela.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/categoria' }, // Página inicial redirige a CategoriasComponent
   { path: 'empleado', component: EmpleadosComponent },
@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'categoria/:id_categoria', component: CategoriasComponent },
   { path: 'administracion', component: AdminComponent },
   { path: 'historial', component: HistorialComponent },
+   { path: 'pasarela', component: PasarelaComponent },
   { path: '**', redirectTo: '/categoria' } // Ruta por defecto para cualquier URL no encontrada
 ];
 

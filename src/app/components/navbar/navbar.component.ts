@@ -187,33 +187,31 @@ export class NavbarComponent implements OnInit {
       categoriaElement.scrollIntoView({ behavior: 'smooth' });
     }
   }
-
-  procesarCompra(): void {
-  
-  
-    // Obtén el total del carrito
-    const total = parseFloat(this.totalCarrito());
-  
-    // Crea un objeto con los datos a enviar
-    const compra = {
-      carrito: this.carrito,
-      total: total,
-      id_usuario: localStorage.getItem('userId')
-    };
-  
-    // Llama al servicio para procesar la compra
-    this.carritoService.procesarCompra(compra).subscribe(
-      response => {
-        console.log(response);  
-        this.carrito = []; 
-        this.carritoService.vaciarCarrito()// Vaciar el carrito después de la compra
-      },
-      error => {
-        console.error('Error al procesar la compra:', error, );
-        alert('Ocurrió un error al realizar la compra. Intenta nuevamente.');
-      }
-    );
+procesarCompra(): void {
+  if (!this.loggedIn) {
+    alert('Tienes que iniciar sesión para poder comprar.');
+    return;
   }
-  
+
+  // Guarda el carrito y total
+  const total = parseFloat(this.totalCarrito());
+
+  const compra = {
+    carrito: this.carrito,
+    total: total,
+    id_usuario: localStorage.getItem('userId')
+
+    
+  };
+    // Vacía el carrito antes de redirigir (opcional)
+  this.carritoService.vaciarCarrito();
+  this.carrito = [];
+
+  // Redirige a la pasarela con la info de compra
+  this.router.navigate(['/pasarela'], { state: { compra } });
+};
+
+
 }
+
 

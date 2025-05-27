@@ -16,6 +16,8 @@ export class EmpleadoService {
   api_actualizar_contrasena: string = "http://localhost/api_actualizar_contrasena.php"; // URL para actualizar la contraseña
   api_historial: string = "http://localhost/api_historial.php";
   api_valoraciones: string = 'http://localhost/api_valoracion.php';
+  api_direcciones: string = 'http://localhost/api_direcciones.php';
+api_tarjetas: string = 'http://localhost/api_tarjetas.php';
   constructor(private http: HttpClient) { }
 
   Showempleado(Buscador: any): Observable<any> {
@@ -96,8 +98,9 @@ export class EmpleadoService {
     return this.http.put<any>(this.api_actualizar_contrasena,datos);
   }
 
+ 
   cargarHistorialCompras(usuario: any): Observable<any> {
-    return this.http.put<any>(this.api_historial,usuario);
+    return this.http.put<any>(this.api_historial, usuario);
   }
 
   crearValoracion(valoracion: any): Observable<any> {
@@ -111,7 +114,7 @@ export class EmpleadoService {
       body: { ID_usuario, ID_libro }
     });
   }
-  
+
 
   // Método actualizado para crear/actualizar valoración
   actualizarValoracion(valoracionData: any): Observable<any> {
@@ -137,5 +140,44 @@ export class EmpleadoService {
       });
     });
   }
+
+
+  // === DIRECCIONES ===
+crearDireccion(direccion: any): Observable<any> {
+  return this.http.post<any>(this.api_direcciones, direccion);
+}
+
+verDireccionesPorUsuario(id_usuario: string): Observable<any> {
+  return this.http.get<any>(`${this.api_direcciones}?id_usuario=${id_usuario}`);
+}
+
+editarDireccion(direccion: any): Observable<any> {
+  return this.http.put<any>(this.api_direcciones, direccion);
+}
+
+eliminarDireccion(id_direccion: number): Observable<any> {
+  return this.http.delete<any>(this.api_direcciones, {
+    body: { id_direccion: id_direccion.toString() }
+  });
+}
+
+// === TARJETAS ===
+crearTarjeta(tarjeta: any): Observable<any> {
+  return this.http.post<any>(this.api_tarjetas, tarjeta);
+}
+
+verTarjetasPorUsuario(id_usuario: string): Observable<any> {
+  return this.http.get<any>(`${this.api_tarjetas}?id_usuario=${id_usuario}`);
+}
+
+editarTarjeta(tarjeta: any): Observable<any> {
+  return this.http.put<any>(this.api_tarjetas, tarjeta);
+}
+
+eliminarTarjeta(id_tarjeta: number): Observable<any> {
+  return this.http.delete<any>(this.api_tarjetas, {
+    body: { id_tarjeta: id_tarjeta.toString() }
+  });
+}
 
 }

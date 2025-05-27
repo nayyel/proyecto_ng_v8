@@ -1,16 +1,14 @@
 <div class="container">
-  <div class="title"> <h2>Actualizar Foto de Perfil</h2> </div>
+  <div class="title">
+    <h2>Actualizar Foto de Perfil</h2>
+  </div>
 
-  <!-- Formulario para actualizar el perfil -->
   <div class="editar-perfil-form">
     <form (ngSubmit)="onSubmitPerfil()">
-    
-
       <div class="form-group">
         <label for="actual">Imagen Actual</label>
-        <img [src]='fotoPerfil' alt="User Profile" class="profile-image-preview">
+        <img [src]="fotoPerfil" alt="User Profile" class="profile-image-preview">
       </div>
-        
 
       <div class="form-group">
         <label for="fotoPerfil">Foto de Perfil (URL)</label>
@@ -19,7 +17,6 @@
 
       <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
 
-      <!-- Mensajes de éxito o error al actualizar perfil -->
       <div *ngIf="fotoPerfil">
         <p class="text-success" *ngIf="successMessage">{{ successMessage }}</p>
         <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
@@ -29,32 +26,101 @@
 
   <hr />
 
-  <div class="title"> <h2>Actualizar Contraseña</h2> </div>
+  <div class="title">
+    <h2>Actualizar Contraseña</h2>
+  </div>
 
-  <!-- Formulario para actualizar la contraseña -->
   <div class="editar-perfil-form">
     <form (ngSubmit)="onSubmitPassword()">
       <div class="form-group">
         <label for="currentPassword">Contraseña Actual</label>
         <input type="password" id="currentPassword" class="form-control" [(ngModel)]="currentPassword" name="currentPassword" />
       </div>
-  
+
       <div class="form-group">
         <label for="newPassword">Nueva Contraseña</label>
         <input type="password" id="newPassword" class="form-control" [(ngModel)]="newPassword" name="newPassword" required />
       </div>
-  
+
       <div class="form-group">
         <label for="confirmPassword">Confirmar Nueva Contraseña</label>
         <input type="password" id="confirmPassword" class="form-control" [(ngModel)]="confirmPassword" name="confirmPassword" required />
       </div>
-  
+
       <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
-  
-      <!-- Mensajes de éxito o error al actualizar contraseña -->
+
       <div *ngIf="newPassword && confirmPassword">
         <p class="text-success" *ngIf="successMessagePassword">{{ successMessagePassword }}</p>
         <p class="text-danger" *ngIf="errorMessagePassword">{{ errorMessagePassword }}</p>
       </div>
     </form>
+
+    <hr />
+    <h3>Direcciones Guardadas</h3>
+    <select class="form-control mb-2" [(ngModel)]="direccionSeleccionada" name="direccionSeleccionada">
+      <option *ngIf="direcciones.length === 0" disabled selected>No tienes direcciones guardadas</option>
+      <option *ngFor="let d of direcciones" [ngValue]="d">{{ d.calle }} - {{ d.ciudad }} - {{ d.pais }}</option>
+    </select>
+    <div *ngIf="direccionSeleccionada">
+      <div *ngIf="editandoDireccion?.id_direccion === direccionSeleccionada.id_direccion">
+        <input [(ngModel)]="editandoDireccion.calle" name="edit_calle" class="form-control my-1" />
+        <input [(ngModel)]="editandoDireccion.ciudad" name="edit_ciudad" class="form-control my-1" />
+        <input [(ngModel)]="editandoDireccion.provincia" name="edit_provincia" class="form-control my-1" />
+        <input [(ngModel)]="editandoDireccion.codigo_postal" name="edit_postal" class="form-control my-1" />
+        <input [(ngModel)]="editandoDireccion.pais" name="edit_pais" class="form-control my-1" />
+        <button (click)="guardarEdicionDireccion()" class="btn btn-sm btn-success mr-1">Guardar</button>
+        <button (click)="cancelarEdicionDireccion()" class="btn btn-sm btn-secondary">Cancelar</button>
+      </div>
+      <div *ngIf="editandoDireccion?.id_direccion !== direccionSeleccionada.id_direccion">
+        <p>
+        
+          <button (click)="editarDireccion(direccionSeleccionada)" class="btn btn-sm btn-warning mx-2">Editar</button>
+          <button (click)="eliminarDireccion(direccionSeleccionada.id_direccion)" class="btn btn-sm btn-danger">Eliminar</button>
+        </p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="onAgregarDireccion()">
+      <h4 class="mt-3">Agregar Nueva Dirección</h4>
+      <input class="form-control my-1" type="text" placeholder="Calle" [(ngModel)]="nuevaDireccion.calle" name="calle" required />
+      <input class="form-control my-1" type="text" placeholder="Ciudad" [(ngModel)]="nuevaDireccion.ciudad" name="ciudad" required />
+      <input class="form-control my-1" type="text" placeholder="Provincia" [(ngModel)]="nuevaDireccion.provincia" name="provincia" required />
+      <input class="form-control my-1" type="text" placeholder="Código Postal" [(ngModel)]="nuevaDireccion.codigo_postal" name="codigo_postal" required />
+      <input class="form-control my-1" type="text" placeholder="País" [(ngModel)]="nuevaDireccion.pais" name="pais" required />
+      <button type="submit" class="btn btn-success mt-2">Guardar Dirección</button>
+    </form>
+
+    <hr />
+    <h3>Tarjetas Guardadas</h3>
+    <select class="form-control mb-2" [(ngModel)]="tarjetaSeleccionada" name="tarjetaSeleccionada">
+      <option *ngIf="tarjetas.length === 0" disabled selected>No tienes tarjetas guardadas</option>
+      <option *ngFor="let t of tarjetas" [ngValue]="t">****{{ t.numero_tarjeta.slice(-4) }} - {{ t.titular }}</option>
+    </select>
+    <div *ngIf="tarjetaSeleccionada">
+      <div *ngIf="editandoTarjeta?.id_tarjeta === tarjetaSeleccionada.id_tarjeta">
+        <input [(ngModel)]="editandoTarjeta.numero_tarjeta" name="edit_numero_tarjeta" class="form-control my-1" />
+        <input [(ngModel)]="editandoTarjeta.titular" name="edit_titular" class="form-control my-1" />
+        <input [(ngModel)]="editandoTarjeta.fecha_expiracion" name="edit_fecha" class="form-control my-1" />
+        <input [(ngModel)]="editandoTarjeta.cvv" name="edit_cvv" class="form-control my-1" />
+        <button (click)="guardarEdicionTarjeta()" class="btn btn-sm btn-success mr-1">Guardar</button>
+        <button (click)="cancelarEdicionTarjeta()" class="btn btn-sm btn-secondary">Cancelar</button>
+      </div>
+      <div *ngIf="editandoTarjeta?.id_tarjeta !== tarjetaSeleccionada.id_tarjeta">
+        <p>
+         
+          <button (click)="editarTarjeta(tarjetaSeleccionada)" class="btn btn-sm btn-warning mx-2">Editar</button>
+          <button (click)="eliminarTarjeta(tarjetaSeleccionada.id_tarjeta)" class="btn btn-sm btn-danger">Eliminar</button>
+        </p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="onAgregarTarjeta()">
+      <h4 class="mt-3">Agregar Nueva Tarjeta</h4>
+      <input class="form-control my-1" type="text" placeholder="Número de tarjeta" [(ngModel)]="nuevaTarjeta.numero_tarjeta" name="numero_tarjeta" required />
+      <input class="form-control my-1" type="text" placeholder="Titular" [(ngModel)]="nuevaTarjeta.titular" name="titular" required />
+      <input class="form-control my-1" type="text" placeholder="Fecha expiración (MM/YYYY)" [(ngModel)]="nuevaTarjeta.fecha_expiracion" name="fecha_expiracion" required />
+      <input class="form-control my-1" type="text" placeholder="CVV" [(ngModel)]="nuevaTarjeta.cvv" name="cvv" required />
+      <button type="submit" class="btn btn-success mt-2">Guardar Tarjeta</button>
+    </form>
   </div>
+</div>

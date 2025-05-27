@@ -1,26 +1,29 @@
 <div class="contenido">
-    <div *ngFor="let venta of historialCompras" class="venta">
-      <h2 class="venta-header">
-       Fecha: <span class="total">{{ venta.fecha }}</span> <!-- - Total: {{ venta.total | currency:'USD':true }} -->
-      </h2>
-      <ul class="libros-lista">
-        <li *ngFor="let libro of venta.libros" class="libro">
-            <a [routerLink]="['/libro/', libro.id_libro]" style="margin-right: 15px;">
-                <img [src]="libro.link" alt="{{libro.titulo }}" style="height: 120px; width: auto; object-fit: cover; border-radius: 5px;">
-              </a>
-          <div class="libro-detalles">
-            <span class="titulo"> <strong>{{ libro.titulo }}</strong> </span>
-            <span class="unidades">Unidades: <strong>{{ libro.cantidad }}</strong> </span>
-            <span class="precio">Precio unidad: <strong>{{ libro.precio | currency:'USD':true }}</strong></span>
-            <span class="total">Total:{{ libro.cantidad * libro.precio | currency:'USD':true }}</span>
-          </div>
-        </li>
-      </ul>
-      <h3 class="venta-footer">Total: 
-        <span class="total">{{ venta.total | currency:'USD':true }}</span>
-      </h3>
-      <button (click)="generatePDF(venta)">Generar PDF Factura</button>
+  <div *ngFor="let venta of historialCompras" class="venta">
+    <h2 class="venta-header">
+      Fecha: <span class="total">{{ venta.fecha }}</span>
+    </h2>
 
+    <ul class="libros-lista">
+      <li *ngFor="let libro of venta.libros" class="libro">
+        <a [routerLink]="['/libro/', libro.id_libro]" style="margin-right: 15px;">
+          <img [src]="libro.link" alt="{{libro.titulo}}" style="height: 120px; width: auto; object-fit: cover; border-radius: 5px;">
+        </a>
+        <div class="libro-detalles">
+          <span class="titulo"><strong>{{ libro.titulo }}</strong></span>
+          <span class="unidades">Unidades: <strong>{{ libro.cantidad }}</strong></span>
+          <span class="precio">Precio unidad: <strong>{{ libro.precio | currency:'EUR':true }}</strong></span>
+          <span class="total">Total: {{ libro.cantidad * libro.precio | currency:'EUR':true }}</span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="extra-info mt-2">
+      <p><strong>Dirección:</strong> {{ venta.direccion }}</p>
+      <p><strong>Tarjeta:</strong> {{ venta.tarjeta }}</p>
     </div>
+
+    <h3 class="venta-footer">Total: <span class="total">{{ venta.total | currency:'EUR':true }}</span></h3>
+    <button (click)="generatePDF(venta)">Generar PDF Factura</button>
   </div>
-  
+</div>
