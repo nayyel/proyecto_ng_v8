@@ -200,16 +200,18 @@ procesarCompra(): void {
     carrito: this.carrito,
     total: total,
     id_usuario: localStorage.getItem('userId')
-
-    
   };
-    // Vacía el carrito antes de redirigir (opcional)
+
+  // Vacía el carrito antes de redirigir
   this.carritoService.vaciarCarrito();
   this.carrito = [];
+  
+  // Cierra el carrito
+  this.hideCarrito();
 
   // Redirige a la pasarela con la info de compra
   this.router.navigate(['/pasarela'], { state: { compra } });
-};
+}
 
 
 }

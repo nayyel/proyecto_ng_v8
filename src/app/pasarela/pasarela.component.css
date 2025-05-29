@@ -1,0 +1,288 @@
+.container {
+    background-color: #f9f5f2;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    padding: 5rem;
+    margin: 13vh auto 2rem auto;
+    max-width: 1000px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(112, 172, 105, 0.2);
+}
+
+h2 {
+    color: #70ac69;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 3px solid #70ac69;
+    padding-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+    color: #70ac69;
+    margin: 1.8rem 0 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card {
+    border: none;
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #70ac69;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(112, 172, 105, 0.15);
+}
+
+.card-body {
+    padding: 1.8rem;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.book-image-container {
+    position: relative;
+    width: 120px;
+    height: 180px;
+    perspective: 1000px;
+    transition: transform 0.5s;
+}
+
+.book-image {
+    width: 120px !important;
+    height: 180px !important;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s;
+}
+
+.book-image-container:hover {
+    transform: translateY(-5px);
+}
+
+.book-image-container:hover .book-image {
+    transform: rotateY(-10deg);
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.book-details h5 {
+    color: #70ac69;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.book-details p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.price-info {
+    text-align: right;
+    min-width: 120px;
+}
+
+.price-info strong {
+    color: #70ac69;
+    font-size: 1.1rem;
+}
+
+.form-control {
+    padding: 1rem;
+    border: 2px solid #70ac69;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+.form-control:focus {
+    border-color: #70ac69;
+    box-shadow: 0 0 0 3px rgba(112, 172, 105, 0.2);
+    outline: none;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: #70ac69;
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(112, 172, 105, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #5f9359;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(112, 172, 105, 0.4);
+}
+
+.btn-primary:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: #f9f5f2;
+    border: 1px solid #70ac69;
+    color: #70ac69;
+}
+
+.btn-secondary:hover {
+    background: #f0ebe7;
+    color: #5f9359;
+}
+
+.btn-success {
+    background: #70ac69;
+    border: none;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #5f9359;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.text-success {
+    color: #70ac69 !important;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #70ac69, transparent);
+    margin: 2rem 0;
+}
+
+/* Estilos para el resumen de la compra */
+strong {
+    color: #70ac69;
+    font-weight: 600;
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .card-body {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .card-body div:last-child {
+        margin-top: 1rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.3rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mt-3 {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Mejoras visuales adicionales */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2370ac69' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+/* Efectos de hover para elementos interactivos */
+.form-control:hover {
+    border-color: #5f9359;
+}
+
+/* Estilo para mostrar información importante */
+.total-compra {
+    background: #f9f5f2;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin: 2rem 0;
+    text-align: right;
+    border-left: 4px solid #70ac69;
+}
+
+/* Efecto de carga */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
