@@ -15,6 +15,7 @@ import { AdminComponent } from './admin/admin.component';
 import { EditarPerfilComponent } from './editar-perfil/editar-perfil.component';
 import { HistorialComponent } from './historial/historial.component';
 import { PasarelaComponent } from './pasarela/pasarela.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { PasarelaComponent } from './pasarela/pasarela.component';
     AdminComponent,
     EditarPerfilComponent,
     HistorialComponent,
-    PasarelaComponent
+    PasarelaComponent,
+    FooterComponent
     
   ],
   imports: [
