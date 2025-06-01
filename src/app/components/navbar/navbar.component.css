@@ -205,7 +205,10 @@
   padding: 20px;
   background-color: white;
   border-radius: 10px;
-  overflow: auto;
+  overflow: hidden;
+  margin-left: -20%;
+  margin-right: 25%;
+  
 }
 
 /* Shopping Cart */
