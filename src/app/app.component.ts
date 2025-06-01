@@ -14,5 +14,5 @@ export class AppComponent {
   }
 isCategoryPage(): boolean {
   return this.router.url.startsWith('/categoria');
-}
-}
+}}
+

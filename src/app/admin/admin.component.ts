@@ -315,6 +315,7 @@ export class AdminComponent {
     this.password_usuario = '';
     this.showEditUserForm = true;
     this.showCreateUserForm = false;
+
         setTimeout(() => {
       const editForm = document.getElementById('editUserForm');
       if (editForm) {
