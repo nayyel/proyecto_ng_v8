@@ -193,7 +193,6 @@ procesarCompra(): void {
     return;
   }
 
-  // Guarda el carrito y total
   const total = parseFloat(this.totalCarrito());
 
   const compra = {
@@ -202,14 +201,9 @@ procesarCompra(): void {
     id_usuario: localStorage.getItem('userId')
   };
 
-  // Vacía el carrito antes de redirigir
-  this.carritoService.vaciarCarrito();
-  this.carrito = [];
-  
-  // Cierra el carrito
-  this.hideCarrito();
+  this.hideCarrito();  // Oculta el modal o panel del carrito
 
-  // Redirige a la pasarela con la info de compra
+  // Navega a la pasarela con los datos de la compra
   this.router.navigate(['/pasarela'], { state: { compra } });
 }
 

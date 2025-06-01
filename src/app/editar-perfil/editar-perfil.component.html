@@ -1,36 +1,41 @@
-<div class="container">
-  <div class="title">
-    <h2>Actualizar Foto de Perfil</h2>
-  </div>
 
-  <div class="editar-perfil-form">
-    <form (ngSubmit)="onSubmitPerfil()">
-      <div class="form-group">
-        <label for="actual">Imagen Actual</label>
-        <img [src]="fotoPerfil" alt="User Profile" class="profile-image-preview">
-      </div>
+  <div class="container">
+    <!-- Tarjeta: Foto de Perfil -->
+    <div class="card glass">
+      <h2>Actualizar Foto de Perfil</h2>
+          <div class="editar-perfil-form">
+      <form (ngSubmit)="onSubmitPerfil()">
+        <div class="form-group">
+          <label for="actual">Imagen Actual</label>
+          <img [src]="fotoPerfil" alt="User Profile" class="profile-image-preview">
+        </div>
 
-      <div class="form-group">
-        <label for="fotoPerfil">Foto de Perfil (URL)</label>
-        <input type="text" id="fotoPerfil" class="form-control" [(ngModel)]="fotoPerfil" name="fotoPerfil" required />
-      </div>
+        <div class="form-group">
+          <label for="fotoPerfil">Foto de Perfil (URL)</label>
+          <input type="text" id="fotoPerfil" class="form-control" [(ngModel)]="fotoPerfil" name="fotoPerfil" required />
+        </div>
 
-      <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+        <button type="submit" class="btn btn-primary">
+          <!-- Icono cámara -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M10.5 3a.5.5 0 0 1 .5.5V4h1a1 1 0 0 1 1 1v1H3V5a1 1 0 0 1 1-1h1v-.5a.5.5 0 0 1 .5-.5h5z"/>
+            <path d="M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+          </svg>
+          Actualizar Perfil</button>
 
-      <div *ngIf="fotoPerfil">
-        <p class="text-success" *ngIf="successMessage">{{ successMessage }}</p>
-        <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
-      </div>
-    </form>
-  </div>
+        <div *ngIf="fotoPerfil">
+          <p class="text-success" *ngIf="successMessage">{{ successMessage }}</p>
+          <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+        </div>
+      </form>
+    </div>
 
-  <hr />
+    </div>
 
-  <div class="title">
-    <h2>Actualizar Contraseña</h2>
-  </div>
-
-  <div class="editar-perfil-form">
+    <!-- Tarjeta: Contraseña -->
+    <div class="card glass">
+      <h2>Actualizar Contraseña</h2>
+      <div class="editar-perfil-form">
     <form (ngSubmit)="onSubmitPassword()">
       <div class="form-group">
         <label for="currentPassword">Contraseña Actual</label>
@@ -46,18 +51,26 @@
         <label for="confirmPassword">Confirmar Nueva Contraseña</label>
         <input type="password" id="confirmPassword" class="form-control" [(ngModel)]="confirmPassword" name="confirmPassword" required />
       </div>
-
-      <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
-
+        <button type="submit">
+          <!-- Icono candado -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M8 1a3 3 0 0 1 3 3v3H5V4a3 3 0 0 1 3-3z"/>
+            <path d="M4 8h8v6H4V8z"/>
+          </svg>
+          Actualizar Contraseña
+        </button>
       <div *ngIf="newPassword && confirmPassword">
         <p class="text-success" *ngIf="successMessagePassword">{{ successMessagePassword }}</p>
         <p class="text-danger" *ngIf="errorMessagePassword">{{ errorMessagePassword }}</p>
       </div>
     </form>
+    </div>
+    </div>
 
-    <hr />
-    <h3>Direcciones Guardadas</h3>
-    <select class="form-control mb-2" [(ngModel)]="direccionSeleccionada" name="direccionSeleccionada">
+    <!-- Tarjeta: Direcciones -->
+    <div class="card glass">
+      <h2>Gestionar Direcciones</h2>
+      <select class="form-control mb-2" [(ngModel)]="direccionSeleccionada" name="direccionSeleccionada">
       <option *ngIf="direcciones.length === 0" disabled selected>No tienes direcciones guardadas</option>
       <option *ngFor="let d of direcciones" [ngValue]="d">{{ d.calle }} - {{ d.ciudad }} - {{ d.pais }}</option>
     </select>
@@ -68,14 +81,37 @@
         <input [(ngModel)]="editandoDireccion.provincia" name="edit_provincia" class="form-control my-1" />
         <input [(ngModel)]="editandoDireccion.codigo_postal" name="edit_postal" class="form-control my-1" />
         <input [(ngModel)]="editandoDireccion.pais" name="edit_pais" class="form-control my-1" />
-        <button (click)="guardarEdicionDireccion()" class="btn btn-sm btn-success mr-1">Guardar</button>
-        <button (click)="cancelarEdicionDireccion()" class="btn btn-sm btn-secondary">Cancelar</button>
+        <button (click)="guardarEdicionDireccion()" class="btn btn-sm btn-success mr-1"><!-- Icono ubicación -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M8 0a5.5 5.5 0 0 1 5.5 5.5c0 3.384-5.5 10.5-5.5 10.5S2.5 8.884 2.5 5.5A5.5 5.5 0 0 1 8 0zm0 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+          </svg>
+          Guardar
+        </button>
+        <button (click)="cancelarEdicionDireccion()" class="btn btn-sm btn-secondary">
+          <!-- Icono ubicación -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M8 0a5.5 5.5 0 0 1 5.5 5.5c0 3.384-5.5 10.5-5.5 10.5S2.5 8.884 2.5 5.5A5.5 5.5 0 0 1 8 0zm0 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+          </svg>
+          Cancelar
+        </button>
       </div>
       <div *ngIf="editandoDireccion?.id_direccion !== direccionSeleccionada.id_direccion">
         <p>
         
-          <button (click)="editarDireccion(direccionSeleccionada)" class="btn btn-sm btn-warning mx-2">Editar</button>
-          <button (click)="eliminarDireccion(direccionSeleccionada.id_direccion)" class="btn btn-sm btn-danger">Eliminar</button>
+          <button (click)="editarDireccion(direccionSeleccionada)" class="btn btn-sm btn-warning mx-2">
+           <!-- Icono ubicación -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M8 0a5.5 5.5 0 0 1 5.5 5.5c0 3.384-5.5 10.5-5.5 10.5S2.5 8.884 2.5 5.5A5.5 5.5 0 0 1 8 0zm0 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+          </svg> 
+            Editar
+          </button>
+          <button (click)="eliminarDireccion(direccionSeleccionada.id_direccion)" class="btn btn-sm btn-danger">
+            <!-- Icono ubicación -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M8 0a5.5 5.5 0 0 1 5.5 5.5c0 3.384-5.5 10.5-5.5 10.5S2.5 8.884 2.5 5.5A5.5 5.5 0 0 1 8 0zm0 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+          </svg>
+            Eliminar
+          </button>
         </p>
       </div>
     </div>
@@ -87,11 +123,20 @@
       <input class="form-control my-1" type="text" placeholder="Provincia" [(ngModel)]="nuevaDireccion.provincia" name="provincia" required />
       <input class="form-control my-1" type="text" placeholder="Código Postal" [(ngModel)]="nuevaDireccion.codigo_postal" name="codigo_postal" required />
       <input class="form-control my-1" type="text" placeholder="País" [(ngModel)]="nuevaDireccion.pais" name="pais" required />
-      <button type="submit" class="btn btn-success mt-2">Guardar Dirección</button>
+      <button type="submit" class="btn btn-success mt-2">
+        <!-- Icono ubicación -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M8 0a5.5 5.5 0 0 1 5.5 5.5c0 3.384-5.5 10.5-5.5 10.5S2.5 8.884 2.5 5.5A5.5 5.5 0 0 1 8 0zm0 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+          </svg>
+        Guardar Dirección</button>
     </form>
 
-    <hr />
-    <h3>Tarjetas Guardadas</h3>
+    </div>
+
+    <!-- Tarjeta: Tarjetas guardadas -->
+    <div class="card glass">
+      <h2>Tarjetas Guardadas</h2>
+      
     <select class="form-control mb-2" [(ngModel)]="tarjetaSeleccionada" name="tarjetaSeleccionada">
       <option *ngIf="tarjetas.length === 0" disabled selected>No tienes tarjetas guardadas</option>
       <option *ngFor="let t of tarjetas" [ngValue]="t">****{{ t.numero_tarjeta.slice(-4) }} - {{ t.titular }}</option>
@@ -102,14 +147,30 @@
         <input [(ngModel)]="editandoTarjeta.titular" name="edit_titular" class="form-control my-1" />
         <input [(ngModel)]="editandoTarjeta.fecha_expiracion" name="edit_fecha" class="form-control my-1" />
         <input [(ngModel)]="editandoTarjeta.cvv" name="edit_cvv" class="form-control my-1" />
-        <button (click)="guardarEdicionTarjeta()" class="btn btn-sm btn-success mr-1">Guardar</button>
-        <button (click)="cancelarEdicionTarjeta()" class="btn btn-sm btn-secondary">Cancelar</button>
+        <button (click)="guardarEdicionTarjeta()" class="btn btn-sm btn-success mr-1">
+          <!-- Icono tarjeta -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 2h16v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6z"/>
+          </svg>Guardar</button>
+        <button (click)="cancelarEdicionTarjeta()" class="btn btn-sm btn-secondary">
+          <!-- Icono tarjeta -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 2h16v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6z"/>
+          </svg>Cancelar</button>
       </div>
       <div *ngIf="editandoTarjeta?.id_tarjeta !== tarjetaSeleccionada.id_tarjeta">
         <p>
          
-          <button (click)="editarTarjeta(tarjetaSeleccionada)" class="btn btn-sm btn-warning mx-2">Editar</button>
-          <button (click)="eliminarTarjeta(tarjetaSeleccionada.id_tarjeta)" class="btn btn-sm btn-danger">Eliminar</button>
+          <button (click)="editarTarjeta(tarjetaSeleccionada)" class="btn btn-sm btn-warning mx-2">
+            <!-- Icono tarjeta -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 2h16v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6z"/>
+          </svg>Editar</button>
+          <button (click)="eliminarTarjeta(tarjetaSeleccionada.id_tarjeta)" class="btn btn-sm btn-danger">
+            <!-- Icono tarjeta -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 2h16v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6z"/>
+          </svg>Eliminar</button>
         </p>
       </div>
     </div>
@@ -120,7 +181,14 @@
       <input class="form-control my-1" type="text" placeholder="Titular" [(ngModel)]="nuevaTarjeta.titular" name="titular" required />
       <input class="form-control my-1" type="text" placeholder="Fecha expiración (MM/YYYY)" [(ngModel)]="nuevaTarjeta.fecha_expiracion" name="fecha_expiracion" required />
       <input class="form-control my-1" type="text" placeholder="CVV" [(ngModel)]="nuevaTarjeta.cvv" name="cvv" required />
-      <button type="submit" class="btn btn-success mt-2">Guardar Tarjeta</button>
+      <button type="submit" class="btn btn-success mt-2">        
+        <!-- Icono tarjeta -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4zm0 2h16v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6z"/>
+          </svg>
+          Guardar Tarjeta
+        </button>
     </form>
+
+
   </div>
-</div>
