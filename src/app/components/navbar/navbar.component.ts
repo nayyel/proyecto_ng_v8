@@ -92,7 +92,7 @@ export class NavbarComponent implements OnInit {
 
   showCarrito(): void {
     this.carritoVisible = true;
-    document.body.style.overflow = 'auto'; //Cambio por iñaki
+    document.body.style.overflow = 'auto'; 
   }
 
   hideCarrito(): void {
@@ -128,7 +128,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onSearch(event: Event) {
-    event.preventDefault();
+       event.preventDefault();
   
     // Obtener el término de búsqueda
     const inputElement = (event.target as HTMLFormElement).querySelector('#search-input') as HTMLInputElement;
@@ -140,7 +140,7 @@ export class NavbarComponent implements OnInit {
       // Llamada al servicio de búsqueda
       this.empleadoService.searchBooks({ query: searchTerm }).subscribe(
         response => {
-          this.showIframeBusqueda(); // Mostrar el iframe
+      
   
           if (iframe && iframe.contentWindow) {
             iframe.contentWindow.postMessage(response, '*'); // Enviar resultados al iframe
@@ -149,6 +149,7 @@ export class NavbarComponent implements OnInit {
           }
         },
         error => {
+         
           console.error("Error en la solicitud de búsqueda:", error);
   
           // Asegurar que el iframe se actualice incluso en caso de error
@@ -156,15 +157,18 @@ export class NavbarComponent implements OnInit {
             iframe.contentWindow.postMessage({ Libros: [], Categorias: [] }, '*');
           }
         }
+        
       );
+
     } else {
-      this.showIframeBusqueda();
+
   
       // Enviar un mensaje vacío al iframe
       if (iframe && iframe.contentWindow) {
         iframe.contentWindow.postMessage({ Libros: [], Categorias: [] }, '*');
       }
     }
+           this.showIframeBusqueda(); 
   }
 
   // Método adicional para navegar a la página de categorías sin id específico
