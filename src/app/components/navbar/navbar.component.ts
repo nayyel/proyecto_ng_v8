@@ -50,7 +50,8 @@ export class NavbarComponent implements OnInit {
 logout(): void {
   localStorage.removeItem('loggedInFromLogin');
   localStorage.removeItem('Foto_Perfil');
-  localStorage.removeItem('admin'); 
+  localStorage.removeItem('admin');
+    this.carritoService.vaciarCarrito();  
   this.loggedIn = false;  
   this.admin = false;
   window.location.href = '/empleado';
