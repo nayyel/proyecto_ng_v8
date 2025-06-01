@@ -315,6 +315,13 @@ export class AdminComponent {
     this.password_usuario = '';
     this.showEditUserForm = true;
     this.showCreateUserForm = false;
+
+        setTimeout(() => {
+      const editForm = document.getElementById('editUserForm');
+      if (editForm) {
+        editForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 0);
   }
   setView(vista: string) {
     this.showCategories = vista === 'categorias';
