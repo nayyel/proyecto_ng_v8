@@ -16,6 +16,7 @@ interface CarritoItem {  // Definir el tipo para los elementos del carrito
 export class NavbarComponent implements OnInit {
   carritoVisible: boolean = false;
   loggedIn: boolean = false;
+  admin: boolean = false;
   busquedaVisible: boolean = false;
   imageUrl: string = ''; // Aquí va la URL de la imagen que quieres verificar
 
@@ -31,7 +32,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void { 
        // Comprobar el estado de login desde localStorage
        this.loggedIn = localStorage.getItem('loggedInFromLogin') === 'true';
+       this.admin = localStorage.getItem('admin') === 'true';
        let fotoPerfil = localStorage.getItem('Foto_Perfil');
+
        this.imageUrl = fotoPerfil && fotoPerfil !== "" ? fotoPerfil : "https://static.vecteezy.com/system/resources/previews/027/728/804/non_2x/faceless-businessman-user-profile-icon-business-leader-profile-picture-portrait-user-member-people-icon-in-flat-style-circle-button-with-avatar-photo-silhouette-free-png.png";
     // Obtener datos del carrito desde el servicio
     this.carritoService.obtenerCarrito().subscribe(carrito => {
@@ -44,13 +47,15 @@ export class NavbarComponent implements OnInit {
 
     this.mostrarCategorias();
   }
-  logout(): void {
-    localStorage.removeItem('loggedInFromLogin');
-    localStorage.removeItem('Foto_Perfil');
-    this.loggedIn = false;  // Actualizar el estado local
-    // Redirigir a la página de inicio de sesión
-    window.location.href = '/empleado';
-  }
+logout(): void {
+  localStorage.removeItem('loggedInFromLogin');
+  localStorage.removeItem('Foto_Perfil');
+  localStorage.removeItem('admin');
+    this.carritoService.vaciarCarrito();  
+  this.loggedIn = false;  
+  this.admin = false;
+  window.location.href = '/empleado';
+}
   checkImageUrl(url: string): string {
     const img = new Image();
     img.src = url;

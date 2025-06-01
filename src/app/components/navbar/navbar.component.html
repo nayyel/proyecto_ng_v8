@@ -53,8 +53,11 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li *ngIf="!loggedIn"><a class="dropdown-item" href="/empleado">Iniciar Sesión</a></li>
-            <li *ngIf="loggedIn"><a class="dropdown-item" href="/editar-perfil">Editar Perfil</a></li>
+<li *ngIf="loggedIn && !admin">
+  <a class="dropdown-item" href="/editar-perfil">Editar Perfil</a>
+</li>
             <li *ngIf="loggedIn"><a class="dropdown-item" href="/historial">Historial de compras</a></li>
+                 <li *ngIf="admin"><a class="dropdown-item" href="/administracion">Panel de administración</a></li>
             <li *ngIf="loggedIn"><a class="dropdown-item" href="/logout" (click)="logout()">Cerrar Sesión</a></li>
           </ul>
         </div>

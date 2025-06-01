@@ -21,6 +21,7 @@ export class EmpleadosComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem('loggedInFromLogin', 'false');
+        localStorage.setItem('admin', 'false');
   }
 
   onSubmit(): void {
@@ -35,11 +36,14 @@ export class EmpleadosComponent implements OnInit {
           // Guardar la URL de la foto de perfil en localStorage
           //localStorage.setItem('Foto_Perfil', respuesta.Foto_Perfil);  // Si no hay foto, guarda una cadena vacía
           localStorage.setItem('userId', respuesta.id_usuario);
-          localStorage.setItem('loggedInFromLogin', 'true');
+          localStorage.setItem('loggedInFromLogin', 'true');          
+      
           localStorage.setItem('Foto_Perfil', respuesta.Foto_Perfil);
   
           if(respuesta.rol == 'admin') {
+              localStorage.setItem('admin', 'true');
             this.router.navigate(['/administracion']);
+              
           } else {
             this.router.navigate(['/categoria']);
           }

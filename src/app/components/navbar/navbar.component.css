@@ -205,7 +205,7 @@
   padding: 20px;
   background-color: white;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 /* Shopping Cart */
@@ -283,7 +283,7 @@
   display: flex;
   background-color: white;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease;
 }

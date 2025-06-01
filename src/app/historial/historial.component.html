@@ -1,4 +1,18 @@
 <div class="contenido">
+
+  <!-- Mostrar mensaje si no hay compras -->
+  <div *ngIf="!historialCompras || historialCompras.length === 0" class="mensaje-vacio">
+   <div class="mensaje-vacio">
+  <div class="mensaje-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Sin compras" class="mensaje-icono">
+    <h2>¡Aún no has realizado ninguna compra!</h2>
+    <p>Tu historial está vacío por ahora. Cuando compres algo, verás aquí el resumen de tus pedidos.</p>
+    <a routerLink="/catalogo" class="btn-descubrir">Descubrir libros</a>
+  </div>
+</div>
+  </div>
+
+  <!-- Mostrar compras si existen -->
   <div *ngFor="let venta of historialCompras" class="venta">
     <h2 class="venta-header">
       Fecha: <span class="total">{{ venta.fecha }}</span>
@@ -26,4 +40,5 @@
     <h3 class="venta-footer">Total: <span class="total">{{ venta.total | currency:'EUR':true }}</span></h3>
     <button (click)="generatePDF(venta)">Generar PDF Factura</button>
   </div>
+
 </div>
