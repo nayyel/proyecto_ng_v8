@@ -206,6 +206,8 @@
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
+  margin-left: -20%;
+  margin-right: 25%;
 }
 
 /* Shopping Cart */

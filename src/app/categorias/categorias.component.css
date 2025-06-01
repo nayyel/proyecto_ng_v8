@@ -16,11 +16,28 @@
   max-width: 240px;
 }
 
-#carouselExample {
-  margin-left: -16vw;
-  margin-right: -17vw;
-  margin-bottom: 2vw;
-  margin-top: 2.3cm;
+
+.carousel-wrapper-full {
+  max-height: 590px;
+  position: relative;
+  left: 50%;
+  width: 99.5vw;       /* Mejor usar 100vw para que ocupe todo el viewport */
+  margin-left: -50vw; /* Centra el contenedor respecto al viewport */
+  overflow-x: hidden; /* Oculta el scroll horizontal */
+  overflow-y: hidden; /* Opcional, para evitar scroll vertical */
+  margin-bottom: 3%;
+}
+
+.carousel-inner,
+.carousel-item {
+  width: 100vw;
+}
+
+.carousel-image {
+  width: 100vw;
+  height: auto;
+  display: block;
+  object-fit: cover;
 }
 
 .categoria-item:hover {
