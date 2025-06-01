@@ -207,12 +207,15 @@
   justify-content: space-around;
   background-color: #74A765; 
   color: #fff;
+  margin: none;
   padding-top: 20px;
+  padding-left: none;
+  padding-right: none;
   font-family: Arial, sans-serif;
-  width: 2000px;
+  width: 100%;
   box-sizing: border-box;
 
-  margin-left: -305px;
+
   flex-wrap: wrap;
 }
 

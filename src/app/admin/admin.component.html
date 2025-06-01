@@ -2,9 +2,7 @@
   <a href="/empleado"><button>Cerrar sesión</button></a>
 
   <div class="button-group">
-    <h3>
-      {{ showCategories ? 'Categorías' : (showUsers ? 'Usuarios' : 'Libros') }}
-    </h3>
+
 
     <!-- Ver Libros -->
     <button *ngIf="showCategories || showUsers" (click)="setView('libros')">
@@ -24,33 +22,37 @@
 </div>
 
 <div>
-  <h3>Tabla</h3>
+  <h3>
+    {{ showCategories ? 'Categorías' : (showUsers ? 'Usuarios' : 'Libros') }}
+  </h3>
+  <ng-container *ngIf="!showCategories && !showUsers">
+  <button (click)="toggleCreateBookForm()">
+    {{ showCreateBookForm ? 'Cerrar' : 'Crear Nuevo Libro' }}
+  </button>
+  <div *ngIf="showCreateBookForm">
+    <form (ngSubmit)="createBook()">
+      <h3>Crear Libro</h3>
+      <select [(ngModel)]="id_categoria" name="id_categoria" required>
+        <option value="">Categorías</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
+          {{ categoria.nombre_categoria }}
+        </option>
+      </select>
+      <input type="text" placeholder="Título" [(ngModel)]="titulo" name="Titulo" required>
+      <input type="text" placeholder="Autor" [(ngModel)]="autor" name="Autor" required>
+      <input type="number" placeholder="Precio" [(ngModel)]="precio" name="Precio" required>
+      <input type="number" placeholder="Stock" [(ngModel)]="stock" name="Stock" required>
+      <input type="url" placeholder="Link" [(ngModel)]="link" name="Link" required>
+      <textarea placeholder="Resumen" [(ngModel)]="resumen" name="Resumen" required></textarea><br>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+</ng-container>
   <table>
     <ng-container *ngIf="!showCategories && !showUsers">
       <!-- Libros -->
       <thead>
-        <div *ngIf="showCreateBookForm">
-          <form (ngSubmit)="createBook()">
-            <h3>Crear Libro</h3>
-            <select [(ngModel)]="id_categoria" name="id_categoria" required>
-              <option value="">Categorías</option>
-              <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
-                {{ categoria.nombre_categoria }}
-              </option>
-            </select>
-            <input type="text" placeholder="Título" [(ngModel)]="titulo" name="Titulo" required>
-            <input type="text" placeholder="Autor" [(ngModel)]="autor" name="Autor" required>
-            <input type="number" placeholder="Precio" [(ngModel)]="precio" name="Precio" required>
-            <input type="number" placeholder="Stock" [(ngModel)]="stock" name="Stock" required>
-            <input type="url" placeholder="Link" [(ngModel)]="link" name="Link" required>
-            <textarea placeholder="Resumen" [(ngModel)]="resumen" name="Resumen" required></textarea><br>
-            <button type="submit">Guardar</button>
-          </form>
-        </div>
-
-        <button (click)="toggleCreateBookForm()">
-          {{ showCreateBookForm ? 'Cerrar' : 'Crear Libro' }}
-        </button>
+        
 
         <tr>
           <th>ID</th>
@@ -153,7 +155,7 @@
           <td>{{ usuario.nombre }}</td>
           <td>{{ usuario.rol }}</td>
           <td><img [src]="usuario.Foto_Perfil" alt="Foto" width="40" height="40"></td>
-
+          <td>{{ usuario.correo }}</td>
           <td>
             <button (click)="prepareEditUser(usuario)">Editar</button>
             <button (click)="deleteUserById(usuario.id_usuario)">Eliminar</button>
@@ -222,3 +224,4 @@
 <div *ngIf="mostrarMensaje" class="mensaje">
   {{ mensaje }}
 </div>
+
