@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CarritoService {
-  private carrito: Map<any, number> = new Map();
-  private carritoSubject: BehaviorSubject<Map<any, number>> = new BehaviorSubject(this.carrito);
+  private carrito: Map<number, { libro: any, cantidad: number }> = new Map();
+  private carritoSubject: BehaviorSubject<Map<number, { libro: any, cantidad: number }>> = new BehaviorSubject(this.carrito);
   api_procesar_compra: string = "http://localhost/api_procesar_compra.php"; 
 
   constructor(private http: HttpClient) {
@@ -15,45 +15,62 @@ export class CarritoService {
   }
 
   private guardarEnLocalStorage(): void {
-    const carritoArray = Array.from(this.carrito.entries()).map(([libro, cantidad]) => ({ libro, cantidad }));
+    const carritoArray = Array.from(this.carrito.entries()).map(([id, { libro, cantidad }]) => ({
+      id,
+      libro,
+      cantidad
+    }));
     localStorage.setItem('carrito', JSON.stringify(carritoArray));
   }
-
+obtenerItem(id_libro: number): { libro: any, cantidad: number } | undefined {
+  return this.carrito.get(id_libro);
+}
   private cargarDesdeLocalStorage(): void {
     const carritoGuardado = localStorage.getItem('carrito');
     if (carritoGuardado) {
       const items = JSON.parse(carritoGuardado);
       items.forEach((item: any) => {
-        this.carrito.set(item.libro, item.cantidad);
+        this.carrito.set(item.id, { libro: item.libro, cantidad: item.cantidad });
       });
       this.carritoSubject.next(this.carrito);
     }
   }
 
-  obtenerCarrito(): Observable<Map<any, number>> {
+  obtenerCarrito(): Observable<Map<number, { libro: any, cantidad: number }>> {
     return this.carritoSubject.asObservable();
   }
-
+obtenerCarritoValor(): Map<number, { libro: any, cantidad: number }> {
+  return this.carrito;
+}
   obtenerCantidadEnCarrito(libro: any): number {
-    const cantidad = this.carrito.get(libro);
-    return cantidad || 0;
+    const item = this.carrito.get(libro.id_libro);
+    return item ? item.cantidad : 0;
   }
 
-  actualizarCarrito(libro: any, cantidad: number): void {
-    this.carrito.set(libro, cantidad);
+  actualizarCarrito(libro: any, cantidad: number, accion: 'increase' | 'decrease'): void {
+    this.carrito.set(libro.id_libro, { libro, cantidad });
+      if (accion === 'increase') {
+    libro.cantidad = cantidad + 1;
+  } else if (accion === 'decrease') {
+    libro.cantidad = cantidad - 1;
+  }
+
     this.carritoSubject.next(this.carrito);
     this.guardarEnLocalStorage();
   }
 
   eliminarDelCarrito(libro: any): void {
-    this.carrito.delete(libro);
+    this.carrito.delete(libro.id_libro);
     this.carritoSubject.next(this.carrito);
+    libro.cantidad = 0
     this.guardarEnLocalStorage();
   }
 
   agregarAlCarrito(libro: any): void {
-    const cantidad = this.carrito.get(libro) || 0;
-    this.carrito.set(libro, cantidad + 1);
+    const item = this.carrito.get(libro.id_libro);
+    const cantidad = item ? item.cantidad : 0;
+    this.carrito.set(libro.id_libro, { libro, cantidad: cantidad + 1 });
+    libro.cantidad = cantidad + 1
     this.carritoSubject.next(this.carrito);
     this.guardarEnLocalStorage();
   }

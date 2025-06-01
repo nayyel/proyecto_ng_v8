@@ -21,14 +21,17 @@ export class CategoriasComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {
-    const loggedInFromLogin = localStorage.getItem('loggedInFromLogin');
-    if (loggedInFromLogin !== 'true') {
-      
-    }
-    this.mostrarCategorias();
-    this.cargarLibros(); // Cargar todos los libros al principio
+ngOnInit(): void {
+  const loggedInFromLogin = localStorage.getItem('loggedInFromLogin');
+  if (loggedInFromLogin !== 'true') {
+    // si no está logueado, haces lo que te dé la gana
   }
+
+  this.mostrarCategorias();
+
+  // Primero carga los libros
+  this.cargarLibros();
+}
 
   mostrarCategorias(): void {
     this.serviceE.VerCategorias().subscribe((response: any) => {
@@ -36,13 +39,33 @@ export class CategoriasComponent implements OnInit {
     });
   }
   
-  cargarLibros(): void {
-    this.serviceE.VerLibros().subscribe((response: any) => {
-      this.libros = response.Libros || []; // Asignar un array vacío si es undefined
-      this.librosFiltrados = this.libros;
-      this.handleCategoryChange(); // Llamar después de cargar los libros
+cargarLibros(): void {
+  this.serviceE.VerLibros().subscribe((response: any) => {
+    this.libros = response.Libros || [];
+
+    // 🔁 Forzar sincronización con estado actual del carrito
+    const carritoActual = this.carritoService.obtenerCarritoValor();
+    this.libros.forEach(libro => {
+      const item = carritoActual.get(libro.id_libro);
+      libro.cantidad = item ? item.cantidad : 0;
     });
-  }
+
+    this.librosFiltrados = this.libros;
+    this.handleCategoryChange();
+
+    // 🔁 Escuchar futuros cambios del carrito
+    this.carritoService.obtenerCarrito().subscribe(carrito => {
+      this.libros.forEach(libro => {
+        const item = carrito.get(libro.id_libro);
+        libro.cantidad = item ? item.cantidad : 0;
+      });
+
+      this.librosFiltrados = this.idCategoria
+        ? this.libros.filter(libro => libro.id_categoria === this.idCategoria)
+        : this.libros;
+    });
+  });
+}
   
 
   // Método para manejar el cambio en el filtro de categorías

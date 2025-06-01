@@ -73,12 +73,14 @@
       <h4>{{ libro.nombre }}</h4>
       <p><b>Autor:</b> {{ libro.autor }}</p>
       <p><b>Precio:</b> ${{ libro.precio }}</p>
-      <button style="background-color: blanchedalmond; color: rgb(1, 66, 1); border-radius: 15px; border-color: rgb(1, 66, 1);"
-        (click)="agregarAlCarrito(libro)" 
-        [ngClass]="{'disabled': libro.cantidad >= libro.stock}"
-        [disabled]="libro.cantidad >= libro.stock">
-        Agregar al carrito
-      </button><br><br>
+<button 
+  style="background-color: blanchedalmond; color: rgb(1, 66, 1); border-radius: 15px; border-color: rgb(1, 66, 1);"
+  (click)="agregarAlCarrito(libro)" 
+  [ngClass]="{'disabled': libro.cantidad >= libro.stock}"
+  [disabled]="libro.cantidad >= libro.stock">
+  {{ libro.cantidad >= libro.stock ? 'Sin stock' : 'Agregar al carrito' }}
+</button><br><br>
+
     </div>
   </div>
 </div>

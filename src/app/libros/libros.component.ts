@@ -30,23 +30,36 @@ export class LibrosComponent implements OnInit {
     private serviceE: EmpleadoService
   ) {}
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      if (params['id_libro']) {
-        this.libroId = +params['id_libro'];
-        this.MostrarLibro();
-        this.cargarValoraciones();  // Llamamos a cargarValoraciones() cuando se tiene el ID del libro
-      } else {
-        console.log('No se encontró el parámetro id_libro en la URL');
-      }
-    });
-  }
+ngOnInit(): void {
+  this.route.params.subscribe(params => {
+    if (params['id_libro']) {
+      this.libroId = +params['id_libro'];
+      this.MostrarLibro();
+      this.cargarValoraciones();
+    } else {
+      console.log('No se encontró el parámetro id_libro en la URL');
+    }
+  });
 
-  MostrarLibro(): void {
-    this.serviceE.VerLibros().subscribe(response => {
-      this.libros = response.Libros;
+  // 🔁 Escuchar cambios del carrito
+  this.carritoService.obtenerCarrito().subscribe(carrito => {
+    this.libros.forEach(libro => {
+      const item = carrito.get(libro.id_libro);
+      libro.cantidad = item ? item.cantidad : 0;
     });
-  }
+  });
+}
+ MostrarLibro(): void {
+  this.serviceE.VerLibros().subscribe(response => {
+    this.libros = response.Libros;
+
+    const carritoActual = this.carritoService.obtenerCarritoValor();
+    this.libros.forEach(libro => {
+      const item = carritoActual.get(libro.id_libro);
+      libro.cantidad = item ? item.cantidad : 0;
+    });
+  });
+}
 
   get libroSeleccionado() {
     return this.libros.find(libro => libro.id_libro === this.libroId);

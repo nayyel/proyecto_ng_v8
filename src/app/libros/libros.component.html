@@ -45,13 +45,13 @@
         <span>Sin valorar</span>
       </div>
       
-      <button 
-        class="btn-carrito"
-        [ngClass]="{'disabled': libroSeleccionado.cantidad >= libroSeleccionado.stock}"
-        [disabled]="libroSeleccionado.cantidad >= libroSeleccionado.stock"
-        (click)="agregarAlCarrito(libroSeleccionado)">
-        Agregar al carrito
-      </button>
+<button 
+  class="btn-carrito"
+  [ngClass]="{ 'disabled': libroSeleccionado.cantidad >= libroSeleccionado.stock }"
+  [disabled]="libroSeleccionado.cantidad >= libroSeleccionado.stock"
+  (click)="agregarAlCarrito(libroSeleccionado)">
+  {{ libroSeleccionado.cantidad >= libroSeleccionado.stock ? 'Sin stock' : 'Agregar al carrito' }}
+</button>
     </div>
   </div>
 
