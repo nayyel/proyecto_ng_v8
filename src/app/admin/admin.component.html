@@ -2,8 +2,6 @@
   <a href="/empleado"><button>Cerrar sesión</button></a>
 
   <div class="button-group">
-
-
     <!-- Ver Libros -->
     <button *ngIf="showCategories || showUsers" (click)="setView('libros')">
       Ver Libros
@@ -25,11 +23,26 @@
   <h3>
     {{ showCategories ? 'Categorías' : (showUsers ? 'Usuarios' : 'Libros') }}
   </h3>
+
   <ng-container *ngIf="!showCategories && !showUsers">
-  <button (click)="toggleCreateBookForm()">
-    {{ showCreateBookForm ? 'Cerrar' : 'Crear Nuevo Libro' }}
-  </button>
-  <div *ngIf="showCreateBookForm">
+    <button (click)="toggleCreateBookForm()">
+      {{ showCreateBookForm ? 'Cerrar' : 'Crear Nuevo Libro' }}
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="showCategories">
+    <button (click)="toggleCreateCategoryForm()">
+      {{ showCreateCategoryForm ? 'Cerrar' : 'Crear Categoría' }}
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="showUsers">
+    <button (click)="toggleCreateUserForm()">
+      {{ showCreateUserForm ? 'Cerrar' : 'Crear Usuario' }}
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="!showCategories && !showUsers && showCreateBookForm">
     <form (ngSubmit)="createBook()">
       <h3>Crear Libro</h3>
       <select [(ngModel)]="id_categoria" name="id_categoria" required>
@@ -46,14 +59,12 @@
       <textarea placeholder="Resumen" [(ngModel)]="resumen" name="Resumen" required></textarea><br>
       <button type="submit">Guardar</button>
     </form>
-  </div>
-</ng-container>
+  </ng-container>
+
   <table>
     <ng-container *ngIf="!showCategories && !showUsers">
       <!-- Libros -->
       <thead>
-        
-
         <tr>
           <th>ID</th>
           <th>Título</th>
@@ -93,10 +104,6 @@
         </form>
       </div>
 
-      <button (click)="toggleCreateCategoryForm()">
-        {{ showCreateCategoryForm ? 'Cerrar' : 'Crear Categoría' }}
-      </button>
-
       <thead>
         <tr>
           <th>ID</th>
@@ -130,14 +137,10 @@
             <option value="admin">Admin</option>
             <option value="usuario">Usuario</option>
           </select>
-          
+
           <button type="submit">Guardar</button>
         </form>
       </div>
-
-      <button (click)="toggleCreateUserForm()">
-        {{ showCreateUserForm ? 'Cerrar' : 'Crear Usuario' }}
-      </button>
 
       <thead>
         <tr>
@@ -214,7 +217,7 @@
         <option value="admin">Admin</option>
         <option value="usuario">Usuario</option>
       </select>
-      
+
       <button type="submit">Guardar Cambios</button>
     </form>
   </div>
@@ -224,4 +227,3 @@
 <div *ngIf="mostrarMensaje" class="mensaje">
   {{ mensaje }}
 </div>
-

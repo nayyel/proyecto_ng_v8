@@ -12,8 +12,7 @@ export class AppComponent {
   isLoginPage(): boolean {
     return this.router.url === '/empleado' || this.router.url === '/registro' || this.router.url === '/busqueda'|| this.router.url === '/carrito';
   }
-  isCategoryPage(): boolean {
-    return this.router.url === '/categoria';
-  }
-
+isCategoryPage(): boolean {
+  return this.router.url.startsWith('/categoria');
+}
 }
