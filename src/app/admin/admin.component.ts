@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { EmpleadoService } from '../service/empleado.service';
-
+import { Router } from '@angular/router';
 interface CategoriaResponse {
   mensaje?: string;
   warning?: string;
@@ -13,7 +13,7 @@ interface CategoriaResponse {
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
-  constructor(private serviceE: EmpleadoService) { }
+  constructor(private serviceE: EmpleadoService ,   private router: Router ) { }
 
   // Variables para libros
   libros: any[] = [];
@@ -55,6 +55,10 @@ export class AdminComponent {
   // ===========================================================
 
   ngOnInit(): void {
+       const admin = localStorage.getItem('admin');
+    if (admin !== 'true') {
+    this.router.navigate(['/categoria']);
+    }
     this.getCategorias();
     this.getLibros();
     this.getUsuarios();
