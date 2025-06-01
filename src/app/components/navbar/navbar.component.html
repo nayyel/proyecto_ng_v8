@@ -86,13 +86,10 @@
   </div>
 
   <div class="cart-content">
-    <!-- Not Logged In Message -->
-    <div *ngIf="!loggedIn" class="login-message">
-      <p>Inicia sesión para poder comprar</p>
-    </div>
+ 
 
     <!-- Cart Items -->
-    <div *ngIf="loggedIn" class="cart-items">
+    <div class="cart-items">
       <div *ngFor="let item of carrito" class="cart-item">
         <!-- Book Image -->
         <a [routerLink]="['/libro/', item.libro.id_libro]" class="item-image-link">
@@ -132,14 +129,14 @@
       <div class="cart-total">
         <p><strong>Total: ${{ totalCarrito() }}</strong></p>
       </div>
-      
-      <!-- Checkout Button -->
-      <button 
-        (click)="procesarCompra()" 
-        [disabled]="carrito.length === 0" 
-        class="checkout-btn">
-        Comprar
-      </button>
+         <!-- Not Logged In Message -->
+<button 
+  (click)="loggedIn && carrito.length > 0 && procesarCompra()" 
+  [disabled]="!loggedIn || carrito.length === 0"
+  class="checkout-btn"
+>
+  {{ loggedIn ? 'Comprar' : 'Inicia sesión para comprar' }}
+</button>
     </div>
   </div>
 </div>

@@ -24,6 +24,11 @@
     align-items: flex-start;
   }
 }
+button.disabled, button:disabled {
+  background-color: #ccc;
+  color: #777;
+  cursor: not-allowed;
+}
 
 .libro-img-container {
   flex: 0 0 300px;

@@ -13,8 +13,9 @@ export class CategoriasComponent implements OnInit {
   libros: any[] = [];
   librosFiltrados: any[] = []; // Esta lista almacenará los libros filtrados
   idCategoria: number | null = null;
-
+  loggedIn: boolean = false;
   constructor(
+    
     private router: Router,
     private serviceE: EmpleadoService,
     private carritoService: CarritoService,
@@ -26,7 +27,8 @@ ngOnInit(): void {
   if (loggedInFromLogin !== 'true') {
     // si no está logueado, haces lo que te dé la gana
   }
-
+ 
+   this.loggedIn = localStorage.getItem('loggedInFromLogin') === 'true';
   this.mostrarCategorias();
 
   // Primero carga los libros

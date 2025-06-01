@@ -47,11 +47,16 @@
       
 <button 
   class="btn-carrito"
-  [ngClass]="{ 'disabled': libroSeleccionado.cantidad >= libroSeleccionado.stock }"
-  [disabled]="libroSeleccionado.cantidad >= libroSeleccionado.stock"
-  (click)="agregarAlCarrito(libroSeleccionado)">
-  {{ libroSeleccionado.cantidad >= libroSeleccionado.stock ? 'Sin stock' : 'Agregar al carrito' }}
+  [ngClass]="{ 'disabled': !loggedIn || libroSeleccionado.cantidad >= libroSeleccionado.stock }"
+  [disabled]="!loggedIn || libroSeleccionado.cantidad >= libroSeleccionado.stock"
+  (click)="loggedIn && libroSeleccionado.cantidad < libroSeleccionado.stock && agregarAlCarrito(libroSeleccionado)">
+  {{
+    !loggedIn
+      ? 'Inicia sesión para comprar'
+      : (libroSeleccionado.cantidad >= libroSeleccionado.stock ? 'Sin stock' : 'Agregar al carrito')
+  }}
 </button>
+
     </div>
   </div>
 

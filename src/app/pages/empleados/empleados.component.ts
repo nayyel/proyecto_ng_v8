@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadoService } from '../../service/empleado.service';
-
+import { CarritoService } from '../../service/carrito.service';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
@@ -17,11 +17,12 @@ export class EmpleadosComponent implements OnInit {
   pass_reg2: string = '';
   correo_reg: string = '';
   
-  constructor(private router: Router, private serviceE: EmpleadoService) { }
+  constructor(private router: Router, private serviceE: EmpleadoService,    private carritoService: CarritoService) { }
 
   ngOnInit(): void {
     localStorage.setItem('loggedInFromLogin', 'false');
         localStorage.setItem('admin', 'false');
+                this.carritoService.vaciarCarrito(); // Vaciar carrito desde servicio
   }
 
   onSubmit(): void {

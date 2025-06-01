@@ -74,12 +74,18 @@
       <p><b>Autor:</b> {{ libro.autor }}</p>
       <p><b>Precio:</b> ${{ libro.precio }}</p>
 <button 
+  (click)="loggedIn && libro.cantidad < libro.stock && agregarAlCarrito(libro)" 
+  [disabled]="!loggedIn || libro.cantidad >= libro.stock"
   style="background-color: blanchedalmond; color: rgb(1, 66, 1); border-radius: 15px; border-color: rgb(1, 66, 1);"
-  (click)="agregarAlCarrito(libro)" 
-  [ngClass]="{'disabled': libro.cantidad >= libro.stock}"
-  [disabled]="libro.cantidad >= libro.stock">
-  {{ libro.cantidad >= libro.stock ? 'Sin stock' : 'Agregar al carrito' }}
+>
+  {{
+    !loggedIn
+      ? 'Inicia sesión para comprar'
+      : (libro.cantidad >= libro.stock ? 'Sin stock' : 'Agregar al carrito')
+  }}
 </button><br><br>
+
+
 
     </div>
   </div>

@@ -13,6 +13,7 @@ export class LibrosComponent implements OnInit {
 
   libros: any[] = [];
   libroId: number = 0;
+    loggedIn: boolean = false;
 
   nuevaValoracion = {
     ID_usuario: 0,
@@ -40,7 +41,7 @@ ngOnInit(): void {
       console.log('No se encontró el parámetro id_libro en la URL');
     }
   });
-
+   this.loggedIn = localStorage.getItem('loggedInFromLogin') === 'true';
   // 🔁 Escuchar cambios del carrito
   this.carritoService.obtenerCarrito().subscribe(carrito => {
     this.libros.forEach(libro => {
