@@ -37,13 +37,12 @@ export class NavbarComponent implements OnInit {
 
        this.imageUrl = fotoPerfil && fotoPerfil !== "" ? fotoPerfil : "https://static.vecteezy.com/system/resources/previews/027/728/804/non_2x/faceless-businessman-user-profile-icon-business-leader-profile-picture-portrait-user-member-people-icon-in-flat-style-circle-button-with-avatar-photo-silhouette-free-png.png";
     // Obtener datos del carrito desde el servicio
-    this.carritoService.obtenerCarrito().subscribe(carrito => {
-      // Re-sincronizar el carrito después de la compra
-      this.carrito = Array.from(carrito.entries()).map(([libro, cantidad]) => ({
-        libro,
-        cantidad
-      }));
-    });
+this.carritoService.obtenerCarrito().subscribe(carrito => {
+  this.carrito = Array.from(carrito.entries()).map(([id, data]) => ({
+    libro: data.libro,
+    cantidad: data.cantidad
+  }));
+});
 
     this.mostrarCategorias();
   }
@@ -68,20 +67,19 @@ logout(): void {
   }
 
   // Aumentar la cantidad del libro en el carrito
-  increaseQuantity(item: CarritoItem): void {  // Ahora 'item' tiene el tipo CarritoItem
-    if (item.cantidad < item.libro.stock) { // Verifica que no sobrepase el stock
-      item.cantidad++;
-      this.carritoService.actualizarCarrito(item.libro, item.cantidad);  // Actualiza el carrito en el servicio
-    }
+increaseQuantity(item: CarritoItem): void {
+  if (item.cantidad < item.libro.stock) {
+    item.cantidad++;
+    this.carritoService.actualizarCarrito(item.libro, item.cantidad, 'increase');
   }
+}
 
-  // Disminuir la cantidad del libro en el carrito
-  decreaseQuantity(item: CarritoItem): void {  // Ahora 'item' tiene el tipo CarritoItem
-    if (item.cantidad > 1) { // Asegúrate de que no se pueda bajar a menos de 0
-      item.cantidad--;
-      this.carritoService.actualizarCarrito(item.libro, item.cantidad);  // Actualiza el carrito en el servicio
-    }
+decreaseQuantity(item: CarritoItem): void {
+  if (item.cantidad > 1) {
+    item.cantidad--;
+    this.carritoService.actualizarCarrito(item.libro, item.cantidad, 'decrease');
   }
+}
 
   // Eliminar el libro del carrito
   removeItem(item: CarritoItem): void {  // Ahora 'item' tiene el tipo CarritoItem
