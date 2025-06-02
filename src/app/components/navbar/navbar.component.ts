@@ -59,6 +59,7 @@ logout(): void {
   localStorage.removeItem('loggedInFromLogin');
   localStorage.removeItem('Foto_Perfil');
   localStorage.removeItem('admin');
+       localStorage.removeItem('userId');
     this.carritoService.vaciarCarrito();  
   this.loggedIn = false;  
   this.admin = false;
