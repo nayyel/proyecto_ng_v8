@@ -28,24 +28,33 @@ export class NavbarComponent implements OnInit {
     private carritoService: CarritoService,
     private empleadoService: EmpleadoService
   ) {}
+defaultImage: string = "https://static.vecteezy.com/system/resources/previews/027/728/804/non_2x/faceless-businessman-user-profile-icon-business-leader-profile-picture-portrait-user-member-people-icon-in-flat-style-circle-button-with-avatar-photo-silhouette-free-png.png";
 
-  ngOnInit(): void { 
-       // Comprobar el estado de login desde localStorage
-       this.loggedIn = localStorage.getItem('loggedInFromLogin') === 'true';
-       this.admin = localStorage.getItem('admin') === 'true';
-       let fotoPerfil = localStorage.getItem('Foto_Perfil');
+ngOnInit(): void {
+  // Comprobar el estado de login desde localStorage
+  this.loggedIn = localStorage.getItem('loggedInFromLogin') === 'true';
+  this.admin = localStorage.getItem('admin') === 'true';
 
-       this.imageUrl = fotoPerfil && fotoPerfil !== "" ? fotoPerfil : "https://static.vecteezy.com/system/resources/previews/027/728/804/non_2x/faceless-businessman-user-profile-icon-business-leader-profile-picture-portrait-user-member-people-icon-in-flat-style-circle-button-with-avatar-photo-silhouette-free-png.png";
-    // Obtener datos del carrito desde el servicio
-this.carritoService.obtenerCarrito().subscribe(carrito => {
-  this.carrito = Array.from(carrito.entries()).map(([id, data]) => ({
-    libro: data.libro,
-    cantidad: data.cantidad
-  }));
-});
+  const fotoPerfil = localStorage.getItem('Foto_Perfil');
+
+  this.imageUrl = (fotoPerfil && fotoPerfil.trim() !== '' && fotoPerfil !== 'null' && fotoPerfil !== 'undefined')
+    ? fotoPerfil
+    : this.defaultImage;
+
+  // Obtener datos del carrito desde el servicio
+  this.carritoService.obtenerCarrito().subscribe(carrito => {
+    this.carrito = Array.from(carrito.entries()).map(([id, data]) => ({
+      libro: data.libro,
+      cantidad: data.cantidad
+    }));
+  });
 
     this.mostrarCategorias();
   }
+  setDefaultImage(event: Event) {
+  const img = event.target as HTMLImageElement;
+  img.src = this.defaultImage;
+}
 logout(): void {
   localStorage.removeItem('loggedInFromLogin');
   localStorage.removeItem('Foto_Perfil');
