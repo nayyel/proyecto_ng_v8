@@ -49,7 +49,10 @@
         <div class="dropdown user-dropdown">
           <a class="nav-link dropdown-toggle user-link" href="#" id="userDropdown" 
              data-bs-toggle="dropdown" aria-expanded="false">
-            <img [src]="checkImageUrl(imageUrl)" alt="Usuario" class="user-image">
+        <img [src]="imageUrl"
+     (error)="setDefaultImage($event)"
+     alt="Usuario"
+     class="user-image">
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li *ngIf="!loggedIn"><a class="dropdown-item" href="/empleado">Iniciar Sesión</a></li>
