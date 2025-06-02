@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+const ngrokBase = window.location.origin;
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
   private carrito: Map<number, { libro: any, cantidad: number }> = new Map();
   private carritoSubject: BehaviorSubject<Map<number, { libro: any, cantidad: number }>> = new BehaviorSubject(this.carrito);
-  api_procesar_compra: string = "http://localhost/api_procesar_compra.php"; 
 
+api_procesar_compra: string = `${ngrokBase}/api_procesar_compra.php`;
   constructor(private http: HttpClient) {
     this.cargarDesdeLocalStorage();
   }

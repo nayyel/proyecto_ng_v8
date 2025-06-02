@@ -63,7 +63,10 @@
         </div>
         
         <!-- Cart Button -->
-        <button class="btn btn-cart" (click)="showCarrito()">Carrito</button>
+<button class="btn btn-cart" (click)="showCarrito()">
+          Carrito
+          <span class="cart-count" *ngIf="carrito.length > 0">{{carrito.length}}</span>
+        </button>
       </div>
     </div>
   </div>
