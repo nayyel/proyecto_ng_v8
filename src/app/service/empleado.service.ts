@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+const ngrokBase = window.location.origin;
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class EmpleadoService {
 
-  api: string = "http://localhost/api.php";
-  api_alta: string = "http://localhost/apialta.php";
-  api_categorias: string = "http://localhost/api_categorias.php";
-  api_libros: string = "http://localhost/api_libros.php";
-  api_search: string = "http://localhost/api_search.php";
-  api_actualizar_perfil: string = "http://localhost/api_actualizar_perfil.php"; // URL para actualizar el perfil
-  api_actualizar_contrasena: string = "http://localhost/api_actualizar_contrasena.php"; // URL para actualizar la contraseña
-  api_historial: string = "http://localhost/api_historial.php";
-  api_valoraciones: string = 'http://localhost/api_valoracion.php';
-  api_direcciones: string = 'http://localhost/api_direcciones.php';
-api_tarjetas: string = 'http://localhost/api_tarjetas.php';
+api: string = `${ngrokBase}/api.php`;
+api_alta: string = `${ngrokBase}/apialta.php`;
+api_categorias: string = `${ngrokBase}/api_categorias.php`;
+api_libros: string = `${ngrokBase}/api_libros.php`;
+api_search: string = `${ngrokBase}/api_search.php`;
+api_actualizar_perfil: string = `${ngrokBase}/api_actualizar_perfil.php`;
+api_actualizar_contrasena: string = `${ngrokBase}/api_actualizar_contrasena.php`;
+api_historial: string = `${ngrokBase}/api_historial.php`;
+api_valoraciones: string = `${ngrokBase}/api_valoracion.php`;
+api_direcciones: string = `${ngrokBase}/api_direcciones.php`;
+api_tarjetas: string = `${ngrokBase}/api_tarjetas.php`;
   constructor(private http: HttpClient) { }
 
   Showempleado(Buscador: any): Observable<any> {
