@@ -80,3 +80,82 @@ table img {
   border-radius: 4px;
 }
 
+@media (max-width: 1024px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  td {
+    position: relative;
+    padding-left: 50%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+  }
+
+  td::before {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    content: attr(data-label);
+  }
+
+  button, input, select, textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .button-group {
+  margin-top: 100px;
+}
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+  
+  .button-group {
+  margin-top: 80px;
+}
+}
+
+@media (max-width: 480px) {
+  h3 {
+    font-size: 1rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+
+  .mensaje {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .button-group {
+  margin-top: 50px;
+}
+}

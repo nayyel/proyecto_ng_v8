@@ -77,18 +77,18 @@
       </thead>
       <tbody>
         <tr *ngFor="let libro of libros">
-          <td>{{ libro.id_libro }}</td>
-          <td>{{ libro.titulo }}</td>
-          <td>{{ libro.autor }}</td>
-          <td>{{ libro.precio }}</td>
-          <td>{{ libro.stock }}</td>
-          <td>
-            <img [src]="libro.link" alt="imagen" style="max-width: 150px; max-height: 200px;">
-          </td>
-          <td>
-            <button (click)="prepareEditBook(libro)">Editar</button>
-            <button (click)="deleteBookById(libro.id_libro)">Eliminar</button>
-          </td>
+          <td data-label="ID">{{ libro.id_libro }}</td>
+        <td data-label="Título">{{ libro.titulo }}</td>
+        <td data-label="Autor">{{ libro.autor }}</td>
+        <td data-label="Precio">{{ libro.precio }}</td>
+        <td data-label="Stock">{{ libro.stock }}</td>
+        <td data-label="Link">
+          <img [src]="libro.link" alt="imagen" style="max-width: 150px; max-height: 200px;">
+        </td>
+        <td data-label="Acciones">
+          <button (click)="prepareEditBook(libro)">Editar</button>
+          <button (click)="deleteBookById(libro.id_libro)">Eliminar</button>
+        </td>
         </tr>
       </tbody>
     </ng-container>
@@ -113,12 +113,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let categoria of categorias">
-          <td>{{ categoria.id_categoria }}</td>
-          <td>{{ categoria.nombre_categoria }}</td>
-          <td>
-            <button (click)="prepareEditCategory(categoria)">Editar</button>
-            <button (click)="deleteCategoryById(categoria.id_categoria)">Eliminar</button>
-          </td>
+          <td data-label="ID">{{ categoria.id_categoria }}</td>
+        <td data-label="Nombre Categoría">{{ categoria.nombre_categoria }}</td>
+        <td data-label="Acciones">
+          <button (click)="prepareEditCategory(categoria)">Editar</button>
+          <button (click)="deleteCategoryById(categoria.id_categoria)">Eliminar</button>
+        </td>
         </tr>
       </tbody>
     </ng-container>
@@ -154,15 +154,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let usuario of usuarios">
-          <td>{{ usuario.id_usuario }}</td>
-          <td>{{ usuario.nombre }}</td>
-          <td>{{ usuario.rol }}</td>
-          <td><img [src]="usuario.Foto_Perfil" alt="Foto" width="40" height="40"></td>
-          <td>{{ usuario.correo }}</td>
-          <td>
-            <button (click)="prepareEditUser(usuario)">Editar</button>
-            <button (click)="deleteUserById(usuario.id_usuario)">Eliminar</button>
-          </td>
+          <td data-label="ID">{{ usuario.id_usuario }}</td>
+        <td data-label="Nombre">{{ usuario.nombre }}</td>
+        <td data-label="Rol">{{ usuario.rol }}</td>
+        <td data-label="Foto perfil"><img [src]="usuario.Foto_Perfil" alt="Foto" width="40" height="40"></td>
+        <td data-label="Correo">{{ usuario.correo }}</td>
+        <td data-label="Acciones">
+          <button (click)="prepareEditUser(usuario)">Editar</button>
+          <button (click)="deleteUserById(usuario.id_usuario)">Eliminar</button>
+        </td>
         </tr>
       </tbody>
     </ng-container>
