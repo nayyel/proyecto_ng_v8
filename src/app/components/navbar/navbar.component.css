@@ -686,18 +686,15 @@
     height: 35px;
   }
 
-.dropdown-menu {
-  position: absolute !important;
-  display: inline-block; /* <--- hace que el ancho se ajuste al contenido */
-  width: auto !important;
-  min-width: unset !important;
-  margin-top: 0.5rem;
-  left: 50%;
-  transform: translateX(-50%) !important;
-  white-space: nowrap;
-  padding: 0; /* Opcional: para eliminar padding extra */
-}
-
+  .dropdown-menu {
+    position: absolute !important;
+    width: max-content !important;  /* se ajusta al contenido más largo */
+    min-width: 180px;
+    margin-top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%) !important;
+    
+  }
 
   .search-form {
     flex-direction: row;
